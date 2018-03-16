@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DatabaseConnection implements DatabaseConnector {
@@ -17,28 +14,16 @@ public class DatabaseConnection implements DatabaseConnector {
     private String databaseUser;
     private String databasePass;
     private String databaseUrl;
-    private String databaseInternal;
-    private String databaseExternal;
+    private String databaseName;
     private InputStream inputStream;
     private Properties properties;
     private Connection connection;
 
 
-    private DatabaseConnection() {
+    public DatabaseConnection() {
         inputStream = null;
         properties = new Properties();
-    }
-
-    public DatabaseConnection internalConnection() {
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.generateInternalUrl();
-        return connection;
-    }
-
-    public DatabaseConnection externalConnection() {
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.generateExternalUrl();
-        return connection;
+        generateDatabaseUrl();
     }
 
     @Override
@@ -53,18 +38,8 @@ public class DatabaseConnection implements DatabaseConnector {
 
     private void generateDatabaseUrl() {
         readPropertyFiles();
-        databaseUrl = String.format("jdbc:mysql://%1$s:%2$s/",
-                databaseHost, databasePort);
-    }
-
-    private void generateInternalUrl() {
-        generateDatabaseUrl();
-        databaseUrl += databaseInternal;
-    }
-
-    private void generateExternalUrl() {
-        generateDatabaseUrl();
-        databaseUrl += databaseExternal;
+        databaseUrl = String.format("jdbc:mysql://%1$s:%2$s/%3$s",
+                databaseHost, databasePort, databaseName);
     }
 
     private void readPropertyFiles() {
@@ -76,8 +51,7 @@ public class DatabaseConnection implements DatabaseConnector {
             databasePort = properties.getProperty("port");
             databaseUser = properties.getProperty("user");
             databasePass = properties.getProperty("pass");
-            databaseInternal = properties.getProperty("internal");
-            databaseExternal = properties.getProperty("external");
+            databaseName = properties.getProperty("name");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +81,14 @@ public class DatabaseConnection implements DatabaseConnector {
 
     @Override
     public ResultSet query(String query) {
-        return null;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(query);
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
