@@ -37,13 +37,13 @@ public class UserView implements Observer {
     }
 
     public void setLoginControl(LoginController loginControl) {
-        System.out.println("LoginView: adding controller");
+        System.out.println("UserView: Adding LoginController");
         loginControl = loginControl;
         buttonLogin.addActionListener(loginControl);
     }
 
     public void setRegisterController(RegisterController registerController) {
-        System.out.println("LoginView: adding register controller");
+        System.out.println("UserView: Adding RegisterController");
         buttonRegister.addActionListener(registerController);
 
     }
@@ -70,6 +70,7 @@ public class UserView implements Observer {
                 showInvalidRegister();
                 break;
             case REGISTERED:
+                showValidRegister();
                 break;
             case LOG_IN:
                 break;
@@ -94,6 +95,10 @@ public class UserView implements Observer {
 
     private void showInvalidRegister() {
         showedFailedMessageDialog("Username already registered");
+    }
+
+    private void showValidRegister() {
+        showedFailedMessageDialog("New user Registered");
     }
 
     /**
