@@ -6,7 +6,7 @@ import user.model.LoginModel;
 import user.model.RegisterModel;
 import user.view.UserView;
 
-public class UserInit {
+public class UserController {
     public static void initialiseUserForm() {
         LoginController loginController = new LoginController();
         RegisterController registerController = new RegisterController();
@@ -19,11 +19,11 @@ public class UserInit {
         loginModel.addObserver(view);
         registerModel.addObserver(view);
 
-        loginController.setModel(loginModel);
-        loginController.setView(view);
+        loginController.setLoginModel(loginModel);
+        loginController.setUserView(view);
 
-        registerController.setModel(registerModel);
-        registerController.setView(view);
+        registerController.setRegisterModel(registerModel);
+        registerController.setUserView(view);
 
         view.setRegisterController(registerController);
         view.setLoginControl(loginController);

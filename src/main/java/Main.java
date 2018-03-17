@@ -1,6 +1,6 @@
 package main;
 
-import user.UserInit;
+import user.UserController;
 
 import java.sql.SQLException;
 
@@ -9,7 +9,7 @@ public class Main {
     private static String pass = "test";
 
     public static void main(String[] args) throws SQLException {
-        UserInit.initialiseUserForm();
+        UserController.initialiseUserForm();
 
     }
 }
