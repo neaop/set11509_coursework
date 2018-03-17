@@ -2,6 +2,7 @@ package data;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public interface DatabaseConnector {
 
@@ -11,6 +12,6 @@ public interface DatabaseConnector {
 
     public void closeConnection();
 
-    public ResultSet query(String query);
+    public ResultSet query(String query) throws SQLException;
 
 }
