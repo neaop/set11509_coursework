@@ -82,7 +82,8 @@ public class DatabaseConnection implements DatabaseConnector {
     @Override
     public ResultSet query(String query) throws SQLException {
         Statement statement = connection.createStatement();
-        return statement.executeQuery(query);
+        statement.execute(query);
+        return statement.getResultSet();
 
     }
 
