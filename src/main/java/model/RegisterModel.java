@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 public class RegisterModel extends Observable {
+    private final int REGISTER = 0, INVALID = -1, EXIST = -2;
     private DatabaseConnector databaseConnector;
     private String userName;
     private String userPassword;
@@ -16,17 +17,21 @@ public class RegisterModel extends Observable {
         databaseConnector = new DatabaseConnection();
     }
 
-    public boolean attemptRegisterUser(String userName, String userPassword) {
-        boolean registered = false;
-        if (checkUserExists(userName)) {
-            registered = false;
-        } else {
-            registered = registerUser(userName, userPassword);
-            System.out.println("RegisterModel: user added to database");
-        }
+    public int attemptRegisterUser(String userName, String userPassword) {
+        int result;
 
-        databaseConnector.closeConnection();
-        return registered;
+        if (checkInvalidCredential(userName) || checkInvalidCredential(userPassword)) {
+            System.out.println("RegisterModel: user credential invalid");
+            result = INVALID;
+        } else if (checkUserExists(userName)) {
+            System.out.println("RegisterModel: user already exists");
+            result = EXIST;
+        } else {
+            registerUser(userName, userPassword);
+            System.out.println("RegisterModel: user added to database");
+            result = REGISTER;
+        }
+        return result;
     }
 
     private boolean checkUserExists(String userName) {
@@ -34,13 +39,7 @@ public class RegisterModel extends Observable {
         databaseConnector.connect();
         try {
             ResultSet result = databaseConnector.query(generateUserExistsQuery(userName));
-            if (result.next()) {
-                System.out.println("RegisterModel:User already exists");
-                exists = true;
-            } else {
-                System.out.println("RegisterModel: User not in database");
-                exists = false;
-            }
+            exists = result.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,6 +60,10 @@ public class RegisterModel extends Observable {
 
         databaseConnector.closeConnection();
         return registered;
+    }
+
+    private boolean checkInvalidCredential(String credential) {
+        return (credential == null || credential.isEmpty());
     }
 
     private String generateUserExistsQuery(String userName) {
