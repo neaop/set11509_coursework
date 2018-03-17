@@ -9,7 +9,7 @@ public class Main {
     private static String pass = "test";
 
     public static void main(String[] args) throws SQLException {
-        UserInit.initaliseUserForm();
+        UserInit.initialiseUserForm();
 
     }
 }

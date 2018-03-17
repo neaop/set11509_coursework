@@ -23,8 +23,4 @@ public class LoginController implements ActionListener {
         this.view = view;
     }
 
-    public static enum RESULT {
-        NO_SUCH_USER, INVALID_CREDENTIAL, USER_EXISTS, REGISTERED, LOG_IN, FAILED
-
-    }
 }

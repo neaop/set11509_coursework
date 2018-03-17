@@ -7,7 +7,7 @@ import user.model.RegisterModel;
 import user.view.UserView;
 
 public class UserInit {
-    public static void initaliseUserForm() {
+    public static void initialiseUserForm() {
         LoginController loginController = new LoginController();
         RegisterController registerController = new RegisterController();
 

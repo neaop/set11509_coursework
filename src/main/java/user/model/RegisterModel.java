@@ -1,6 +1,5 @@
 package user.model;
 
-import user.controller.LoginController;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
@@ -9,7 +8,6 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 public class RegisterModel extends Observable {
-    private final int REGISTER = 0, INVALID = -1, EXIST = -2;
     private DatabaseConnector databaseConnector;
 
     public RegisterModel() {
@@ -17,18 +15,18 @@ public class RegisterModel extends Observable {
     }
 
     public void attemptRegisterUser(String userName, String userPassword) {
-        LoginController.RESULT result = LoginController.RESULT.FAILED;
+        UserErrorCodes result = UserErrorCodes.FAILED;
 
         if (checkInvalidCredential(userName) || checkInvalidCredential(userPassword)) {
             System.out.println("RegisterModel: user credential invalid");
-            result = LoginController.RESULT.INVALID_CREDENTIAL;
+            result = UserErrorCodes.INVALID_CREDENTIAL;
         } else if (checkUserExists(userName)) {
             System.out.println("RegisterModel: user already exists");
-            result = LoginController.RESULT.USER_EXISTS;
+            result = UserErrorCodes.USER_EXISTS;
         } else {
             registerUser(userName, userPassword);
             System.out.println("RegisterModel: user added to database");
-            result = LoginController.RESULT.REGISTERED;
+            result = UserErrorCodes.REGISTERED;
         }
         setChanged();
         notifyObservers(result);

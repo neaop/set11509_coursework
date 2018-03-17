@@ -4,6 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import user.controller.LoginController;
 import user.controller.RegisterController;
+import user.model.UserErrorCodes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,8 +58,8 @@ public class UserView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("View: " + (LoginController.RESULT) arg);
-        switch ((LoginController.RESULT) arg) {
+        System.out.println("View: " + arg);
+        switch ((UserErrorCodes) arg) {
             case NO_SUCH_USER:
                 showInvalidLogin();
                 break;

@@ -1,6 +1,5 @@
 package user.model;
 
-import user.controller.LoginController;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
@@ -20,7 +19,7 @@ public class LoginModel extends java.util.Observable {
     }
 
     public void authenticate(String name, String password) {
-        LoginController.RESULT result = LoginController.RESULT.FAILED;
+        UserErrorCodes result = UserErrorCodes.FAILED;
         boolean userExists = false;
         try {
             userExists = checkValidUser(name, password);
@@ -30,10 +29,10 @@ public class LoginModel extends java.util.Observable {
         }
         if (userExists) {
             System.out.println("User authenticated");
-            result = LoginController.RESULT.LOG_IN;
+            result = UserErrorCodes.LOG_IN;
         } else {
             System.out.println("Username / Password not recognized");
-            result = LoginController.RESULT.NO_SUCH_USER;
+            result = UserErrorCodes.NO_SUCH_USER;
         }
         setChanged();
         notifyObservers(result);
