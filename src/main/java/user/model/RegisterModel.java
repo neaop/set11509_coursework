@@ -1,5 +1,6 @@
 package model;
 
+import user.LoginController;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
@@ -10,28 +11,27 @@ import java.util.Observable;
 public class RegisterModel extends Observable {
     private final int REGISTER = 0, INVALID = -1, EXIST = -2;
     private DatabaseConnector databaseConnector;
-    private String userName;
-    private String userPassword;
 
     public RegisterModel() {
         databaseConnector = new DatabaseConnection();
     }
 
-    public int attemptRegisterUser(String userName, String userPassword) {
-        int result;
+    public void attemptRegisterUser(String userName, String userPassword) {
+        LoginController.RESULT result = LoginController.RESULT.FAILED;
 
         if (checkInvalidCredential(userName) || checkInvalidCredential(userPassword)) {
             System.out.println("RegisterModel: user credential invalid");
-            result = INVALID;
+            result = LoginController.RESULT.INVALID_CREDENTIAL;
         } else if (checkUserExists(userName)) {
             System.out.println("RegisterModel: user already exists");
-            result = EXIST;
+            result = LoginController.RESULT.USER_EXISTS;
         } else {
             registerUser(userName, userPassword);
             System.out.println("RegisterModel: user added to database");
-            result = REGISTER;
+            result = LoginController.RESULT.REGISTERED;
         }
-        return result;
+        setChanged();
+        notifyObservers(result);
     }
 
     private boolean checkUserExists(String userName) {

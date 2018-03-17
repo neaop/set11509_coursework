@@ -1,5 +1,7 @@
 package model;
 
+import user.LoginController;
+import data.DatabaseConnection;
 import data.DatabaseConnector;
 
 import java.sql.ResultSet;
@@ -13,48 +15,50 @@ public class LoginModel extends java.util.Observable {
     private boolean authenticated;
     private DatabaseConnector connection;
 
-    public void authenticate(String name, String password) {
-        boolean auth = false;
+    public LoginModel() {
+        connection = new DatabaseConnection();
+    }
 
+    public void authenticate(String name, String password) {
+        LoginController.RESULT result = LoginController.RESULT.FAILED;
+        boolean userExists = false;
         try {
-            auth = lookupUser(name, password);
-        } catch (InstantiationException e) {
-            System.out.println("Model has no database connection");
-            e.printStackTrace();
+            userExists = checkValidUser(name, password);
         } catch (SQLException e) {
             System.out.println("Invalid sql query");
             e.printStackTrace();
         }
-        if(auth){
+        if (userExists) {
             System.out.println("User authenticated");
-        }else{
-            System.out.println("Username / Password not recognized");
-        }
-        authenticated = auth;
-        setChanged();
-        notifyObservers(authenticated);
-    }
-
-    private boolean lookupUser(String name, String password) throws InstantiationException, SQLException {
-        if (connection != null) {
-
-            ResultSet result = connection.query(generateLookupQuerey(name
-                    , password));
-
-            if (result.next()) {
-                authenticated = true;
-                userId = result.getInt(1);
-                userName = result.getString(2);
-                userAdmin = result.getBoolean(4);
-                return true;
-            } else {
-                return false;
-            }
-
+            result = LoginController.RESULT.LOG_IN;
         } else {
-            throw new InstantiationException();
+            System.out.println("Username / Password not recognized");
+            result = LoginController.RESULT.NO_SUCH_USER;
+        }
+        setChanged();
+        notifyObservers(result);
+    }
+
+    private boolean checkValidUser(String name, String password) throws SQLException {
+        connection.connect();
+
+        ResultSet result = connection.query(generateLookupQuerey(name
+                , password));
+
+        if (result.next()) {
+            authenticated = true;
+            userId = result.getInt(1);
+            userName = result.getString(2);
+            userAdmin = result.getBoolean(4);
+
+            connection.closeConnection();
+            return true;
+        } else {
+            connection.closeConnection();
+            return false;
         }
     }
+
 
     private String generateLookupQuerey(String name, String password) {
         return String.format("SELECT * " +

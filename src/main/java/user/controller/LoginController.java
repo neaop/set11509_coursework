@@ -1,14 +1,14 @@
-package control;
+package user;
 
 import model.LoginModel;
-import view.LoginForm;
+import view.UserForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginControl implements ActionListener {
+public class LoginController implements ActionListener {
     private LoginModel model;
-    private LoginForm view;
+    private UserForm view;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -19,7 +19,12 @@ public class LoginControl implements ActionListener {
         this.model = model;
     }
 
-    public void setView(LoginForm view) {
+    public void setView(UserForm view) {
         this.view = view;
+    }
+
+    public static enum RESULT {
+        NO_SUCH_USER, INVALID_CREDENTIAL, USER_EXISTS, REGISTERED, LOG_IN, FAILED
+
     }
 }
