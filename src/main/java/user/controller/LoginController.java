@@ -1,14 +1,14 @@
-package user;
+package user.controller;
 
-import model.LoginModel;
-import view.UserForm;
+import user.model.LoginModel;
+import user.view.UserView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginController implements ActionListener {
     private LoginModel model;
-    private UserForm view;
+    private UserView view;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -19,7 +19,7 @@ public class LoginController implements ActionListener {
         this.model = model;
     }
 
-    public void setView(UserForm view) {
+    public void setView(UserView view) {
         this.view = view;
     }
 

@@ -1,6 +1,6 @@
-package model;
+package user.model;
 
-import user.LoginController;
+import user.controller.LoginController;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
