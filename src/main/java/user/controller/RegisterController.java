@@ -7,19 +7,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RegisterController implements ActionListener {
-    private RegisterModel model;
-    private UserView view;
+    private RegisterModel registerModel;
+    private UserView userView;
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.attemptRegisterUser(view.getUserName(), view.getUserPassword());
+        registerModel.attemptRegisterUser(userView.getUserName()
+                , userView.getUserPassword());
     }
 
-    public void setModel(RegisterModel model) {
-        this.model = model;
+    public void setRegisterModel(RegisterModel registerModel) {
+        this.registerModel = registerModel;
     }
 
-    public void setView(UserView view) {
-        this.view = view;
+    public void setUserView(UserView userView) {
+        this.userView = userView;
     }
 }
