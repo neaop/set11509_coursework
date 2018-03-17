@@ -24,14 +24,13 @@ public class LoginModel extends java.util.Observable {
         try {
             userExists = checkValidUser(name, password);
         } catch (SQLException e) {
-            System.out.println("Invalid sql query");
             e.printStackTrace();
         }
         if (userExists) {
-            System.out.println("User authenticated");
+            System.out.println("LoginModel: User authenticated");
             result = UserErrorCodes.LOG_IN;
         } else {
-            System.out.println("Username / Password not recognized");
+            System.out.println("LoginModel: Username / Password not recognized");
             result = UserErrorCodes.NO_SUCH_USER;
         }
         setChanged();
@@ -67,25 +66,12 @@ public class LoginModel extends java.util.Observable {
                 , name, password);
     }
 
-    public void logOff() {
-        if (authenticated) {
-            authenticated = false;
-            userName = null;
-            userAdmin = null;
-            userId = -1;
-        }
-    }
-
     public boolean isAuthenticated() {
         return authenticated;
     }
 
     public String getUserName() {
         return userName;
-    }
-
-    public void setConnection(DatabaseConnector connection) {
-        this.connection = connection;
     }
 
     public int getUserId() {
