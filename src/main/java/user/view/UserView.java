@@ -1,16 +1,16 @@
-package view;
+package user.view;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import user.LoginController;
-import user.RegisterController;
+import user.controller.LoginController;
+import user.controller.RegisterController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class UserForm implements Observer {
+public class UserView implements Observer {
     private JTextField fieldName;
     private JPasswordField fieldPassword;
     private JButton buttonLogin;
@@ -27,8 +27,8 @@ public class UserForm implements Observer {
         $$$setupUI$$$();
     }
 
-    public UserForm() {
-        JFrame frame = new JFrame("UserForm");
+    public UserView() {
+        JFrame frame = new JFrame("UserView");
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
