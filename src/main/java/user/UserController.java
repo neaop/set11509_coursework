@@ -6,27 +6,47 @@ import user.model.LoginModel;
 import user.model.RegisterModel;
 import user.view.UserView;
 
-public class UserController {
-    public static void initialiseUserForm() {
-        LoginController loginController = new LoginController();
-        RegisterController registerController = new RegisterController();
+import java.util.Observable;
+import java.util.Observer;
 
-        LoginModel loginModel = new LoginModel();
-        RegisterModel registerModel = new RegisterModel();
+public class UserController extends Observable implements Observer {
+    private UserView userView;
+    private LoginModel loginModel;
+    private LoginController loginController;
+    private RegisterModel registerModel;
+    private RegisterController registerController;
 
-        UserView view = new UserView();
+    public void initialiseUserForm() {
+        loginController = new LoginController();
+        registerController = new RegisterController();
 
-        loginModel.addObserver(view);
-        registerModel.addObserver(view);
+        loginModel = new LoginModel();
+        registerModel = new RegisterModel();
+
+        userView = new UserView();
+
+        loginModel.addObserver(userView);
+        loginModel.addObserver(this);
+        registerModel.addObserver(userView);
 
         loginController.setLoginModel(loginModel);
-        loginController.setUserView(view);
+        loginController.setUserView(userView);
 
         registerController.setRegisterModel(registerModel);
-        registerController.setUserView(view);
+        registerController.setUserView(userView);
 
-        view.setRegisterController(registerController);
-        view.setLoginControl(loginController);
+        userView.setRegisterController(registerController);
+        userView.setLoginControl(loginController);
+    }
 
+    public void closeUserForm() {
+        userView.hideUserView();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("UserController: " + arg);
+        setChanged();
+        notifyObservers(arg);
     }
 }

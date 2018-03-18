@@ -1,5 +1,6 @@
 package user.model;
 
+import controller.GlobalControlCodes;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
@@ -19,7 +20,7 @@ public class LoginModel extends java.util.Observable {
     }
 
     public void authenticate(String name, String password) {
-        UserErrorCodes result = UserErrorCodes.FAILED;
+        GlobalControlCodes result = GlobalControlCodes.FAILED;
         boolean userExists = false;
         try {
             userExists = checkValidUser(name, password);
@@ -28,10 +29,10 @@ public class LoginModel extends java.util.Observable {
         }
         if (userExists) {
             System.out.println("LoginModel: User authenticated");
-            result = UserErrorCodes.LOG_IN;
+            result = GlobalControlCodes.LOG_IN;
         } else {
             System.out.println("LoginModel: Username / Password not recognized");
-            result = UserErrorCodes.NO_SUCH_USER;
+            result = GlobalControlCodes.NO_SUCH_USER;
         }
         setChanged();
         notifyObservers(result);
@@ -57,6 +58,12 @@ public class LoginModel extends java.util.Observable {
         }
     }
 
+    public void reset() {
+        this.userId = -1;
+        this.authenticated = false;
+        this.userName = null;
+        this.userAdmin = false;
+    }
 
     private String generateLookupQuerey(String name, String password) {
         return String.format("SELECT * " +

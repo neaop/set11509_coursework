@@ -1,5 +1,6 @@
 package user.model;
 
+import controller.GlobalControlCodes;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
@@ -15,18 +16,18 @@ public class RegisterModel extends Observable {
     }
 
     public void attemptRegisterUser(String userName, String userPassword) {
-        UserErrorCodes result = UserErrorCodes.FAILED;
+        GlobalControlCodes result = GlobalControlCodes.FAILED;
 
         if (checkInvalidCredential(userName) || checkInvalidCredential(userPassword)) {
             System.out.println("RegisterModel: user credential invalid");
-            result = UserErrorCodes.INVALID_CREDENTIAL;
+            result = GlobalControlCodes.INVALID_CREDENTIAL;
         } else if (checkUserExists(userName)) {
             System.out.println("RegisterModel: user already exists");
-            result = UserErrorCodes.USER_EXISTS;
+            result = GlobalControlCodes.USER_EXISTS;
         } else {
             registerUser(userName, userPassword);
             System.out.println("RegisterModel: user added to database");
-            result = UserErrorCodes.REGISTERED;
+            result = GlobalControlCodes.REGISTERED;
         }
         setChanged();
         notifyObservers(result);

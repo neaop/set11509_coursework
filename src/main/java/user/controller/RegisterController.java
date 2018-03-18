@@ -5,8 +5,9 @@ import user.view.UserView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
-public class RegisterController implements ActionListener {
+public class RegisterController extends Observable implements ActionListener {
     private RegisterModel registerModel;
     private UserView userView;
 
