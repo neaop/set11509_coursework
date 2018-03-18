@@ -1,6 +1,7 @@
 package share.view;
 
 import global.GlobalControlCodes;
+import share.ShareController;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -16,7 +17,7 @@ public class ShareView extends Observable implements Observer {
     private JPanel panel;
     private JTable table;
     private JPanel panelTable;
-    private JButton button1;
+    private JButton buttonRegister;
     private JButton button2;
     private JPanel panelButton;
     private JScrollPane panelScroll;
@@ -44,12 +45,39 @@ public class ShareView extends Observable implements Observer {
         });
         frame.pack();
         frame.setVisible(true);
+
     }
 
     private void populateTable(Vector data) {
-        TableModel tableModel = new global.TableModel(data, new Vector<>(Arrays.asList(columnNames)));
+        TableModel tableModel = new global.TableModel(data
+                , new Vector<>(Arrays.asList(columnNames)));
         table.setModel(tableModel);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowSelectionInterval(0, 0);
+    }
 
+    public void showRegisterDialog(String message) {
+        showMessageDialog(message);
+    }
+
+    private void showMessageDialog(String message) {
+        JOptionPane.showMessageDialog(null
+                , message, "Shares"
+                , JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void setRegisterButtonController(ShareController.RegisterListener
+                                                    registerButtonController) {
+        buttonRegister.addActionListener(registerButtonController);
+    }
+
+    public int getSelectedShare() {
+        int selectedRow;
+        selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
+            selectedRow = 0;
+        }
+        return (int) table.getValueAt(selectedRow, 0);
     }
 
     @Override
@@ -88,14 +116,14 @@ public class ShareView extends Observable implements Observer {
         panelButton = new JPanel();
         panelButton.setLayout(new GridBagLayout());
         panel.add(panelButton, BorderLayout.SOUTH);
-        button1 = new JButton();
-        button1.setText("Button");
+        buttonRegister = new JButton();
+        buttonRegister.setText("Button");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panelButton.add(button1, gbc);
+        panelButton.add(buttonRegister, gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
