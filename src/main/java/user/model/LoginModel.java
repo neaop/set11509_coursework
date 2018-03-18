@@ -2,18 +2,15 @@ package user.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
+import global.CurrentUser;
 import global.GlobalControlCodes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginModel extends java.util.Observable {
-
-    private int userId;
-    private String userName;
-    private Boolean userAdmin;
-    private boolean authenticated;
     private DatabaseConnector connection;
+    private CurrentUser currentUser;
 
     public LoginModel() {
         connection = new DatabaseConnection();
@@ -41,14 +38,15 @@ public class LoginModel extends java.util.Observable {
     private boolean checkValidUser(String name, String password) throws SQLException {
         connection.connect();
 
-        ResultSet result = connection.query(generateLookupQuerey(name
+        ResultSet result = connection.query(generateLookupQuery(name
                 , password));
 
         if (result.next()) {
-            authenticated = true;
-            userId = result.getInt(1);
-            userName = result.getString(2);
-            userAdmin = result.getBoolean(4);
+            int userId = result.getInt(1);
+            String userName = result.getString(2);
+            boolean userAdmin = result.getBoolean(4);
+            currentUser = CurrentUser.getInstance();
+            currentUser.loginUser(userId, userName, userAdmin);
 
             connection.closeConnection();
             return true;
@@ -58,34 +56,11 @@ public class LoginModel extends java.util.Observable {
         }
     }
 
-    public void reset() {
-        this.userId = -1;
-        this.authenticated = false;
-        this.userName = null;
-        this.userAdmin = false;
-    }
-
-    private String generateLookupQuerey(String name, String password) {
+    private String generateLookupQuery(String name, String password) {
         return String.format("SELECT * " +
                         "FROM user " +
                         "WHERE user_name ='%1$s' " +
                         "AND user_password = '%2$s'"
                 , name, password);
-    }
-
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public Boolean getUserAdmin() {
-        return userAdmin;
     }
 }

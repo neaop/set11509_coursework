@@ -74,26 +74,26 @@ public class UserView implements Observer {
         }
     }
 
-    private void showedFailedMessageDialog(String message) {
+    private void showMessageDialog(String message) {
         JOptionPane.showMessageDialog(null
                 , message, "Log In"
-                , JOptionPane.ERROR_MESSAGE);
+                , JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void showInvalidLogin() {
-        showedFailedMessageDialog("No such User/Password");
+        showMessageDialog("No such User/Password");
     }
 
     private void showInvalidCredential() {
-        showedFailedMessageDialog("Invalid credentials");
+        showMessageDialog("Invalid credentials");
     }
 
     private void showInvalidRegister() {
-        showedFailedMessageDialog("Username already registered");
+        showMessageDialog("Username already registered");
     }
 
     private void showValidRegister() {
-        showedFailedMessageDialog("New user Registered");
+        showMessageDialog("New user Registered");
     }
 
     {
