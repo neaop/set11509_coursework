@@ -47,3 +47,4 @@ public class GlobalController implements Observer {
         }
     }
 }
+
