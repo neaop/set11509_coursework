@@ -1,6 +1,6 @@
 package hub.controller;
 
-import controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

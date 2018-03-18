@@ -60,7 +60,7 @@ public class HubView {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         buttonShare = new JButton();
-        buttonShare.setText("Button");
+        buttonShare.setText("Shares");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -92,7 +92,7 @@ public class HubView {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel.add(spacer4, gbc);
         buttonTrade = new JButton();
-        buttonTrade.setText("Button");
+        buttonTrade.setText("Trades");
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
         gbc.gridy = 2;
@@ -105,7 +105,7 @@ public class HubView {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(spacer5, gbc);
         buttonLogoff = new JButton();
-        buttonLogoff.setText("Button");
+        buttonLogoff.setText("Log Off");
         gbc = new GridBagConstraints();
         gbc.gridx = 6;
         gbc.gridy = 2;

@@ -1,6 +1,6 @@
 package user.model;
 
-import controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 

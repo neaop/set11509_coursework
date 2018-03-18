@@ -1,6 +1,6 @@
 package user.view;
 
-import controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import user.controller.LoginController;
 import user.controller.RegisterController;
 

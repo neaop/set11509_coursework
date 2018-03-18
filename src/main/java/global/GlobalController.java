@@ -1,4 +1,4 @@
-package controller;
+package global;
 
 import hub.HubController;
 import user.UserController;
