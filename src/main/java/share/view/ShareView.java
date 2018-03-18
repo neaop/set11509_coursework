@@ -3,8 +3,12 @@ package share.view;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Vector;
 
-public class ShareView {
+public class ShareView implements Observer {
     private JPanel panel;
     private JTable table;
     private JPanel panelTable;
@@ -13,33 +17,31 @@ public class ShareView {
     private JPanel panelButton;
     private JScrollPane panelScroll;
 
-    private String[] columnNames = {"First Name",
-            "Last Name",
-            "Sport",
-            "# of Years",
-            "Vegetarian"};
-
-    private Object[][] data = {
-            {"Jimmy", "Ball", "Swimming", 2, Boolean.FALSE}};
+    private String[] columnNames = {
+            "Share ID",
+            "Trade Code",
+            "Company Name",
+            "Share Price",
+            "Share Value",
+            "Share Quantity"};
 
 
     public ShareView() {
         JFrame frame = new JFrame("ShareView");
         frame.setContentPane(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        initTable();
     }
 
-    private void initTable() {
-        TableModel tableModel = new global.TableModel(data, columnNames);
+    public void populateTable(Vector data) {
+        TableModel tableModel = new global.TableModel(data, new Vector<>(Arrays.asList(columnNames)));
         table.setModel(tableModel);
 
     }
 
-    public static void main(String[] args) {
-
+    @Override
+    public void update(Observable o, Object arg) {
 
     }
 
