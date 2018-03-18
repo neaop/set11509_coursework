@@ -1,8 +1,8 @@
 package user.model;
 
-import global.GlobalControlCodes;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
+import global.GlobalControlCodes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

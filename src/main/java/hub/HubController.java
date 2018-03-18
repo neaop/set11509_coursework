@@ -28,7 +28,6 @@ public class HubController extends Observable implements Observer {
         hubView.setLogoffController(logoffController);
         hubView.setShareController(shareController);
         hubView.setTradeController(tradeController);
-
     }
 
     private void observeControllers() {

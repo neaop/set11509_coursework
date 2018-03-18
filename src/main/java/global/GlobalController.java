@@ -1,14 +1,16 @@
 package global;
 
 import hub.HubController;
+import share.ShareController;
 import user.UserController;
 
 import java.util.Observable;
 import java.util.Observer;
 
 public class GlobalController implements Observer {
-    UserController userController;
-    HubController hubController;
+    private UserController userController;
+    private HubController hubController;
+    private ShareController shareController;
 
     public void runApplication() {
         userController = new UserController();
@@ -16,6 +18,10 @@ public class GlobalController implements Observer {
 
         hubController = new HubController();
         hubController.addObserver(this);
+
+        shareController= new ShareController();
+
+
         userController.initialiseUserForm();
 
     }
@@ -30,6 +36,10 @@ public class GlobalController implements Observer {
         if (arg == GlobalControlCodes.LOG_OFF) {
             hubController.closeHubView();
             userController.initialiseUserForm();
+        }
+        if (arg==GlobalControlCodes.SHARE){
+            hubController.closeHubView();
+            shareController.initialiseShareUi();
         }
     }
 }
