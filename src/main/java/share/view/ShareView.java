@@ -42,7 +42,7 @@ public class ShareView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        populateTable((Vector) arg);
     }
 
     {

@@ -15,22 +15,30 @@ public class ShareModel extends Observable {
         databaseConnection = new DatabaseConnection();
     }
 
-    public Vector getShareData() {
-        return queryShares();
+    public void getShareData() {
+        Vector shareData = queryShares();
+        setChanged();
+        notifyObservers(shareData);
     }
 
     private Vector queryShares() {
-        ResultSet data = null;
-        Vector result = null;
+        Vector shareData = null;
+        ResultSet resultSet;
+
         databaseConnection.connect();
         try {
-            data = databaseConnection.query("SELECT * FROM share s LEFT JOIN company c ON s.share_company_id = c.company_id;");
-            result = convertResult(data);
+            resultSet = databaseConnection.query("SELECT * " +
+                    "FROM share s " +
+                    "LEFT JOIN company c " +
+                    "ON s.share_company_id = c.company_id;");
+
+            shareData = convertResult(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         databaseConnection.closeConnection();
-        return result;
+        return shareData;
     }
 
     private Vector convertResult(ResultSet data) throws SQLException {

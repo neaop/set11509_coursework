@@ -10,11 +10,14 @@ public class ShareController {
     public void initialiseShareUi() {
         shareModel = new ShareModel();
         shareView = new ShareView();
+
+        shareModel.addObserver(shareView);
+
         populateTable();
     }
 
     private void populateTable() {
-        shareView.populateTable(shareModel.getShareData());
+        shareModel.getShareData();
     }
 
 }
