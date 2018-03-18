@@ -1,14 +1,18 @@
 package share.view;
 
+import global.GlobalControlCodes;
+
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-public class ShareView implements Observer {
+public class ShareView extends Observable implements Observer {
     private JPanel panel;
     private JTable table;
     private JPanel panelTable;
@@ -29,12 +33,20 @@ public class ShareView implements Observer {
     public ShareView() {
         JFrame frame = new JFrame("ShareView");
         frame.setContentPane(panel);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                setChanged();
+                notifyObservers(GlobalControlCodes.SHARE_CLOSE);
+                super.windowClosing(e);
+            }
+        });
         frame.pack();
         frame.setVisible(true);
     }
 
-    public void populateTable(Vector data) {
+    private void populateTable(Vector data) {
         TableModel tableModel = new global.TableModel(data, new Vector<>(Arrays.asList(columnNames)));
         table.setModel(tableModel);
 

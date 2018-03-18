@@ -19,7 +19,8 @@ public class GlobalController implements Observer {
         hubController = new HubController();
         hubController.addObserver(this);
 
-        shareController= new ShareController();
+        shareController = new ShareController();
+        shareController.addObserver(this);
 
 
         userController.initialiseUserForm();
@@ -37,9 +38,12 @@ public class GlobalController implements Observer {
             hubController.closeHubView();
             userController.initialiseUserForm();
         }
-        if (arg==GlobalControlCodes.SHARE){
+        if (arg == GlobalControlCodes.SHARE) {
             hubController.closeHubView();
             shareController.initialiseShareUi();
+        }
+        if (arg == GlobalControlCodes.SHARE_CLOSE) {
+            hubController.initialiseUI();
         }
     }
 }
