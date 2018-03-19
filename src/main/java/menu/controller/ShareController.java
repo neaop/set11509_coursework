@@ -1,4 +1,4 @@
-package hub.controller;
+package menu.controller;
 
 import global.GlobalControlCodes;
 

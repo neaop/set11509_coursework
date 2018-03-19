@@ -1,21 +1,21 @@
-package hub;
+package menu;
 
-import hub.controller.LogoffController;
-import hub.controller.ShareController;
-import hub.controller.TradeController;
-import hub.view.HubView;
+import menu.controller.LogoffController;
+import menu.controller.ShareController;
+import menu.controller.TradeController;
+import menu.view.MenuView;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class HubController extends Observable implements Observer {
-    private HubView hubView;
+public class MenuController extends Observable implements Observer {
+    private MenuView hubView;
     private LogoffController logoffController;
     private ShareController shareController;
     private TradeController tradeController;
 
     public void initialiseUI() {
-        hubView = new HubView();
+        hubView = new MenuView();
         logoffController = new LogoffController();
         shareController = new ShareController();
         tradeController = new TradeController();
@@ -42,7 +42,7 @@ public class HubController extends Observable implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("HubController: " + arg);
+        System.out.println("MenuController: " + arg);
         setChanged();
         notifyObservers(arg);
     }

@@ -1,6 +1,6 @@
 package global;
 
-import hub.HubController;
+import menu.MenuController;
 import share.ShareController;
 import user.UserController;
 
@@ -9,14 +9,14 @@ import java.util.Observer;
 
 public class GlobalController implements Observer {
     private UserController userController;
-    private HubController hubController;
+    private MenuController hubController;
     private ShareController shareController;
 
     public void runApplication() {
         userController = new UserController();
         userController.addObserver(this);
 
-        hubController = new HubController();
+        hubController = new MenuController();
         hubController.addObserver(this);
 
         shareController = new ShareController();

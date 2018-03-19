@@ -1,21 +1,21 @@
-package hub.view;
+package menu.view;
 
-import hub.controller.LogoffController;
-import hub.controller.ShareController;
-import hub.controller.TradeController;
+import menu.controller.LogoffController;
+import menu.controller.ShareController;
+import menu.controller.TradeController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class HubView {
+public class MenuView {
     private JFrame frame;
     private JPanel panel;
     private JButton buttonShare;
     private JButton buttonTrade;
     private JButton buttonLogoff;
 
-    public HubView() {
-        frame = new JFrame("HubView");
+    public MenuView() {
+        frame = new JFrame("MenuView");
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
@@ -27,17 +27,17 @@ public class HubView {
     }
 
     public void setLogoffController(LogoffController logoffController) {
-        System.out.println("HubView: Adding LogOffController");
+        System.out.println("MenuView: Adding LogOffController");
         buttonLogoff.addActionListener(logoffController);
     }
 
     public void setShareController(ShareController shareController) {
-        System.out.println("HubView: Adding ShareController");
+        System.out.println("MenuView: Adding ShareController");
         buttonShare.addActionListener(shareController);
     }
 
     public void setTradeController(TradeController tradeController) {
-        System.out.println("HubView: Adding TradeController");
+        System.out.println("MenuView: Adding TradeController");
         buttonTrade.addActionListener(tradeController);
     }
 
