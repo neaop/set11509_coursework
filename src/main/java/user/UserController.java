@@ -21,17 +21,17 @@ public class UserController extends Observable implements Observer, Controller, 
         registerModel = new RegisterModel();
         userView = new UserView();
         linkMVC();
-        addListeners();
+        setActionListeners();
     }
 
-    private void addListeners() {
-        userView.setActionListener(this);
+    private void setActionListeners() {
+        userView.setActionListeners(this);
+        loginModel.addObserver(this);
     }
 
     private void linkMVC() {
         loginModel.addObserver(userView);
         registerModel.addObserver(userView);
-        loginModel.addObserver(this);
     }
 
     public void showView() {

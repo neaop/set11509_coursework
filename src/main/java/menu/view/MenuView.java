@@ -31,26 +31,26 @@ public class MenuView implements View {
         frame.dispose();
     }
 
-    public void setActionListener(ActionListener actionListener) {
-        setLogoffController(actionListener);
-        setShareController(actionListener);
-        setTradeListener(actionListener);
+    public void setActionListeners(ActionListener actionListener) {
+        setLogoffButtonListener(actionListener);
+        setShareButtonListener(actionListener);
+        setTradeButtonListener(actionListener);
     }
 
-    private void setLogoffController(ActionListener actionListener) {
+    private void setLogoffButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding logoff listener");
         buttonLogoff.addActionListener(actionListener);
         buttonLogoff.setActionCommand(String.valueOf(
                 GlobalControlCodes.LOG_OFF));
     }
 
-    private void setShareController(ActionListener actionListener) {
+    private void setShareButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding share listener");
         buttonShare.addActionListener(actionListener);
         buttonShare.setActionCommand(String.valueOf(GlobalControlCodes.SHARE));
     }
 
-    private void setTradeListener(ActionListener actionListener) {
+    private void setTradeButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding trade controller");
         buttonTrade.addActionListener(actionListener);
         buttonTrade.setActionCommand(String.valueOf(GlobalControlCodes.TRADE));

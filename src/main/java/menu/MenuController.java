@@ -28,7 +28,7 @@ public class MenuController extends Observable implements Observer, Controller, 
     }
 
     private void addListeners() {
-        menuView.setActionListener(this);
+        menuView.setActionListeners(this);
     }
 
     public void update(Observable o, Object arg) {

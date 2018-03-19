@@ -47,6 +47,7 @@ public class GlobalController implements Observer {
             shareController.showView();
         }
         if (arg == GlobalControlCodes.SHARE_CLOSE) {
+            shareController.closeView();
             menuController.showView();
         }
     }

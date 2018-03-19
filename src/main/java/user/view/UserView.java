@@ -35,19 +35,19 @@ public class UserView implements Observer, View {
         frame.dispose();
     }
 
-    public void setActionListener(ActionListener actionListener) {
-        setLoginListener(actionListener);
-        setRegisterListener(actionListener);
+    public void setActionListeners(ActionListener actionListener) {
+        setLoginButtonListener(actionListener);
+        setRegisterButtonListener(actionListener);
     }
 
-    private void setLoginListener(ActionListener actionListener) {
+    private void setLoginButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding login listener");
         buttonLogin.addActionListener(actionListener);
         buttonLogin.setActionCommand(
                 String.valueOf(GlobalControlCodes.LOG_IN));
     }
 
-    private void setRegisterListener(ActionListener actionListener) {
+    private void setRegisterButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding register listener");
         buttonRegister.addActionListener(actionListener);
         buttonRegister.setActionCommand(

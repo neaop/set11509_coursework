@@ -1,7 +1,7 @@
 package share.view;
 
+import global.GlobalControlCodes;
 import global.View;
-import share.ShareController;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -21,8 +21,8 @@ public class ShareView extends Observable implements Observer, View {
     private JButton buttonMenu;
     private JPanel panelButton;
     private JScrollPane panelScroll;
+    private TableModel tableModel;
 
-    TableModel tableModel;
     private String[] columnNames = {
             "Share ID",
             "Trade Code",
@@ -55,23 +55,23 @@ public class ShareView extends Observable implements Observer, View {
         table.setRowSelectionInterval(0, 0);
     }
 
-    public void showRegisterDialog(String message) {
-        showMessageDialog(message);
+    public void setActionListeners(ActionListener actionListener) {
+        setRegisterButtonListener(actionListener);
+        setMenuButtonListener(actionListener);
     }
 
-    private void showMessageDialog(String message) {
-        JOptionPane.showMessageDialog(null
-                , message, "Shares"
-                , JOptionPane.INFORMATION_MESSAGE);
+    private void setRegisterButtonListener(ActionListener actionListener) {
+        System.out.println("ShareView: adding register listener");
+        buttonRegister.addActionListener(actionListener);
+        buttonRegister.setActionCommand(
+                GlobalControlCodes.TRACK_OPEN.toString());
     }
 
-    public void setRegisterButtonController(ShareController.TrackButtonListener
-                                                    registerButtonController) {
-        buttonRegister.addActionListener(registerButtonController);
-    }
-
-    public void setMenuButtonController(ActionListener listener) {
-        buttonMenu.addActionListener(listener);
+    private void setMenuButtonListener(ActionListener actionListener) {
+        System.out.println("ShareView: adding menu listener");
+        buttonMenu.addActionListener(actionListener);
+        buttonMenu.setActionCommand(
+                String.valueOf(GlobalControlCodes.SHARE_CLOSE));
     }
 
     public int getSelectedShareId() {

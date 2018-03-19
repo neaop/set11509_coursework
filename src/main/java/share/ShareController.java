@@ -11,52 +11,46 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ShareController extends Observable implements Observer, Controller {
+public class ShareController extends Observable implements Observer, Controller, ActionListener {
     private ShareModel shareModel;
     private ShareView shareView;
-    private TrackButtonListener trackButtonListener;
-    private MenuButtonListener menuButtonListener;
+
     private TrackController trackController;
 
-    @Override
     public void initialiseController() {
         shareModel = new ShareModel();
         shareView = new ShareView();
-
-        trackButtonListener = new TrackButtonListener();
-        menuButtonListener = new MenuButtonListener();
 
         trackController = new TrackController();
         trackController.addObserver(this);
 
         linkMVC();
+        setActionListeners();
 
         populateTable();
         showView();
     }
 
-    @Override
     public void showView() {
         shareView.showView();
     }
 
-    @Override
     public void closeView() {
         shareView.closeView();
     }
 
     private void linkMVC() {
         shareModel.addObserver(shareView);
+    }
 
-        shareView.setRegisterButtonController(trackButtonListener);
-        shareView.setMenuButtonController(menuButtonListener);
+    private void setActionListeners() {
+        shareView.setActionListeners(this);
     }
 
     private void populateTable() {
         shareModel.getShareData();
     }
 
-    @Override
     public void update(Observable o, Object arg) {
         setChanged();
         notifyObservers(arg);
@@ -65,11 +59,8 @@ public class ShareController extends Observable implements Observer, Controller 
         }
     }
 
-
-    public class TrackButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.TRACK_OPEN))) {
             trackController.initialiseController();
             trackController.setShareId(shareView.getSelectedShareId());
             trackController.showView();
@@ -77,21 +68,9 @@ public class ShareController extends Observable implements Observer, Controller 
             closeView();
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_OPEN);
-
-//            currentUser = CurrentUser.getInstance();
-//            int shareId = shareView.getSelectedShareId();
-//            String message = String.format("User: %1$s has shown interest in " +
-//                    "Share: %2$s", currentUser.getUserName(), shareId);
-//            shareView.showRegisterDialog(message);
         }
-    }
-
-    public class MenuButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.SHARE_CLOSE))) {
             setChanged();
-            shareView.closeView();
             notifyObservers(GlobalControlCodes.SHARE_CLOSE);
         }
     }
