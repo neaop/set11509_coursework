@@ -54,7 +54,6 @@ public class UserView implements Observer, View {
         return fieldName.getText();
     }
 
-    @Override
     public void update(Observable o, Object arg) {
         System.out.println("UserView: " + arg);
         switch ((GlobalControlCodes) arg) {

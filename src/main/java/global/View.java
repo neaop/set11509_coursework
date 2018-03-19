@@ -1,6 +1,8 @@
 package global;
 
-public interface View {
+import java.util.Observer;
+
+public interface View extends Observer {
 
     void showView();
 

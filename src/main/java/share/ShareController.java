@@ -1,7 +1,6 @@
 package share;
 
 import global.Controller;
-import global.CurrentUser;
 import global.GlobalControlCodes;
 import share.model.ShareModel;
 import share.view.ShareView;
@@ -17,7 +16,6 @@ public class ShareController extends Observable implements Observer, Controller 
     private ShareView shareView;
     private TrackButtonListener trackButtonListener;
     private MenuButtonListener menuButtonListener;
-    private CurrentUser currentUser;
     private TrackController trackController;
 
     @Override
@@ -44,7 +42,7 @@ public class ShareController extends Observable implements Observer, Controller 
 
     @Override
     public void closeView() {
-        shareView.closeUi();
+        shareView.closeView();
     }
 
     private void linkMVC() {
@@ -93,7 +91,7 @@ public class ShareController extends Observable implements Observer, Controller 
         @Override
         public void actionPerformed(ActionEvent e) {
             setChanged();
-            shareView.closeUi();
+            shareView.closeView();
             notifyObservers(GlobalControlCodes.SHARE_CLOSE);
         }
     }
