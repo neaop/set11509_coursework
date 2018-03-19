@@ -6,7 +6,6 @@ import com.intellij.uiDesigner.core.Spacer;
 import global.View;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -46,7 +45,7 @@ public class TrackView extends JDialog implements Observer, View {
         frame.pack();
     }
 
-    public void showView(){
+    public void showView() {
         frame.setVisible(true);
     }
 

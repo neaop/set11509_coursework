@@ -14,18 +14,13 @@ import java.util.Observer;
 public class UserController extends Observable implements Observer, Controller, ActionListener {
     private UserView userView;
     private LoginModel loginModel;
-    //    private LoginController loginController;
     private RegisterModel registerModel;
-//    private RegisterController registerController;
 
     public void initialiseController() {
         loginModel = new LoginModel();
         registerModel = new RegisterModel();
         userView = new UserView();
-
         linkMVC();
-
-
         addListeners();
     }
 

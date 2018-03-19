@@ -1,12 +1,11 @@
 package menu.view;
 
+import global.GlobalControlCodes;
 import global.View;
-import menu.controller.LogoffController;
-import menu.controller.ShareController;
-import menu.controller.TradeController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 
 public class MenuView implements View {
@@ -32,19 +31,29 @@ public class MenuView implements View {
         frame.dispose();
     }
 
-    public void setLogoffController(LogoffController logoffController) {
-        System.out.println("MenuView: Adding LogOffController");
-        buttonLogoff.addActionListener(logoffController);
+    public void setActionListener(ActionListener actionListener) {
+        setLogoffController(actionListener);
+        setShareController(actionListener);
+        setTradeListener(actionListener);
     }
 
-    public void setShareController(ShareController shareController) {
-        System.out.println("MenuView: Adding ShareController");
-        buttonShare.addActionListener(shareController);
+    private void setLogoffController(ActionListener actionListener) {
+        System.out.println("MenuView: adding logoff listener");
+        buttonLogoff.addActionListener(actionListener);
+        buttonLogoff.setActionCommand(String.valueOf(
+                GlobalControlCodes.LOG_OFF));
     }
 
-    public void setTradeController(TradeController tradeController) {
-        System.out.println("MenuView: Adding TradeController");
-        buttonTrade.addActionListener(tradeController);
+    private void setShareController(ActionListener actionListener) {
+        System.out.println("MenuView: adding share listener");
+        buttonShare.addActionListener(actionListener);
+        buttonShare.setActionCommand(String.valueOf(GlobalControlCodes.SHARE));
+    }
+
+    private void setTradeListener(ActionListener actionListener) {
+        System.out.println("MenuView: adding trade controller");
+        buttonTrade.addActionListener(actionListener);
+        buttonTrade.setActionCommand(String.valueOf(GlobalControlCodes.TRADE));
     }
 
     public void update(Observable o, Object arg) {

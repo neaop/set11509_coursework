@@ -1,28 +1,21 @@
 package menu;
 
 import global.Controller;
-import menu.controller.LogoffController;
-import menu.controller.ShareController;
-import menu.controller.TradeController;
+import global.CurrentUser;
+import global.GlobalControlCodes;
 import menu.view.MenuView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MenuController extends Observable implements Observer, Controller {
+public class MenuController extends Observable implements Observer, Controller, ActionListener {
     private MenuView menuView;
-    private LogoffController logoffController;
-    private ShareController shareController;
-    private TradeController tradeController;
 
     public void initialiseController() {
         menuView = new MenuView();
-        logoffController = new LogoffController();
-        shareController = new ShareController();
-        tradeController = new TradeController();
-
-        addControllers();
-        observeControllers();
+        addListeners();
     }
 
     @Override
@@ -34,16 +27,8 @@ public class MenuController extends Observable implements Observer, Controller {
         menuView.closeView();
     }
 
-    private void addControllers() {
-        menuView.setLogoffController(logoffController);
-        menuView.setShareController(shareController);
-        menuView.setTradeController(tradeController);
-    }
-
-    private void observeControllers() {
-        logoffController.addObserver(this);
-        shareController.addObserver(this);
-        tradeController.addObserver(this);
+    private void addListeners() {
+        menuView.setActionListener(this);
     }
 
     public void update(Observable o, Object arg) {
@@ -52,5 +37,22 @@ public class MenuController extends Observable implements Observer, Controller {
         notifyObservers(arg);
     }
 
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.LOG_OFF))) {
+            CurrentUser currentUser = CurrentUser.getInstance();
+            currentUser.logoutUser();
+            setChanged();
+            notifyObservers(GlobalControlCodes.LOG_OFF);
+        }
+        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.SHARE))) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.SHARE);
+        }
+        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.TRADE))) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.TRADE);
+        }
+    }
 
 }
