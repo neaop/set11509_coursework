@@ -22,6 +22,7 @@ public class ShareView extends Observable implements Observer {
     private JPanel panelButton;
     private JScrollPane panelScroll;
 
+    TableModel tableModel;
     private String[] columnNames = {
             "Share ID",
             "Trade Code",
@@ -44,7 +45,7 @@ public class ShareView extends Observable implements Observer {
     }
 
     private void populateTable(Vector data) {
-        TableModel tableModel = new global.TableModel(data
+        tableModel = new global.TableModel(data
                 , new Vector<>(Arrays.asList(columnNames)));
         table.setModel(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -61,7 +62,7 @@ public class ShareView extends Observable implements Observer {
                 , JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void setRegisterButtonController(ShareController.RegisterListener
+    public void setRegisterButtonController(ShareController.TrackButtonListener
                                                     registerButtonController) {
         buttonRegister.addActionListener(registerButtonController);
     }
@@ -70,7 +71,7 @@ public class ShareView extends Observable implements Observer {
         buttonMenu.addActionListener(listener);
     }
 
-    public int getSelectedShare() {
+    public int getSelectedShareId() {
         int selectedRow;
         selectedRow = table.getSelectedRow();
         if (selectedRow == -1) {
@@ -109,14 +110,15 @@ public class ShareView extends Observable implements Observer {
         panelScroll.setVerticalScrollBarPolicy(22);
         panelTable.add(panelScroll, BorderLayout.CENTER);
         table = new JTable();
-        table.setPreferredScrollableViewportSize(new Dimension(450, 250));
+        table.setPreferredScrollableViewportSize(new Dimension(1000, 250));
+        table.setRowSelectionAllowed(true);
         table.setShowVerticalLines(true);
         panelScroll.setViewportView(table);
         panelButton = new JPanel();
         panelButton.setLayout(new GridBagLayout());
         panel.add(panelButton, BorderLayout.SOUTH);
         buttonRegister = new JButton();
-        buttonRegister.setText("Button");
+        buttonRegister.setText("Track Share");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -130,7 +132,7 @@ public class ShareView extends Observable implements Observer {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panelButton.add(spacer1, gbc);
         buttonMenu = new JButton();
-        buttonMenu.setText("Button");
+        buttonMenu.setText("Main Menu");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
