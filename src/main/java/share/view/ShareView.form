@@ -43,7 +43,7 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Register Intrest"/>
+              <text value="Track Share"/>
             </properties>
           </component>
           <hspacer id="37213">
@@ -52,13 +52,13 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
           </hspacer>
-          <component id="6ed0a" class="javax.swing.JButton" binding="button2" default-binding="true">
+          <component id="6ed0a" class="javax.swing.JButton" binding="buttonMenu">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Button"/>
+              <text value="Main Menu"/>
             </properties>
           </component>
         </children>

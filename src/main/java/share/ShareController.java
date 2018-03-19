@@ -14,12 +14,14 @@ public class ShareController extends Observable implements Observer {
     private ShareModel shareModel;
     private ShareView shareView;
     private RegisterListener registerListener;
+    private MenuListener menuListner;
     private CurrentUser currentUser;
 
     public void initialiseShareUi() {
         shareModel = new ShareModel();
         shareView = new ShareView();
         registerListener = new RegisterListener();
+        menuListner = new MenuListener();
 
         linkMVC();
 
@@ -28,9 +30,12 @@ public class ShareController extends Observable implements Observer {
 
     private void linkMVC() {
         shareModel.addObserver(shareView);
-        shareView.addObserver(this);
+
         shareView.setRegisterButtonController(registerListener);
+        shareView.setMenuButtonController(menuListner);
+
         registerListener.addObserver(this);
+        menuListner.addObserver(this);
     }
 
     private void populateTable() {
@@ -50,11 +55,22 @@ public class ShareController extends Observable implements Observer {
         public void actionPerformed(ActionEvent e) {
             setChanged();
             notifyObservers(GlobalControlCodes.INTREST);
+
             currentUser = CurrentUser.getInstance();
             int shareId = shareView.getSelectedShare();
             String message = String.format("User: %1$s has shown interest in " +
                     "Share: %2$s", currentUser.getUserName(), shareId);
             shareView.showRegisterDialog(message);
+        }
+    }
+
+    public class MenuListener extends Observable implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setChanged();
+            shareView.closeWindow();
+            notifyObservers(GlobalControlCodes.SHARE_CLOSE);
         }
     }
 }

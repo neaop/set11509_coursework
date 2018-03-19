@@ -1,12 +1,11 @@
 package share.view;
 
-import global.GlobalControlCodes;
 import share.ShareController;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.Observable;
@@ -14,11 +13,12 @@ import java.util.Observer;
 import java.util.Vector;
 
 public class ShareView extends Observable implements Observer {
+    private JFrame frame;
     private JPanel panel;
     private JTable table;
     private JPanel panelTable;
     private JButton buttonRegister;
-    private JButton button2;
+    private JButton buttonMenu;
     private JPanel panelButton;
     private JScrollPane panelScroll;
 
@@ -32,20 +32,15 @@ public class ShareView extends Observable implements Observer {
 
 
     public ShareView() {
-        JFrame frame = new JFrame("ShareView");
+        frame = new JFrame("ShareView");
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                setChanged();
-                notifyObservers(GlobalControlCodes.SHARE_CLOSE);
-                super.windowClosing(e);
-            }
-        });
         frame.pack();
         frame.setVisible(true);
+    }
 
+    public void closeWindow() {
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 
     private void populateTable(Vector data) {
@@ -69,6 +64,10 @@ public class ShareView extends Observable implements Observer {
     public void setRegisterButtonController(ShareController.RegisterListener
                                                     registerButtonController) {
         buttonRegister.addActionListener(registerButtonController);
+    }
+
+    public void setMenuButtonController(ActionListener listener) {
+        buttonMenu.addActionListener(listener);
     }
 
     public int getSelectedShare() {
@@ -130,13 +129,13 @@ public class ShareView extends Observable implements Observer {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panelButton.add(spacer1, gbc);
-        button2 = new JButton();
-        button2.setText("Button");
+        buttonMenu = new JButton();
+        buttonMenu.setText("Button");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panelButton.add(button2, gbc);
+        panelButton.add(buttonMenu, gbc);
     }
 
     /**
