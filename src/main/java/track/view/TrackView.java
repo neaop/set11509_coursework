@@ -43,10 +43,13 @@ public class TrackView extends JDialog implements Observer {
         frame.setContentPane(contentPane);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.pack();
+    }
+
+    public void showView(){
         frame.setVisible(true);
     }
 
-    public void closeTrackView() {
+    public void closeView() {
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 

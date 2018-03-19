@@ -37,10 +37,13 @@ public class ShareView extends Observable implements Observer {
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.pack();
+    }
+
+    public void showView() {
         frame.setVisible(true);
     }
 
-    public void closeWindow() {
+    public void closeUi() {
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 

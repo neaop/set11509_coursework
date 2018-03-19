@@ -1,5 +1,6 @@
 package user;
 
+import global.Controller;
 import user.controller.LoginController;
 import user.controller.RegisterController;
 import user.model.LoginModel;
@@ -9,14 +10,15 @@ import user.view.UserView;
 import java.util.Observable;
 import java.util.Observer;
 
-public class UserController extends Observable implements Observer {
+public class UserController extends Observable implements Observer, Controller {
     private UserView userView;
     private LoginModel loginModel;
     private LoginController loginController;
     private RegisterModel registerModel;
     private RegisterController registerController;
 
-    public void initialiseUserForm() {
+    @Override
+    public void initialiseUi() {
         loginController = new LoginController();
         registerController = new RegisterController();
 
@@ -39,7 +41,13 @@ public class UserController extends Observable implements Observer {
         userView.setLoginControl(loginController);
     }
 
-    public void closeUserForm() {
+    @Override
+    public void showUi() {
+        userView.showUi();
+    }
+
+    @Override
+    public void closeUi() {
         userView.hideUserView();
     }
 

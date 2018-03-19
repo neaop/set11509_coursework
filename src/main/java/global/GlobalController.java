@@ -9,21 +9,22 @@ import java.util.Observer;
 
 public class GlobalController implements Observer {
     private UserController userController;
-    private MenuController hubController;
+    private MenuController menuController;
     private ShareController shareController;
 
     public void runApplication() {
         userController = new UserController();
         userController.addObserver(this);
 
-        hubController = new MenuController();
-        hubController.addObserver(this);
+        menuController = new MenuController();
+        menuController.addObserver(this);
 
         shareController = new ShareController();
         shareController.addObserver(this);
 
 
-        userController.initialiseUserForm();
+        userController.initialiseUi();
+        userController.showUi();
 
     }
 
@@ -31,19 +32,22 @@ public class GlobalController implements Observer {
     public void update(Observable o, Object arg) {
         System.out.println("GlobalController: " + arg);
         if (arg == GlobalControlCodes.LOG_IN) {
-            userController.closeUserForm();
-            hubController.initialiseUI();
+            userController.closeUi();
+            menuController.initialiseUi();
+            menuController.showUi();
         }
         if (arg == GlobalControlCodes.LOG_OFF) {
-            hubController.closeHubView();
-            userController.initialiseUserForm();
+            menuController.closeUi();
+            userController.initialiseUi();
+            userController.showUi();
         }
         if (arg == GlobalControlCodes.SHARE) {
-            hubController.closeHubView();
-            shareController.initialiseShareUi();
+            menuController.closeUi();
+            shareController.initialiseUi();
+            shareController.showUi();
         }
         if (arg == GlobalControlCodes.SHARE_CLOSE) {
-            hubController.initialiseUI();
+            menuController.showUi();
         }
     }
 }

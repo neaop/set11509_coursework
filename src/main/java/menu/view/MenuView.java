@@ -22,6 +22,10 @@ public class MenuView {
         frame.setVisible(true);
     }
 
+    public void showView() {
+        frame.setVisible(true);
+    }
+
     public void hideHubeView() {
         frame.dispose();
     }

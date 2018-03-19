@@ -1,5 +1,6 @@
 package menu;
 
+import global.Controller;
 import menu.controller.LogoffController;
 import menu.controller.ShareController;
 import menu.controller.TradeController;
@@ -8,14 +9,15 @@ import menu.view.MenuView;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MenuController extends Observable implements Observer {
-    private MenuView hubView;
+public class MenuController extends Observable implements Observer, Controller {
+    private MenuView menuView;
     private LogoffController logoffController;
     private ShareController shareController;
     private TradeController tradeController;
 
-    public void initialiseUI() {
-        hubView = new MenuView();
+    @Override
+    public void initialiseUi() {
+        menuView = new MenuView();
         logoffController = new LogoffController();
         shareController = new ShareController();
         tradeController = new TradeController();
@@ -24,10 +26,20 @@ public class MenuController extends Observable implements Observer {
         observeControllers();
     }
 
+    @Override
+    public void showUi() {
+        menuView.showView();
+    }
+
+    @Override
+    public void closeUi() {
+        menuView.hideHubeView();
+    }
+
     private void addControllers() {
-        hubView.setLogoffController(logoffController);
-        hubView.setShareController(shareController);
-        hubView.setTradeController(tradeController);
+        menuView.setLogoffController(logoffController);
+        menuView.setShareController(shareController);
+        menuView.setTradeController(tradeController);
     }
 
     private void observeControllers() {
@@ -36,14 +48,12 @@ public class MenuController extends Observable implements Observer {
         tradeController.addObserver(this);
     }
 
-    public void closeHubView() {
-        hubView.hideHubeView();
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("MenuController: " + arg);
         setChanged();
         notifyObservers(arg);
     }
+
+
 }

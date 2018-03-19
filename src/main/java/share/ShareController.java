@@ -1,5 +1,6 @@
 package share;
 
+import global.Controller;
 import global.CurrentUser;
 import global.GlobalControlCodes;
 import share.model.ShareModel;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ShareController extends Observable implements Observer {
+public class ShareController extends Observable implements Observer, Controller {
     private ShareModel shareModel;
     private ShareView shareView;
     private TrackButtonListener trackButtonListener;
@@ -19,7 +20,8 @@ public class ShareController extends Observable implements Observer {
     private CurrentUser currentUser;
     private TrackController trackController;
 
-    public void initialiseShareUi() {
+    @Override
+    public void initialiseUi() {
         shareModel = new ShareModel();
         shareView = new ShareView();
 
@@ -32,6 +34,17 @@ public class ShareController extends Observable implements Observer {
         linkMVC();
 
         populateTable();
+        showUi();
+    }
+
+    @Override
+    public void showUi() {
+        shareView.showView();
+    }
+
+    @Override
+    public void closeUi() {
+        shareView.closeUi();
     }
 
     private void linkMVC() {
@@ -45,16 +58,12 @@ public class ShareController extends Observable implements Observer {
         shareModel.getShareData();
     }
 
-    public void closeShareUi() {
-        shareView.closeWindow();
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         setChanged();
         notifyObservers(arg);
         if (arg == GlobalControlCodes.TRACK_CLOSE) {
-            this.initialiseShareUi();
+            this.showUi();
         }
     }
 
@@ -63,10 +72,11 @@ public class ShareController extends Observable implements Observer {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            trackController.initialiseUI();
+            trackController.initialiseUi();
             trackController.setShareId(shareView.getSelectedShareId());
+            trackController.showUi();
 
-            closeShareUi();
+            closeUi();
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_OPEN);
 
@@ -83,7 +93,7 @@ public class ShareController extends Observable implements Observer {
         @Override
         public void actionPerformed(ActionEvent e) {
             setChanged();
-            shareView.closeWindow();
+            shareView.closeUi();
             notifyObservers(GlobalControlCodes.SHARE_CLOSE);
         }
     }

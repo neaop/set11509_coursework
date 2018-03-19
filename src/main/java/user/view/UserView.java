@@ -25,6 +25,9 @@ public class UserView implements Observer {
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
+    }
+
+    public void showUi() {
         frame.setVisible(true);
     }
 
@@ -34,7 +37,6 @@ public class UserView implements Observer {
 
     public void setLoginControl(LoginController loginControl) {
         System.out.println("UserView: Adding LoginController");
-        loginControl = loginControl;
         buttonLogin.addActionListener(loginControl);
     }
 
