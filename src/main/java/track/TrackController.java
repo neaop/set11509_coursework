@@ -14,9 +14,7 @@ public class TrackController extends Observable implements Controller {
     private TrackView trackView;
     private CancelButtonListener cancelButtonListener;
 
-
-    @Override
-    public void initialiseUi() {
+    public void initialiseController() {
         trackModel = new TrackModel();
         trackView = new TrackView();
         cancelButtonListener = new CancelButtonListener();
@@ -24,13 +22,11 @@ public class TrackController extends Observable implements Controller {
         setListeners();
     }
 
-    @Override
-    public void showUi() {
+    public void showView() {
         trackView.showView();
     }
 
-    @Override
-    public void closeUi() {
+    public void closeView() {
         trackView.closeView();
     }
 
@@ -50,7 +46,7 @@ public class TrackController extends Observable implements Controller {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            closeUi();
+            closeView();
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_CLOSE);
         }

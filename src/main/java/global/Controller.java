@@ -2,10 +2,10 @@ package global;
 
 public interface Controller {
 
-    void initialiseUi();
+    void initialiseController();
 
-    void showUi();
+    void showView();
 
-    void closeUi();
+    void closeView();
 
 }

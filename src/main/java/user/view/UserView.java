@@ -1,6 +1,7 @@
 package user.view;
 
 import global.GlobalControlCodes;
+import global.View;
 import user.controller.LoginController;
 import user.controller.RegisterController;
 
@@ -9,8 +10,8 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class UserView implements Observer {
-    JFrame frame;
+public class UserView implements Observer, View {
+    private JFrame frame;
     private JPanel panel;
     private JLabel labelName;
     private JLabel labelPassword;
@@ -27,11 +28,11 @@ public class UserView implements Observer {
         frame.pack();
     }
 
-    public void showUi() {
+    public void showView() {
         frame.setVisible(true);
     }
 
-    public void hideUserView() {
+    public void closeView() {
         frame.dispose();
     }
 
@@ -68,10 +69,6 @@ public class UserView implements Observer {
                 break;
             case REGISTERED:
                 showValidRegister();
-                break;
-            case LOG_IN:
-                break;
-            case FAILED:
                 break;
         }
     }

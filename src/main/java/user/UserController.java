@@ -17,8 +17,7 @@ public class UserController extends Observable implements Observer, Controller {
     private RegisterModel registerModel;
     private RegisterController registerController;
 
-    @Override
-    public void initialiseUi() {
+    public void initialiseController() {
         loginController = new LoginController();
         registerController = new RegisterController();
 
@@ -41,17 +40,14 @@ public class UserController extends Observable implements Observer, Controller {
         userView.setLoginControl(loginController);
     }
 
-    @Override
-    public void showUi() {
-        userView.showUi();
+    public void showView() {
+        userView.showView();
     }
 
-    @Override
-    public void closeUi() {
-        userView.hideUserView();
+    public void closeView() {
+        userView.closeView();
     }
 
-    @Override
     public void update(Observable o, Object arg) {
         System.out.println("UserController: " + arg);
         setChanged();

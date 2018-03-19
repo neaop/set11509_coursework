@@ -23,8 +23,8 @@ public class GlobalController implements Observer {
         shareController.addObserver(this);
 
 
-        userController.initialiseUi();
-        userController.showUi();
+        userController.initialiseController();
+        userController.showView();
 
     }
 
@@ -32,22 +32,22 @@ public class GlobalController implements Observer {
     public void update(Observable o, Object arg) {
         System.out.println("GlobalController: " + arg);
         if (arg == GlobalControlCodes.LOG_IN) {
-            userController.closeUi();
-            menuController.initialiseUi();
-            menuController.showUi();
+            userController.closeView();
+            menuController.initialiseController();
+            menuController.showView();
         }
         if (arg == GlobalControlCodes.LOG_OFF) {
-            menuController.closeUi();
-            userController.initialiseUi();
-            userController.showUi();
+            menuController.closeView();
+            userController.initialiseController();
+            userController.showView();
         }
         if (arg == GlobalControlCodes.SHARE) {
-            menuController.closeUi();
-            shareController.initialiseUi();
-            shareController.showUi();
+            menuController.closeView();
+            shareController.initialiseController();
+            shareController.showView();
         }
         if (arg == GlobalControlCodes.SHARE_CLOSE) {
-            menuController.showUi();
+            menuController.showView();
         }
     }
 }

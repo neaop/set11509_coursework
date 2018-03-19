@@ -15,8 +15,7 @@ public class MenuController extends Observable implements Observer, Controller {
     private ShareController shareController;
     private TradeController tradeController;
 
-    @Override
-    public void initialiseUi() {
+    public void initialiseController() {
         menuView = new MenuView();
         logoffController = new LogoffController();
         shareController = new ShareController();
@@ -27,13 +26,12 @@ public class MenuController extends Observable implements Observer, Controller {
     }
 
     @Override
-    public void showUi() {
+    public void showView() {
         menuView.showView();
     }
 
-    @Override
-    public void closeUi() {
-        menuView.hideHubeView();
+    public void closeView() {
+        menuView.closeView();
     }
 
     private void addControllers() {
@@ -48,7 +46,6 @@ public class MenuController extends Observable implements Observer, Controller {
         tradeController.addObserver(this);
     }
 
-    @Override
     public void update(Observable o, Object arg) {
         System.out.println("MenuController: " + arg);
         setChanged();

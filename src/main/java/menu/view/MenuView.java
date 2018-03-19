@@ -1,5 +1,6 @@
 package menu.view;
 
+import global.View;
 import menu.controller.LogoffController;
 import menu.controller.ShareController;
 import menu.controller.TradeController;
@@ -7,7 +8,7 @@ import menu.controller.TradeController;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuView {
+public class MenuView implements View {
     private JFrame frame;
     private JPanel panel;
     private JButton buttonShare;
@@ -19,14 +20,14 @@ public class MenuView {
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);
     }
 
     public void showView() {
         frame.setVisible(true);
     }
 
-    public void hideHubeView() {
+    @Override
+    public void closeView() {
         frame.dispose();
     }
 

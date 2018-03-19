@@ -1,18 +1,18 @@
 package share.view;
 
+import global.View;
 import share.ShareController;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-public class ShareView extends Observable implements Observer {
+public class ShareView extends Observable implements Observer, View {
     private JFrame frame;
     private JPanel panel;
     private JTable table;
@@ -35,7 +35,7 @@ public class ShareView extends Observable implements Observer {
     public ShareView() {
         frame = new JFrame("ShareView");
         frame.setContentPane(panel);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
     }
 
@@ -43,8 +43,8 @@ public class ShareView extends Observable implements Observer {
         frame.setVisible(true);
     }
 
-    public void closeUi() {
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    public void closeView() {
+        frame.dispose();
     }
 
     private void populateTable(Vector data) {

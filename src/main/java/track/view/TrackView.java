@@ -3,6 +3,7 @@ package track.view;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import global.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +16,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-public class TrackView extends JDialog implements Observer {
+public class TrackView extends JDialog implements Observer, View {
     JFrame frame;
     private JPanel contentPane;
     private JButton buttonTrack;
