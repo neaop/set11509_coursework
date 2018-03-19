@@ -1,43 +1,42 @@
 package user;
 
 import global.Controller;
-import user.controller.LoginController;
-import user.controller.RegisterController;
+import global.GlobalControlCodes;
 import user.model.LoginModel;
 import user.model.RegisterModel;
 import user.view.UserView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class UserController extends Observable implements Observer, Controller {
+public class UserController extends Observable implements Observer, Controller, ActionListener {
     private UserView userView;
     private LoginModel loginModel;
-    private LoginController loginController;
+    //    private LoginController loginController;
     private RegisterModel registerModel;
-    private RegisterController registerController;
+//    private RegisterController registerController;
 
     public void initialiseController() {
-        loginController = new LoginController();
-        registerController = new RegisterController();
-
         loginModel = new LoginModel();
         registerModel = new RegisterModel();
-
         userView = new UserView();
 
+        linkMVC();
+
+
+        addListeners();
+    }
+
+    private void addListeners() {
+        userView.setActionListener(this);
+    }
+
+    private void linkMVC() {
         loginModel.addObserver(userView);
-        loginModel.addObserver(this);
         registerModel.addObserver(userView);
-
-        loginController.setLoginModel(loginModel);
-        loginController.setUserView(userView);
-
-        registerController.setRegisterModel(registerModel);
-        registerController.setUserView(userView);
-
-        userView.setRegisterController(registerController);
-        userView.setLoginControl(loginController);
+        loginModel.addObserver(this);
     }
 
     public void showView() {
@@ -52,5 +51,18 @@ public class UserController extends Observable implements Observer, Controller {
         System.out.println("UserController: " + arg);
         setChanged();
         notifyObservers(arg);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(
+                String.valueOf(GlobalControlCodes.LOG_IN))) {
+            loginModel.authenticate(userView.getUserName()
+                    , userView.getUserPassword());
+        }
+        if (e.getActionCommand().equals(
+                String.valueOf(GlobalControlCodes.REGISTERED))) {
+            registerModel.attemptRegisterUser(userView.getUserName()
+                    , userView.getUserPassword());
+        }
     }
 }

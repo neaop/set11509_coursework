@@ -2,11 +2,10 @@ package user.view;
 
 import global.GlobalControlCodes;
 import global.View;
-import user.controller.LoginController;
-import user.controller.RegisterController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,14 +35,23 @@ public class UserView implements Observer, View {
         frame.dispose();
     }
 
-    public void setLoginControl(LoginController loginControl) {
-        System.out.println("UserView: Adding LoginController");
-        buttonLogin.addActionListener(loginControl);
+    public void setActionListener(ActionListener actionListener) {
+        setLoginListener(actionListener);
+        setRegisterListener(actionListener);
     }
 
-    public void setRegisterController(RegisterController registerController) {
-        System.out.println("UserView: Adding RegisterController");
-        buttonRegister.addActionListener(registerController);
+    private void setLoginListener(ActionListener actionListener) {
+        System.out.println("UserView: adding login listener");
+        buttonLogin.addActionListener(actionListener);
+        buttonLogin.setActionCommand(
+                String.valueOf(GlobalControlCodes.LOG_IN));
+    }
+
+    private void setRegisterListener(ActionListener actionListener) {
+        System.out.println("UserView: adding register listener");
+        buttonRegister.addActionListener(actionListener);
+        buttonRegister.setActionCommand(
+                String.valueOf(GlobalControlCodes.REGISTERED));
     }
 
     public String getUserPassword() {
