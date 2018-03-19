@@ -18,7 +18,7 @@ public class TrackController extends Observable {
         trackModel = new TrackModel();
         trackView = new TrackView();
         cancelButtonListener = new CancelButtonListener();
-        setMVC();
+        linkMVC();
         setListeners();
     }
 
@@ -26,7 +26,7 @@ public class TrackController extends Observable {
         trackModel.getShareFromId(shareId);
     }
 
-    private void setMVC() {
+    private void linkMVC() {
         trackModel.addObserver(trackView);
     }
 

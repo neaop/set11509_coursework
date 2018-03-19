@@ -7,6 +7,7 @@ import global.CurrentUser;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
+import java.util.Vector;
 
 public class TrackModel extends Observable {
     private DatabaseConnector connection;
@@ -63,15 +64,17 @@ public class TrackModel extends Observable {
         return String.format("SELECT * FROM share s LEFT JOIN company c ON s.share_company_id = c.company_id WHERE s.share_id = %1$d", shareId);
     }
 
-    private java.util.Vector<Object> cleanQueryResult(ResultSet queryResult) throws SQLException {
-        java.util.Vector<Object> result = new java.util.Vector<>();
+    private Vector<Object> cleanQueryResult(ResultSet queryResult) throws SQLException {
+        Vector<Object> result = new java.util.Vector<>();
         while (queryResult.next()) {
-            result.add(queryResult.getObject(1));
-            result.add(queryResult.getObject(8));
-            result.add(queryResult.getObject(7));
-            result.add(queryResult.getObject(3));
-            result.add(queryResult.getObject(4));
-            result.add(queryResult.getObject(5));
+            Vector<Object> vector = new Vector<>();
+            vector.add(queryResult.getObject(1));
+            vector.add(queryResult.getObject(8));
+            vector.add(queryResult.getObject(7));
+            vector.add(queryResult.getObject(3));
+            vector.add(queryResult.getObject(4));
+            vector.add(queryResult.getObject(5));
+            result.add(vector);
         }
         return result;
     }
