@@ -3,13 +3,13 @@ package track.view;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import global.GlobalControlCodes;
 import global.View;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,7 +25,6 @@ public class TrackView extends JDialog implements Observer, View {
     private JLabel labelMin;
     private JLabel labelMax;
     private JTable tableShare;
-    private TableModel tableModel;
 
     private String[] columnNames = {
             "Share ID",
@@ -50,23 +49,32 @@ public class TrackView extends JDialog implements Observer, View {
     }
 
     public void closeView() {
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        frame.dispose();
     }
 
     private void updateTable(Vector shareData) {
         Vector colNames = new Vector<>(Arrays.asList(columnNames));
-        tableModel = new global.TableModel(shareData, colNames);
+        TableModel tableModel = new global.TableModel(shareData, colNames);
         tableShare.setModel(tableModel);
         tableShare.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableShare.setRowSelectionInterval(0, 0);
     }
 
-    public void setTrackButtonListener(ActionListener actionListener) {
+    public void setActionListeners(ActionListener actionListener) {
+        setTrackButtonListener(actionListener);
+        setCancelButtonListener(actionListener);
+
+    }
+
+    private void setTrackButtonListener(ActionListener actionListener) {
+        System.out.println("TrackView: adding track listener");
         buttonTrack.addActionListener(actionListener);
     }
 
-    public void setCancelButtonListener(ActionListener actionListener) {
+    private void setCancelButtonListener(ActionListener actionListener) {
+        System.out.println("TrackView: adding cancel listener");
         buttonCancel.addActionListener(actionListener);
+        buttonCancel.setActionCommand(GlobalControlCodes.TRACK_CLOSE.toString());
     }
 
     @Override

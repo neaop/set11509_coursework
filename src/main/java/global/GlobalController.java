@@ -50,6 +50,9 @@ public class GlobalController implements Observer {
             shareController.closeView();
             menuController.showView();
         }
+        if ((arg==GlobalControlCodes.TRACK_CLOSE)){
+
+        }
     }
 }
 

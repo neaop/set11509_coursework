@@ -9,15 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 
-public class TrackController extends Observable implements Controller {
+public class TrackController extends Observable implements
+        Controller, ActionListener {
     private TrackModel trackModel;
     private TrackView trackView;
-    private CancelButtonListener cancelButtonListener;
 
     public void initialiseController() {
         trackModel = new TrackModel();
         trackView = new TrackView();
-        cancelButtonListener = new CancelButtonListener();
         linkMVC();
         setListeners();
     }
@@ -39,16 +38,16 @@ public class TrackController extends Observable implements Controller {
     }
 
     private void setListeners() {
-        trackView.setCancelButtonListener(cancelButtonListener);
+        trackView.setActionListeners(this);
     }
 
-    class CancelButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(
+                String.valueOf(GlobalControlCodes.TRACK_CLOSE))) {
             closeView();
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_CLOSE);
         }
     }
+
 }
