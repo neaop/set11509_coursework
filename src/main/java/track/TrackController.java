@@ -8,10 +8,11 @@ import track.view.TrackView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 public class TrackController extends Observable implements
-        Controller, ActionListener {
+        Controller, ActionListener, Observer {
     private TrackModel trackModel;
     private TrackView trackView;
     private Vector selectedShare;
@@ -34,6 +35,7 @@ public class TrackController extends Observable implements
 
     private void linkMVC() {
         trackModel.addObserver(trackView);
+        trackModel.addObserver(this);
     }
 
     private void setListeners() {
@@ -55,5 +57,12 @@ public class TrackController extends Observable implements
 
     public void setSelectedShare(Vector selectedShare) {
         this.selectedShare = selectedShare;
+    }
+
+    public void update(Observable o, Object arg) {
+        if (arg.getClass().isInstance(true)) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.TRACK_CLOSE);
+        }
     }
 }
