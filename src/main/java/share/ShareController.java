@@ -4,25 +4,20 @@ import global.Controller;
 import global.GlobalControlCodes;
 import share.model.ShareModel;
 import share.view.ShareView;
-import track.TrackController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 public class ShareController extends Observable implements Observer, Controller, ActionListener {
     private ShareModel shareModel;
     private ShareView shareView;
 
-    private TrackController trackController;
-
     public void initialiseController() {
         shareModel = new ShareModel();
         shareView = new ShareView();
-
-        trackController = new TrackController();
-        trackController.addObserver(this);
 
         linkMVC();
         setActionListeners();
@@ -37,6 +32,10 @@ public class ShareController extends Observable implements Observer, Controller,
 
     public void closeView() {
         shareView.closeView();
+    }
+
+    public Vector getSelectedShare() {
+        return shareView.getSelectedShare();
     }
 
     private void linkMVC() {
@@ -60,16 +59,11 @@ public class ShareController extends Observable implements Observer, Controller,
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.TRACK_OPEN))) {
-            trackController.initialiseController();
-            trackController.setShareId(shareView.getSelectedShareId());
-            trackController.showView();
-
-            closeView();
+        if (e.getActionCommand().equals(GlobalControlCodes.TRACK_OPEN.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_OPEN);
         }
-        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.SHARE_CLOSE))) {
+        if (e.getActionCommand().equals(GlobalControlCodes.SHARE_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.SHARE_CLOSE);
         }

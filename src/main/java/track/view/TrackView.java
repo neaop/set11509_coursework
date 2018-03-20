@@ -52,7 +52,7 @@ public class TrackView extends JDialog implements Observer, View {
         frame.dispose();
     }
 
-    private void updateTable(Vector shareData) {
+    public void updateTable(Vector shareData) {
         Vector colNames = new Vector<>(Arrays.asList(columnNames));
         TableModel tableModel = new global.TableModel(shareData, colNames);
         tableShare.setModel(tableModel);
@@ -63,23 +63,22 @@ public class TrackView extends JDialog implements Observer, View {
     public void setActionListeners(ActionListener actionListener) {
         setTrackButtonListener(actionListener);
         setCancelButtonListener(actionListener);
-
     }
 
     private void setTrackButtonListener(ActionListener actionListener) {
         System.out.println("TrackView: adding track listener");
         buttonTrack.addActionListener(actionListener);
+        buttonTrack.setActionCommand(GlobalControlCodes.TRACK_SHARE.name());
     }
 
     private void setCancelButtonListener(ActionListener actionListener) {
         System.out.println("TrackView: adding cancel listener");
         buttonCancel.addActionListener(actionListener);
-        buttonCancel.setActionCommand(GlobalControlCodes.TRACK_CLOSE.toString());
+        buttonCancel.setActionCommand(GlobalControlCodes.TRACK_CLOSE.name());
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        updateTable((Vector) arg);
     }
 
 

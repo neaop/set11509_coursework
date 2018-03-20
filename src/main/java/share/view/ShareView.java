@@ -63,15 +63,13 @@ public class ShareView extends Observable implements Observer, View {
     private void setRegisterButtonListener(ActionListener actionListener) {
         System.out.println("ShareView: adding register listener");
         buttonRegister.addActionListener(actionListener);
-        buttonRegister.setActionCommand(
-                GlobalControlCodes.TRACK_OPEN.toString());
+        buttonRegister.setActionCommand(GlobalControlCodes.TRACK_OPEN.name());
     }
 
     private void setMenuButtonListener(ActionListener actionListener) {
         System.out.println("ShareView: adding menu listener");
         buttonMenu.addActionListener(actionListener);
-        buttonMenu.setActionCommand(
-                String.valueOf(GlobalControlCodes.SHARE_CLOSE));
+        buttonMenu.setActionCommand(GlobalControlCodes.SHARE_CLOSE.name());
     }
 
     public int getSelectedShareId() {
@@ -81,6 +79,20 @@ public class ShareView extends Observable implements Observer, View {
             selectedRow = 0;
         }
         return (int) table.getValueAt(selectedRow, 0);
+    }
+
+    public Vector getSelectedShare() {
+        Vector<Vector<Object>> selectedShare = new Vector<>();
+
+        if (table.getSelectedRow() != -1) {
+            Vector<Object> selectedRow = new Vector<>();
+
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                selectedRow.add(table.getValueAt(table.getSelectedRow(), i));
+            }
+            selectedShare.add(selectedRow);
+        }
+        return selectedShare;
     }
 
     @Override

@@ -12,5 +12,6 @@ public enum GlobalControlCodes {
     SHARE,
     SHARE_CLOSE,
     TRACK_OPEN,
-    TRACK_CLOSE
+    TRACK_CLOSE,
+    TRACK_SHARE
 }

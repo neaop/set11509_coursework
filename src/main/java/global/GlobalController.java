@@ -2,6 +2,7 @@ package global;
 
 import menu.MenuController;
 import share.ShareController;
+import track.TrackController;
 import user.UserController;
 
 import java.util.Observable;
@@ -11,6 +12,7 @@ public class GlobalController implements Observer {
     private UserController userController;
     private MenuController menuController;
     private ShareController shareController;
+    private TrackController trackController;
 
     public void runApplication() {
         userController = new UserController();
@@ -22,6 +24,8 @@ public class GlobalController implements Observer {
         shareController = new ShareController();
         shareController.addObserver(this);
 
+        trackController = new TrackController();
+        trackController.addObserver(this);
 
         userController.initialiseController();
         userController.showView();
@@ -50,8 +54,15 @@ public class GlobalController implements Observer {
             shareController.closeView();
             menuController.showView();
         }
-        if ((arg==GlobalControlCodes.TRACK_CLOSE)){
-
+        if ((arg == GlobalControlCodes.TRACK_OPEN)) {
+            shareController.closeView();
+            trackController.setSelectedShare(shareController.getSelectedShare());
+            trackController.initialiseController();
+            trackController.showView();
+        }
+        if (arg == GlobalControlCodes.TRACK_CLOSE) {
+            trackController.closeView();
+            shareController.showView();
         }
     }
 }
