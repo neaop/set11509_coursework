@@ -1,4 +1,5 @@
 import global.GlobalController;
+import global.StaticMethods;
 
 import java.sql.SQLException;
 

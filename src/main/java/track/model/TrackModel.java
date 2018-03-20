@@ -4,13 +4,13 @@ import data.DatabaseConnection;
 import data.DatabaseConnector;
 import global.CurrentUser;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
 public class TrackModel extends Observable {
     private DatabaseConnector connection;
+    private Vector share;
 
     public TrackModel() {
         connection = new DatabaseConnection();
@@ -32,23 +32,6 @@ public class TrackModel extends Observable {
         connection.closeConnection();
     }
 
-    public void getShareFromId(int shareId) {
-        java.util.Vector<Object> shareData = null;
-        String query = generateSelectShare(shareId);
-
-        connection.connect();
-        try {
-            ResultSet result = connection.query(query);
-            shareData = cleanQueryResult(result);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        connection.closeConnection();
-
-        setChanged();
-        notifyObservers(shareData);
-    }
-
     private String generateTrackInsert(int shareId, float minValue
             , float maxValue) {
         CurrentUser currentUser = CurrentUser.getInstance();
@@ -60,23 +43,9 @@ public class TrackModel extends Observable {
                 , userId, shareId, minValue, maxValue);
     }
 
-    private String generateSelectShare(int shareId) {
-        return String.format("SELECT * FROM share s LEFT JOIN company c ON s.share_company_id = c.company_id WHERE s.share_id = %1$d", shareId);
+    public void setShare(Vector share) {
+        this.share = share;
+        setChanged();
+        notifyObservers(share);
     }
-
-    private Vector<Object> cleanQueryResult(ResultSet queryResult) throws SQLException {
-        Vector<Object> result = new java.util.Vector<>();
-        while (queryResult.next()) {
-            Vector<Object> vector = new Vector<>();
-            vector.add(queryResult.getObject(1));
-            vector.add(queryResult.getObject(8));
-            vector.add(queryResult.getObject(7));
-            vector.add(queryResult.getObject(3));
-            vector.add(queryResult.getObject(4));
-            vector.add(queryResult.getObject(5));
-            result.add(vector);
-        }
-        return result;
-    }
-
 }

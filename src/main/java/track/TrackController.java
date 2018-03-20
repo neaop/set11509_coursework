@@ -21,7 +21,7 @@ public class TrackController extends Observable implements
         trackView = new TrackView();
         linkMVC();
         setListeners();
-        trackView.updateTable(selectedShare);
+        trackModel.setShare(selectedShare);
     }
 
     public void showView() {
@@ -44,6 +44,12 @@ public class TrackController extends Observable implements
         if (e.getActionCommand().equals(GlobalControlCodes.TRACK_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_CLOSE);
+        }
+        if (e.getActionCommand().equals(GlobalControlCodes.TRACK_SHARE.name())) {
+            setChanged();
+            trackView.getMaxValue();
+            trackView.getMinValue();
+            notifyObservers(GlobalControlCodes.TRACK_SHARE);
         }
     }
 
