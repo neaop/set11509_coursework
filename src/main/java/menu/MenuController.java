@@ -1,8 +1,8 @@
 package menu;
 
-import global.Controller;
-import global.CurrentUser;
-import global.GlobalControlCodes;
+import global.controller.Controller;
+import global.model.CurrentUser;
+import global.controller.GlobalControlCodes;
 import menu.view.MenuView;
 
 import java.awt.event.ActionEvent;

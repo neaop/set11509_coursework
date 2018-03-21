@@ -1,4 +1,4 @@
-package global;
+package global.controller;
 
 public interface Controller {
 

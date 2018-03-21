@@ -1,7 +1,7 @@
 package menu.view;
 
-import global.GlobalControlCodes;
-import global.View;
+import global.controller.GlobalControlCodes;
+import global.view.View;
 
 import javax.swing.*;
 import java.awt.*;

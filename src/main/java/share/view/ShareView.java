@@ -1,7 +1,7 @@
 package share.view;
 
-import global.GlobalControlCodes;
-import global.View;
+import global.controller.GlobalControlCodes;
+import global.view.View;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -48,7 +48,7 @@ public class ShareView extends Observable implements Observer, View {
     }
 
     private void populateTable(Vector data) {
-        tableModel = new global.TableModel(data
+        tableModel = new global.model.TableModel(data
                 , new Vector<>(Arrays.asList(columnNames)));
         table.setModel(tableModel);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -1,10 +1,11 @@
-package global;
+package global.model;
 
 public class CurrentUser {
     private int userId;
     private String userName;
     private boolean userAdmin;
     private static CurrentUser currentUser = new CurrentUser();
+    private boolean authenticated = false;
 
     private CurrentUser() {
     }
@@ -17,12 +18,14 @@ public class CurrentUser {
         currentUser.userId = userId;
         currentUser.userName = userName;
         currentUser.userAdmin = userAdmin;
+        authenticated = true;
     }
 
     public void logoutUser() {
         currentUser.userId = -1;
         currentUser.userName = null;
         currentUser.userAdmin = false;
+        authenticated = false;
     }
 
     public String getUserName() {
@@ -37,4 +40,7 @@ public class CurrentUser {
         return userAdmin;
     }
 
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
 }

@@ -1,4 +1,4 @@
-package global;
+package global.model;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.Vector;

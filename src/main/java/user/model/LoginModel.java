@@ -2,8 +2,8 @@ package user.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
-import global.CurrentUser;
-import global.GlobalControlCodes;
+import global.model.CurrentUser;
+import global.controller.GlobalControlCodes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

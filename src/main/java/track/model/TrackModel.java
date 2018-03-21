@@ -2,7 +2,7 @@ package track.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
-import global.CurrentUser;
+import global.model.CurrentUser;
 import track.TrackErrorCodes;
 
 import java.sql.SQLException;

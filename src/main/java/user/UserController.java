@@ -1,7 +1,7 @@
 package user;
 
-import global.Controller;
-import global.GlobalControlCodes;
+import global.controller.Controller;
+import global.controller.GlobalControlCodes;
 import user.model.LoginModel;
 import user.model.RegisterModel;
 import user.view.UserView;

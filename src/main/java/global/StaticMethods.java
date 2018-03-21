@@ -1,5 +1,6 @@
 package global;
 
+// TODO - find better place for these
 public class StaticMethods {
 
     public static double convertPenniesToPounds(int pennies) {

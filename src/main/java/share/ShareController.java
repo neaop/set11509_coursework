@@ -1,7 +1,7 @@
 package share;
 
-import global.Controller;
-import global.GlobalControlCodes;
+import global.controller.Controller;
+import global.controller.GlobalControlCodes;
 import share.model.ShareModel;
 import share.view.ShareView;
 

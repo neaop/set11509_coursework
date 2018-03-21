@@ -1,8 +1,9 @@
-package global;
+package global.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,20 +11,26 @@ import java.util.ArrayList;
 public class TrackEngine {
     DatabaseConnector databaseConnection;
     ArrayList<TrackModule> trackModules;
+    private boolean updates;
 
     public TrackEngine() {
         databaseConnection = new DatabaseConnection();
         trackModules = new ArrayList<>();
     }
 
-    public String checkTrackedShares() {
-        String query = generateQueryString();
-        try {
-            getTrackModules(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void checkTrackedShares() {
+        if (CurrentUser.getInstance().isAuthenticated()) {
+            String query = generateQueryString();
+            try {
+                getTrackModules(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            if (updates) {
+                updates = false;
+                displayUpdate(checkTrackModules());
+            }
         }
-        return checkTrackModules();
     }
 
     private void getTrackModules(String query) throws SQLException {
@@ -48,6 +55,7 @@ public class TrackEngine {
     }
 
     private void extractTrackModules(ResultSet resultSet) throws SQLException {
+        updates = false;
         while (resultSet.next()) {
             boolean added = false;
 
@@ -61,6 +69,7 @@ public class TrackEngine {
                     if (t.trackLastValue != trackValue) {
                         t.setTrackLastValue(trackValue);
                         t.setUpdated(true);
+                        updates = true;
                     }
                 }
             }
@@ -71,6 +80,7 @@ public class TrackEngine {
                 trackModule.setShareCode(shareCode);
                 trackModule.setUpdated(true);
                 trackModules.add(trackModule);
+                updates = true;
             }
         }
     }
@@ -88,6 +98,12 @@ public class TrackEngine {
                         "AND " +
                         "s.share_price NOT BETWEEN t.track_min AND t.track_max;"
                 , userId);
+    }
+
+    private void displayUpdate(String message) {
+        JOptionPane.showMessageDialog(null, message
+                , "Share Monitor", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     private class TrackModule {

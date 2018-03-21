@@ -1,7 +1,7 @@
 package track;
 
-import global.Controller;
-import global.GlobalControlCodes;
+import global.controller.Controller;
+import global.controller.GlobalControlCodes;
 import track.model.TrackModel;
 import track.view.TrackView;
 
