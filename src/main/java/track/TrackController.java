@@ -22,7 +22,7 @@ public class TrackController extends Observable implements
         trackView = new TrackView();
         linkMVC();
         setListeners();
-        trackModel.setShare(selectedShare);
+        trackModel.setShareInfo(selectedShare);
     }
 
     public void showView() {
@@ -42,16 +42,23 @@ public class TrackController extends Observable implements
         trackView.setActionListeners(this);
     }
 
+    private void attemptTrackShare() {
+        if (trackView.checkFieldsFull()) {
+            trackModel.trackShare(trackView.getFieldValues());
+            setChanged();
+            notifyObservers(GlobalControlCodes.TRACK_SHARE);
+        } else {
+            trackView.displayEmptyFieldError();
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.TRACK_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.TRACK_CLOSE);
         }
         if (e.getActionCommand().equals(GlobalControlCodes.TRACK_SHARE.name())) {
-            setChanged();
-            trackView.getMaxValue();
-            trackView.getMinValue();
-            notifyObservers(GlobalControlCodes.TRACK_SHARE);
+            attemptTrackShare();
         }
     }
 

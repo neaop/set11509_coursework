@@ -18,13 +18,16 @@ public class TrackModel extends Observable {
         connection = new DatabaseConnection();
     }
 
-    public void trackShare(int minValue, int maxValue) {
+    public void trackShare(int[] values) {
+        int minValue = values[0];
+        int maxValue = values[1];
         setChanged();
         if (verifyValues(sharePrice, minValue, maxValue)) {
             String query = generateTrackInsert(shareId, minValue, maxValue);
             executeTrackInsert(query);
             notifyObservers(true);
         }
+        clearChanged();
     }
 
     private void executeTrackInsert(String query) {
@@ -44,11 +47,15 @@ public class TrackModel extends Observable {
 
         return String.format("INSERT INTO track " +
                         "(track_user_id, track_share_id, track_min, track_max) " +
-                        "VALUES (%1$d, %2$d, %3$d, %4$d);"
+                        "VALUES (%1$d, %2$d, %3$d, %4$d) " +
+                        "ON DUPLICATE KEY " +
+                        "UPDATE " +
+                        "track_min = VALUES(track_min)," +
+                        "track_max = VALUES(track_max);"
                 , userId, shareId, minValue, maxValue);
     }
 
-    public void setShare(Vector<Vector<Object>> share) {
+    public void setShareInfo(Vector<Vector<Object>> share) {
         shareId = (int) share.get(0).get(0);
         sharePrice = (int) share.get(0).get(3);
 
