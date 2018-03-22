@@ -4,11 +4,11 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import global.controller.GlobalControlCodes;
+import global.view.ShareTraderTable;
 import global.view.View;
 import track.TrackErrorCodes;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
@@ -104,11 +104,14 @@ public class TrackView extends JDialog implements Observer, View {
     }
 
     private void updateTable(Vector shareData) {
-        Vector colNames = new Vector<>(Arrays.asList(columnNames));
-        TableModel tableModel = new global.model.TableModel(shareData, colNames);
-        tableShare.setModel(tableModel);
-        tableShare.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tableShare.setRowSelectionInterval(0, 0);
+        Vector<String> columns = new Vector<>(Arrays.asList(columnNames));
+        ((ShareTraderTable) tableShare).updateTable(shareData, columns);
+
+//        Vector colNames = new Vector<>(Arrays.asList(columnNames));
+//        TableModel tableModel = new ShareTraderTable.ShareTraderTableModel(shareData, colNames);
+//        tableShare.setModel(tableModel);
+//        tableShare.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        tableShare.setRowSelectionInterval(0, 0);
     }
 
     public void setActionListeners(ActionListener actionListener) {
@@ -143,6 +146,7 @@ public class TrackView extends JDialog implements Observer, View {
     private void createUIComponents() {
         fieldMin = new JFormattedTextField(NumberFormat.getNumberInstance());
         fieldMax = new JFormattedTextField(NumberFormat.getNumberInstance());
+        tableShare = new ShareTraderTable();
     }
 
     /**

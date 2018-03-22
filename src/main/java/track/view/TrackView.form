@@ -102,7 +102,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="82ecb" class="javax.swing.JTable" binding="tableShare">
+          <component id="82ecb" class="javax.swing.JTable" binding="tableShare" custom-create="true">
             <constraints/>
             <properties>
               <preferredScrollableViewportSize width="600" height="35"/>

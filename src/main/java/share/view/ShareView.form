@@ -20,7 +20,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="3bf5d" class="javax.swing.JTable" binding="table">
+              <component id="3bf5d" class="javax.swing.JTable" binding="table" custom-create="true">
                 <constraints/>
                 <properties>
                   <preferredScrollableViewportSize width="1000" height="250"/>
