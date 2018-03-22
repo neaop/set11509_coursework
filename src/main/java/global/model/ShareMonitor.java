@@ -8,14 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TrackEngine {
-    DatabaseConnector databaseConnection;
-    ArrayList<TrackModule> trackModules;
+public class ShareMonitor {
+    private DatabaseConnector databaseConnection;
+    private ArrayList<TrackedShare> trackedShares;
     private boolean updates;
 
-    public TrackEngine() {
+    public ShareMonitor() {
         databaseConnection = new DatabaseConnection();
-        trackModules = new ArrayList<>();
+        trackedShares = new ArrayList<>();
     }
 
     public void checkTrackedShares() {
@@ -43,7 +43,7 @@ public class TrackEngine {
 
     private String checkTrackModules() {
         StringBuilder updatedShares = new StringBuilder();
-        for (TrackModule trackModule : trackModules) {
+        for (TrackedShare trackModule : trackedShares) {
             if (trackModule.isUpdated()) {
                 trackModule.setUpdated(false);
                 updatedShares.append(String.format(
@@ -63,7 +63,7 @@ public class TrackEngine {
             int trackValue = resultSet.getInt(8);
             String shareCode = resultSet.getString(13);
 
-            for (TrackModule t : trackModules) {
+            for (TrackedShare t : trackedShares) {
                 if (t.trackId == trackId) {
                     added = true;
                     if (t.trackLastValue != trackValue) {
@@ -74,12 +74,12 @@ public class TrackEngine {
                 }
             }
             if (!added) {
-                TrackModule trackModule = new TrackModule();
+                TrackedShare trackModule = new TrackedShare();
                 trackModule.setTrackId(trackId);
                 trackModule.setTrackLastValue(trackValue);
                 trackModule.setShareCode(shareCode);
                 trackModule.setUpdated(true);
-                trackModules.add(trackModule);
+                trackedShares.add(trackModule);
                 updates = true;
             }
         }
@@ -106,7 +106,7 @@ public class TrackEngine {
 
     }
 
-    private class TrackModule {
+    private class TrackedShare {
         private int trackId;
         private int trackLastValue;
         private String shareCode;
@@ -116,7 +116,7 @@ public class TrackEngine {
             return trackLastValue;
         }
 
-        public void setTrackLastValue(int trackLastValue) {
+        void setTrackLastValue(int trackLastValue) {
             this.trackLastValue = trackLastValue;
         }
 
@@ -124,23 +124,23 @@ public class TrackEngine {
             return trackId;
         }
 
-        public void setTrackId(int trackId) {
+        void setTrackId(int trackId) {
             this.trackId = trackId;
         }
 
-        public boolean isUpdated() {
+        boolean isUpdated() {
             return updated;
         }
 
-        public void setUpdated(boolean updated) {
+        void setUpdated(boolean updated) {
             this.updated = updated;
         }
 
-        public String getShareCode() {
+        String getShareCode() {
             return shareCode;
         }
 
-        public void setShareCode(String shareCode) {
+        void setShareCode(String shareCode) {
             this.shareCode = shareCode;
         }
     }

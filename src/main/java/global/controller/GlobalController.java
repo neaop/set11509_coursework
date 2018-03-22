@@ -1,6 +1,6 @@
 package global.controller;
 
-import global.model.TrackEngine;
+import global.model.ShareMonitor;
 import menu.MenuController;
 import share.ShareController;
 import track.TrackController;
@@ -14,7 +14,7 @@ public class GlobalController implements Observer {
     private MenuController menuController;
     private ShareController shareController;
     private TrackController trackController;
-    private TrackEngine trackEngine;
+    private ShareMonitor trackEngine;
 
     public void runApplication() {
         userController = new UserController();
@@ -32,7 +32,7 @@ public class GlobalController implements Observer {
         userController.initialiseController();
         userController.showView();
 
-        trackEngine = new TrackEngine();
+        trackEngine = new ShareMonitor();
 
     }
 
