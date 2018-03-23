@@ -12,7 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -28,14 +27,6 @@ public class TrackView extends JDialog implements Observer, View {
     private JTable tableShare;
     private JFormattedTextField fieldMax;
 
-    private String[] columnNames = {
-            "Share ID",
-            "Trade Code",
-            "Company Name",
-            "Share Price",
-            "Share Value",
-            "Share Quantity"};
-
     public TrackView() {
         $$$setupUI$$$();
         setContentPane(contentPane);
@@ -45,7 +36,6 @@ public class TrackView extends JDialog implements Observer, View {
         frame.setContentPane(contentPane);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.pack();
-
     }
 
     public boolean checkFieldsFull() {
@@ -94,7 +84,6 @@ public class TrackView extends JDialog implements Observer, View {
                 , "Track Share", JOptionPane.INFORMATION_MESSAGE);
     }
 
-
     public void showView() {
         frame.setVisible(true);
     }
@@ -103,15 +92,9 @@ public class TrackView extends JDialog implements Observer, View {
         frame.dispose();
     }
 
-    private void updateTable(Vector shareData) {
-        Vector<String> columns = new Vector<>(Arrays.asList(columnNames));
+    private void populateTable(Vector shareData) {
+        Vector columns = global.view.ViewStrings.getShareColumnNames();
         ((ShareTraderTable) tableShare).updateTable(shareData, columns);
-
-//        Vector colNames = new Vector<>(Arrays.asList(columnNames));
-//        TableModel tableModel = new ShareTraderTable.ShareTraderTableModel(shareData, colNames);
-//        tableShare.setModel(tableModel);
-//        tableShare.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        tableShare.setRowSelectionInterval(0, 0);
     }
 
     public void setActionListeners(ActionListener actionListener) {
@@ -133,7 +116,7 @@ public class TrackView extends JDialog implements Observer, View {
 
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
-            updateTable((Vector) arg);
+            populateTable((Vector) arg);
         }
         if (arg == TrackErrorCodes.MIN_INVALID) {
             displayInvalidMinValueError();

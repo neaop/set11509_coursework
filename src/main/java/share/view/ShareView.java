@@ -5,10 +5,8 @@ import global.view.ShareTraderTable;
 import global.view.View;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -22,16 +20,6 @@ public class ShareView extends Observable implements Observer, View {
     private JButton buttonMenu;
     private JPanel panelButton;
     private JScrollPane panelScroll;
-    private TableModel tableModel;
-
-    private String[] columnNames = {
-            "Share ID",
-            "Trade Code",
-            "Company Name",
-            "Share Price",
-            "Share Value",
-            "Share Quantity"};
-
 
     public ShareView() {
         frame = new JFrame("ShareView");
@@ -49,15 +37,9 @@ public class ShareView extends Observable implements Observer, View {
         frame.dispose();
     }
 
-    private void populateTable(Vector data, Vector columnNames) {
-
+    private void populateTable(Vector data) {
+        Vector columnNames = global.view.ViewStrings.getShareColumnNames();
         ((ShareTraderTable) table).updateTable(data, columnNames);
-
-//        tableModel = new ShareTraderTable.ShareTraderTableModel(data
-//                , new Vector<>(Arrays.asList(columnNames)));
-//        table.setModel(tableModel);
-//        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        table.setRowSelectionInterval(0, 0);
     }
 
     public void setActionListeners(ActionListener actionListener) {
@@ -102,9 +84,7 @@ public class ShareView extends Observable implements Observer, View {
 
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
-            Vector columns;
-            columns = new Vector<>(Arrays.asList(columnNames));
-            populateTable((Vector) arg, columns);
+            populateTable((Vector) arg);
         }
     }
 
