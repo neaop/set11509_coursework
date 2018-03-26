@@ -9,9 +9,10 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Observable;
 import java.util.Vector;
 
-public class TradeModel {
+public class TradeModel extends Observable {
     private DatabaseConnector databaseConnection;
     private final static String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -19,14 +20,20 @@ public class TradeModel {
         databaseConnection = new DatabaseConnection();
     }
 
-    public Vector searchTrades(String fromDate, String tillDate, String companyCode) {
+    public void searchTrades(String fromDate, String tillDate, String companyCode) {
+        Vector trades = executeTradeSearch(fromDate, tillDate, companyCode);
+        setChanged();
+        notifyObservers(trades);
+    }
+
+    private Vector executeTradeSearch(String fromDate, String tillDate, String companyCode) {
         ResultSet resultSet;
         Vector results = null;
         databaseConnection.connect();
         String query = combineQuery(fromDate, tillDate, companyCode);
         try {
             resultSet = databaseConnection.query(query);
-            results = getSearchResults(resultSet);
+            results = processSearchResults(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,7 +41,7 @@ public class TradeModel {
         return results;
     }
 
-    private Vector getSearchResults(ResultSet resultSet) throws SQLException {
+    private Vector processSearchResults(ResultSet resultSet) throws SQLException {
         Vector<Vector<Object>> results = new Vector<>();
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
@@ -48,7 +55,7 @@ public class TradeModel {
         return results;
     }
 
-    String combineQuery(String fromDate, String tillDate, String companyCode) {
+    private String combineQuery(String fromDate, String tillDate, String companyCode) {
         String query = generateBaseQuery();
         String dateCondition = generateDateCondition(fromDate, tillDate);
         String fullCondition = generateCompanyCondition(dateCondition, companyCode);
