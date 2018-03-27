@@ -53,7 +53,7 @@ public class MenuView implements View {
     private void setTradeButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding trade controller");
         buttonTrade.addActionListener(actionListener);
-        buttonTrade.setActionCommand(String.valueOf(GlobalControlCodes.TRADE));
+        buttonTrade.setActionCommand(String.valueOf(GlobalControlCodes.TRADE_OPEN));
     }
 
     public void update(Observable o, Object arg) {
