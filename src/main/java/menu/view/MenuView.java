@@ -36,6 +36,7 @@ public class MenuView implements View {
         setLogoffButtonListener(actionListener);
         setShareButtonListener(actionListener);
         setTradeButtonListener(actionListener);
+        setBrokerButtonListener(actionListener);
     }
 
     private void setLogoffButtonListener(ActionListener actionListener) {

@@ -12,6 +12,7 @@ public class ShareTraderTable extends JTable {
         this.setModel(tableModel);
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.setRowSelectionInterval(0, 0);
+        this.setAutoCreateRowSorter(true);
     }
 
     class ShareTraderTableModel extends DefaultTableModel {

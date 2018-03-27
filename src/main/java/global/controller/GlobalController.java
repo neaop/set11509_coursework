@@ -1,5 +1,6 @@
 package global.controller;
 
+import broker.BrokerController;
 import global.model.ShareMonitor;
 import menu.MenuController;
 import share.ShareController;
@@ -16,6 +17,7 @@ public class GlobalController implements Observer {
     private ShareController shareController;
     private TrackController trackController;
     private TradeController tradeController;
+    private BrokerController brokerController;
     private ShareMonitor shareMonitor;
 
     public void runApplication() {
@@ -33,6 +35,9 @@ public class GlobalController implements Observer {
 
         tradeController = new TradeController();
         tradeController.addObserver(this);
+
+        brokerController = new BrokerController();
+        brokerController.addObserver(this);
 
         shareMonitor = new ShareMonitor();
 
@@ -78,7 +83,15 @@ public class GlobalController implements Observer {
         }
         if (arg == GlobalControlCodes.TRADE_CLOSE) {
             tradeController.closeView();
-//            menuController.showView();
+            menuController.showView();
+        }
+        if (arg == GlobalControlCodes.BROKER_OPEN) {
+            brokerController.initialiseController();
+            brokerController.showView();
+        }
+        if (arg == GlobalControlCodes.BROKER_CLOSE) {
+            brokerController.closeView();
+            menuController.showView();
         }
         shareMonitor.checkTrackedShares();
     }
