@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import global.controller.GlobalControlCodes;
 import global.view.ShareTraderTable;
 import global.view.View;
+import global.view.ViewStrings;
 import track.TrackErrorCodes;
 
 import javax.swing.*;
@@ -93,7 +94,7 @@ public class TrackView extends JDialog implements Observer, View {
     }
 
     private void populateTable(Vector shareData) {
-        Vector columns = global.view.ViewStrings.getShareColumnNames();
+        Vector columns = ViewStrings.getShareColumnNames();
         ((ShareTraderTable) tableShare).updateTable(shareData, columns);
     }
 
@@ -172,7 +173,6 @@ public class TrackView extends JDialog implements Observer, View {
         panel3.add(fieldMax, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
         contentPane.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        tableShare = new JTable();
         tableShare.setPreferredScrollableViewportSize(new Dimension(600, 35));
         tableShare.setShowVerticalLines(false);
         scrollPane1.setViewportView(tableShare);

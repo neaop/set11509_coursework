@@ -1,8 +1,8 @@
 package menu;
 
 import global.controller.Controller;
-import global.model.CurrentUser;
 import global.controller.GlobalControlCodes;
+import global.model.CurrentUser;
 import menu.view.MenuView;
 
 import java.awt.event.ActionEvent;
@@ -39,19 +39,23 @@ public class MenuController extends Observable implements Observer, Controller, 
 
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.LOG_OFF))) {
+        if (e.getActionCommand().equals(GlobalControlCodes.LOG_OFF.name())) {
             CurrentUser currentUser = CurrentUser.getInstance();
             currentUser.logoutUser();
             setChanged();
             notifyObservers(GlobalControlCodes.LOG_OFF);
         }
-        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.SHARE))) {
+        if (e.getActionCommand().equals(GlobalControlCodes.SHARE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.SHARE);
         }
-        if (e.getActionCommand().equals(String.valueOf(GlobalControlCodes.TRADE_OPEN))) {
+        if (e.getActionCommand().equals(GlobalControlCodes.TRADE_OPEN.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.TRADE_OPEN);
+        }
+        if (e.getActionCommand().equals(GlobalControlCodes.BROKER_OPEN.name())) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.BROKER_OPEN);
         }
     }
 

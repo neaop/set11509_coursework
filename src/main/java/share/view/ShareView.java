@@ -3,6 +3,7 @@ package share.view;
 import global.controller.GlobalControlCodes;
 import global.view.ShareTraderTable;
 import global.view.View;
+import global.view.ViewStrings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +39,7 @@ public class ShareView extends Observable implements Observer, View {
     }
 
     private void populateTable(Vector data) {
-        Vector columnNames = global.view.ViewStrings.getShareColumnNames();
+        Vector columnNames = ViewStrings.getShareColumnNames();
         ((ShareTraderTable) table).updateTable(data, columnNames);
     }
 
