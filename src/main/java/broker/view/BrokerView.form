@@ -27,6 +27,7 @@
                 <constraints/>
                 <properties>
                   <autoResizeMode value="4"/>
+                  <preferredScrollableViewportSize width="700" height="400"/>
                 </properties>
               </component>
             </children>

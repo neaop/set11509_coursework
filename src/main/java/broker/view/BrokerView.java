@@ -25,6 +25,7 @@ public class BrokerView extends JDialog implements View {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        this.pack();
     }
 
     private void populateTable(Vector data) {
@@ -76,7 +77,8 @@ public class BrokerView extends JDialog implements View {
         contentPane.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
         panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        table.setAutoResizeMode(0);
+        table.setAutoResizeMode(4);
+        table.setPreferredScrollableViewportSize(new Dimension(700, 400));
         scrollPane1.setViewportView(table);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridBagLayout());
