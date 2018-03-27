@@ -21,9 +21,11 @@ public class TradeModel extends Observable {
     }
 
     public void searchTrades(String fromDate, String tillDate, String companyCode) {
-        Vector trades = executeTradeSearch(fromDate, tillDate, companyCode);
-        setChanged();
-        notifyObservers(trades);
+        if (checkDateValues(fromDate) && checkDateValues(tillDate)) {
+            Vector trades = executeTradeSearch(fromDate, tillDate, companyCode);
+            setChanged();
+            notifyObservers(trades);
+        }
     }
 
     private Vector executeTradeSearch(String fromDate, String tillDate, String companyCode) {
@@ -97,7 +99,19 @@ public class TradeModel extends Observable {
         }
     }
 
-    public boolean isValidDate(String date) {
+    private boolean checkDateValues(String date) {
+        if (isNotEmpty(date)) {
+            if (!isValidDate(date)) {
+                setChanged();
+                notifyObservers(false);
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+
+    private boolean isValidDate(String date) {
         try {
             DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
             dateFormat.setLenient(false);
