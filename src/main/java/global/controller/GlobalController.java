@@ -4,6 +4,7 @@ import global.model.ShareMonitor;
 import menu.MenuController;
 import share.ShareController;
 import track.TrackController;
+import trade.TradeController;
 import user.UserController;
 
 import java.util.Observable;
@@ -14,7 +15,8 @@ public class GlobalController implements Observer {
     private MenuController menuController;
     private ShareController shareController;
     private TrackController trackController;
-    private ShareMonitor trackEngine;
+    private TradeController tradeController;
+    private ShareMonitor shareMonitor;
 
     public void runApplication() {
         userController = new UserController();
@@ -29,11 +31,13 @@ public class GlobalController implements Observer {
         trackController = new TrackController();
         trackController.addObserver(this);
 
+        tradeController = new TradeController();
+        tradeController.addObserver(this);
+
+        shareMonitor = new ShareMonitor();
+
         userController.initialiseController();
         userController.showView();
-
-        trackEngine = new ShareMonitor();
-
     }
 
     @Override
@@ -68,7 +72,15 @@ public class GlobalController implements Observer {
             trackController.closeView();
             shareController.showView();
         }
-        trackEngine.checkTrackedShares();
+        if (arg == GlobalControlCodes.TRADE_OPEN) {
+            tradeController.initialiseController();
+            tradeController.showView();
+        }
+        if (arg == GlobalControlCodes.TRADE_CLOSE) {
+            tradeController.closeView();
+//            menuController.showView();
+        }
+        shareMonitor.checkTrackedShares();
     }
 }
 

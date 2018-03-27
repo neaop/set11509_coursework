@@ -8,10 +8,12 @@ public enum GlobalControlCodes {
     LOG_IN,
     LOG_OFF,
     FAILED,
-    TRADE,
     SHARE,
     SHARE_CLOSE,
     TRACK_OPEN,
     TRACK_CLOSE,
-    TRACK_SHARE
+    TRACK_SHARE,
+    TRADE_OPEN,
+    TRADE_CLOSE,
+    TRADE_SEARCH
 }
