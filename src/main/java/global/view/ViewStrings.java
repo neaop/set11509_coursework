@@ -24,11 +24,23 @@ public class ViewStrings {
             "Broker"
     };
 
+    private static String[] brokerColumnNames = {
+            "Broker ID",
+            "Broker Name",
+            "Broker Contact",
+            "Broker Grade",
+            "Broker Expertise"
+    };
+
     public static Vector<String> getShareColumnNames() {
         return new Vector<>(Arrays.asList(shareColumnNames));
     }
 
     public static Vector<String> getTradeColumnNames() {
         return new Vector<>(Arrays.asList(tradeColumnNames));
+    }
+
+    public static Vector<String> getBrokerColumnNames() {
+        return new Vector<>(Arrays.asList(brokerColumnNames));
     }
 }
