@@ -3,7 +3,7 @@ package share;
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 import share.model.ShareModel;
-import share.view.NewShareView;
+import share.view.ShareView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +12,11 @@ import java.util.Vector;
 
 public class ShareController extends Observable implements Controller, ActionListener {
     private ShareModel shareModel;
-    private NewShareView shareView;
+    private ShareView shareView;
 
     public void initialiseController() {
         shareModel = new ShareModel();
-        shareView = new NewShareView();
+        shareView = new ShareView();
 
         linkMVC();
         setActionListeners();
@@ -57,7 +57,6 @@ public class ShareController extends Observable implements Controller, ActionLis
         if (e.getActionCommand().equals(GlobalControlCodes.SHARE_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.SHARE_CLOSE);
-            shareView.setVisible(false);
         }
     }
 }
