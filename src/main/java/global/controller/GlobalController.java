@@ -59,7 +59,6 @@ public class GlobalController implements Observer {
             userController.showView();
         }
         if (arg == GlobalControlCodes.SHARE) {
-            menuController.closeView();
             shareController.initialiseController();
             shareController.showView();
         }
@@ -68,7 +67,7 @@ public class GlobalController implements Observer {
             menuController.showView();
         }
         if ((arg == GlobalControlCodes.TRACK_OPEN)) {
-            shareController.closeView();
+//            shareController.closeView();
             trackController.setSelectedShare(shareController.getSelectedShare());
             trackController.initialiseController();
             trackController.showView();

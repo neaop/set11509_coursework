@@ -10,7 +10,7 @@ public class ShareTraderTable extends JTable {
     public void updateTable(Vector data, Vector columnNames) {
         TableModel tableModel = new ShareTraderTableModel(data, columnNames);
         this.setModel(tableModel);
-        this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.setSelectionModel(new ForcedListSelectionModel());
         this.setRowSelectionInterval(0, 0);
         this.setAutoCreateRowSorter(true);
     }
@@ -27,4 +27,18 @@ public class ShareTraderTable extends JTable {
         }
     }
 
+    class ForcedListSelectionModel extends DefaultListSelectionModel {
+
+        ForcedListSelectionModel() {
+            setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        }
+
+        @Override
+        public void clearSelection() {
+        }
+
+        @Override
+        public void removeSelectionInterval(int index0, int index1) {
+        }
+    }
 }

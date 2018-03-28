@@ -3,7 +3,7 @@ package share;
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 import share.model.ShareModel;
-import share.view.ShareView;
+import share.view.NewShareView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +13,11 @@ import java.util.Vector;
 
 public class ShareController extends Observable implements Observer, Controller, ActionListener {
     private ShareModel shareModel;
-    private ShareView shareView;
+    private NewShareView shareView;
 
     public void initialiseController() {
         shareModel = new ShareModel();
-        shareView = new ShareView();
+        shareView = new NewShareView();
 
         linkMVC();
         setActionListeners();
