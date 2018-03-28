@@ -8,11 +8,16 @@ import java.util.Vector;
 public class ShareTraderTable extends JTable {
 
     public void updateTable(Vector data, Vector columnNames) {
-        TableModel tableModel = new ShareTraderTableModel(data, columnNames);
-        this.setModel(tableModel);
-        this.setSelectionModel(new ForcedListSelectionModel());
-        this.setRowSelectionInterval(0, 0);
-        this.setAutoCreateRowSorter(true);
+        try {
+            TableModel tableModel = new ShareTraderTableModel(data, columnNames);
+            this.setModel(tableModel);
+            this.setSelectionModel(new ForcedListSelectionModel());
+            this.setRowSelectionInterval(0, 0);
+            this.setAutoCreateRowSorter(true);
+        } catch (IllegalArgumentException e) {
+            System.out.println("ShareTraderTable: No data to display");
+        }
+
     }
 
     class ShareTraderTableModel extends DefaultTableModel {
