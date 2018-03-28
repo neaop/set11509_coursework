@@ -68,12 +68,12 @@ public class TradeModel extends Observable {
     private String generateBaseQuery() {
         return ("SELECT t.trade_id, c.company_name, " +
                 "c.company_code, t.trade_date, t.trade_price, " +
-                "shs.stakeholder_name, shb.stakeholder_name, b.broker_name " +
+                "shs.shareholder_name, shb.shareholder_name, b.broker_name " +
                 "FROM trade t " +
                 "LEFT JOIN stake s ON t.trade_stake_id = s.stake_id " +
                 "LEFT JOIN company c ON s.stake_company_id = c.company_id " +
-                "LEFT JOIN stakeholder shs ON t.trade_seller_id = shs.stakeholder_id " +
-                "LEFT JOIN stakeholder shb ON t.trade_buyer_id = shb.stakeholder_id " +
+                "LEFT JOIN shareholder shs ON t.trade_seller_id = shs.shareholder_id " +
+                "LEFT JOIN shareholder shb ON t.trade_buyer_id = shb.shareholder_id " +
                 "LEFT JOIN broker b ON t.trade_broker_id = b.broker_id ");
     }
 
