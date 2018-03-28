@@ -1,4 +1,4 @@
-package global.controller;
+package global;
 
 public enum GlobalControlCodes {
     NO_SUCH_USER,

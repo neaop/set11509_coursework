@@ -2,7 +2,7 @@ package menu.view;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import global.controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import global.view.View;
 
 import javax.swing.*;

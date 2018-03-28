@@ -1,19 +1,20 @@
-package global.model;
+package alert;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
+import global.CurrentUser;
 
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ShareMonitor {
+public class AlertShareModel {
     private DatabaseConnector databaseConnection;
     private ArrayList<TrackedShare> trackedShares;
     private boolean updates;
 
-    public ShareMonitor() {
+    public AlertShareModel() {
         databaseConnection = new DatabaseConnection();
         trackedShares = new ArrayList<>();
     }
@@ -64,9 +65,9 @@ public class ShareMonitor {
             String shareCode = resultSet.getString(13);
 
             for (TrackedShare t : trackedShares) {
-                if (t.trackId == trackId) {
+                if (t.getTrackId() == trackId) {
                     added = true;
-                    if (t.trackLastValue != trackValue) {
+                    if (t.getTrackLastValue() != trackValue) {
                         t.setTrackLastValue(trackValue);
                         t.setUpdated(true);
                         updates = true;

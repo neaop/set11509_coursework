@@ -3,7 +3,7 @@ package user.view;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import global.controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import global.view.View;
 
 import javax.swing.*;

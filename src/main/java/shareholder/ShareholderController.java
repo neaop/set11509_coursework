@@ -1,7 +1,7 @@
 package shareholder;
 
 import global.controller.Controller;
-import global.controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import shareholder.model.ShareholderModel;
 import shareholder.view.ShareholderView;
 

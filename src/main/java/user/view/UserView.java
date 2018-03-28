@@ -1,6 +1,6 @@
 package user.view;
 
-import global.controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import global.view.View;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package trade;
 
 import global.controller.Controller;
-import global.controller.GlobalControlCodes;
+import global.GlobalControlCodes;
 import trade.model.TradeModel;
 import trade.view.TradeViewForm;
 

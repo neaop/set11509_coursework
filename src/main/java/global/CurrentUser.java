@@ -1,4 +1,4 @@
-package global.model;
+package global;
 
 public class CurrentUser {
     private int userId;
