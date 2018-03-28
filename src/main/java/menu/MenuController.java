@@ -3,7 +3,7 @@ package menu;
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 import global.model.CurrentUser;
-import menu.view.NewMenuView;
+import menu.view.MenuView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,10 +11,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MenuController extends Observable implements Observer, Controller, ActionListener {
-    private NewMenuView menuView;
+    private MenuView menuView;
 
     public void initialiseController() {
-        menuView = new NewMenuView();
+        menuView = new MenuView();
         addListeners();
     }
 
