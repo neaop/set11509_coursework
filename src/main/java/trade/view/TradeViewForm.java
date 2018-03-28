@@ -24,7 +24,7 @@ public class TradeViewForm implements View {
     private JTable table;
     private JPanel panel;
     private JTextField fieldBuyer;
-    private JTextField fieldSeller;
+    private JTextField fieldSellerBuyer;
     private JTextField fieldBroker;
 
 
@@ -74,13 +74,10 @@ public class TradeViewForm implements View {
         return fieldCompany.getText();
     }
 
-    public String getSellerValue() {
-        return fieldSeller.getText();
+    public String getSellerBuyerValue() {
+        return fieldSellerBuyer.getText();
     }
 
-    public String getBuyerValue() {
-        return fieldBuyer.getText();
-    }
 
     public String getBrokerValue() {
         return fieldBroker.getText();
@@ -161,8 +158,8 @@ public class TradeViewForm implements View {
         panel2.add(label3, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         fieldBuyer = new JTextField();
         panel2.add(fieldBuyer, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        fieldSeller = new JTextField();
-        panel2.add(fieldSeller, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        fieldSellerBuyer = new JTextField();
+        panel2.add(fieldSellerBuyer, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label4 = new JLabel();
         label4.setText("Buyer");
         panel2.add(label4, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

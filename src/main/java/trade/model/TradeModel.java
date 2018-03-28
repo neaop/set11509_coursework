@@ -21,20 +21,20 @@ public class TradeModel extends Observable {
     }
 
     public void searchTrades(String fromDate, String tillDate, String companyCode,
-                             String seller, String buyer, String broker) {
+                             String sellerBuyer, String broker) {
         if (checkDateValues(fromDate) && checkDateValues(tillDate)) {
-            Vector trades = executeTradeSearch(fromDate, tillDate, companyCode, seller, buyer, broker);
+            Vector trades = executeTradeSearch(fromDate, tillDate, companyCode, sellerBuyer, broker);
             setChanged();
             notifyObservers(trades);
         }
     }
 
     private Vector executeTradeSearch(String fromDate, String tillDate, String companyCode,
-                                      String seller, String buyer, String broker) {
+                                      String sellerBuyer, String broker) {
         ResultSet resultSet;
         Vector results = null;
         databaseConnection.connect();
-        String query = combineQuery(fromDate, tillDate, companyCode, seller, buyer, broker);
+        String query = combineQuery(fromDate, tillDate, companyCode, sellerBuyer, broker);
         try {
             resultSet = databaseConnection.query(query);
             results = processSearchResults(resultSet);
@@ -60,13 +60,11 @@ public class TradeModel extends Observable {
     }
 
     private String combineQuery(String fromDate, String tillDate, String companyCode,
-                                String seller, String buyer, String broker) {
+                                String sellerBuyer, String broker) {
         String query = generateBaseQuery();
         String whereCondition = generateDateCondition(fromDate, tillDate);
         String companyCondition = generateCompanyCondition(whereCondition, companyCode);
-//        String sellerCondition = generateSellerCondition(companyCondition, seller);
-//        String buyerCondition = generateBuyerCondition(sellerCondition, buyer);
-        String buyerSellerCondition = generateSellerBuyer(companyCondition, seller);
+        String buyerSellerCondition = generateSellerBuyer(companyCondition, sellerBuyer);
         String finalCondition = generateBrokerCondition(buyerSellerCondition, broker);
 
         return query += finalCondition;

@@ -22,9 +22,9 @@ public class TradeController extends Observable implements Controller, ActionLis
     }
 
     public void initialiseTable(String fromDate, String tillDate, String companyCode,
-                                 String seller, String buyer, String broker) {
+                                String sellerBuyer, String broker) {
         tradeModel.searchTrades(fromDate, tillDate, companyCode,
-                seller, buyer, broker);
+                sellerBuyer, broker);
 
     }
 
@@ -48,8 +48,7 @@ public class TradeController extends Observable implements Controller, ActionLis
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_SEARCH.name())) {
             tradeModel.searchTrades(tradeView.getFromValue()
                     , tradeView.getTillValue(), tradeView.getCompanyValue(),
-                    tradeView.getSellerValue(), tradeView.getBuyerValue(),
-                    tradeView.getBrokerValue());
+                    tradeView.getSellerBuyerValue(), tradeView.getBrokerValue());
         }
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_CLOSE.name())) {
             setChanged();
