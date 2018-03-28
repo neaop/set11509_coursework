@@ -57,6 +57,10 @@ public class MenuController extends Observable implements Observer, Controller, 
             setChanged();
             notifyObservers(GlobalControlCodes.BROKER_OPEN);
         }
+        if (e.getActionCommand().equals(GlobalControlCodes.SHAREHOLDER_OPEN.name())) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.SHAREHOLDER_OPEN);
+        }
     }
 
 }

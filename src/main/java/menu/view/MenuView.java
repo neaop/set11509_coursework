@@ -1,5 +1,7 @@
 package menu.view;
 
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import global.controller.GlobalControlCodes;
 import global.view.View;
 
@@ -15,6 +17,7 @@ public class MenuView implements View {
     private JButton buttonTrade;
     private JButton buttonLogoff;
     private JButton buttonBroker;
+    private JButton buttonShareholders;
 
     public MenuView() {
         frame = new JFrame("MenuView");
@@ -37,6 +40,7 @@ public class MenuView implements View {
         setShareButtonListener(actionListener);
         setTradeButtonListener(actionListener);
         setBrokerButtonListener(actionListener);
+        setShareholderButtonListener(actionListener);
     }
 
     private void setLogoffButtonListener(ActionListener actionListener) {
@@ -64,6 +68,12 @@ public class MenuView implements View {
         buttonBroker.setActionCommand(GlobalControlCodes.BROKER_OPEN.name());
     }
 
+    private void setShareholderButtonListener(ActionListener actionListener) {
+        System.out.println("MenuView: adding shareholder listener");
+        buttonShareholders.addActionListener(actionListener);
+        buttonShareholders.setActionCommand(GlobalControlCodes.SHAREHOLDER_OPEN.name());
+    }
+
     public void update(Observable o, Object arg) {
 
     }
@@ -84,84 +94,22 @@ public class MenuView implements View {
      */
     private void $$$setupUI$$$() {
         panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        buttonShare = new JButton();
-        buttonShare.setText("Shares");
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(buttonShare, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel.add(spacer2, gbc);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel.add(spacer3, gbc);
-        buttonTrade = new JButton();
-        buttonTrade.setText("Trades");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 4;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(buttonTrade, gbc);
-        final JPanel spacer4 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 5;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer4, gbc);
+        panel.setLayout(new GridLayoutManager(3, 7, new Insets(10, 10, 10, 10), -1, -1));
         buttonLogoff = new JButton();
         buttonLogoff.setText("Log Off");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 8;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(buttonLogoff, gbc);
-        final JPanel spacer5 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer5, gbc);
-        final JPanel spacer6 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 9;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer6, gbc);
-        final JPanel spacer7 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer7, gbc);
+        panel.add(buttonLogoff, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonShareholders = new JButton();
+        buttonShareholders.setText("Shareholders");
+        panel.add(buttonShareholders, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonBroker = new JButton();
         buttonBroker.setText("Brokers");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 6;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(buttonBroker, gbc);
-        final JPanel spacer8 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 7;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer8, gbc);
+        panel.add(buttonBroker, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonShare = new JButton();
+        buttonShare.setText("Shares");
+        panel.add(buttonShare, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonTrade = new JButton();
+        buttonTrade.setText("Trades");
+        panel.add(buttonTrade, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

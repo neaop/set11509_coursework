@@ -4,6 +4,7 @@ import broker.BrokerController;
 import global.model.ShareMonitor;
 import menu.MenuController;
 import share.ShareController;
+import shareholder.ShareholderController;
 import track.TrackController;
 import trade.TradeController;
 import user.UserController;
@@ -18,6 +19,7 @@ public class GlobalController implements Observer {
     private TrackController trackController;
     private TradeController tradeController;
     private BrokerController brokerController;
+    private ShareholderController shareholderController;
     private ShareMonitor shareMonitor;
 
     public void runApplication() {
@@ -38,6 +40,9 @@ public class GlobalController implements Observer {
 
         brokerController = new BrokerController();
         brokerController.addObserver(this);
+
+        shareholderController = new ShareholderController();
+        shareholderController.addObserver(this);
 
         shareMonitor = new ShareMonitor();
 
@@ -94,9 +99,18 @@ public class GlobalController implements Observer {
             brokerController.closeView();
             menuController.showView();
         }
+        if (arg == GlobalControlCodes.SHAREHOLDER_OPEN) {
+            menuController.closeView();
+            shareholderController.initialiseController();
+            shareholderController.showView();
+        }
+        if (arg == GlobalControlCodes.SHAREHOLDER_CLOSE) {
+            shareholderController.closeView();
+            menuController.showView();
+        }
     }
 
-    private void pollOnMenu(){
+    private void pollOnMenu() {
         menuController.showView();
         shareMonitor.checkTrackedShares();
     }
