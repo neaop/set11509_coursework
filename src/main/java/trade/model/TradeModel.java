@@ -64,9 +64,10 @@ public class TradeModel extends Observable {
         String query = generateBaseQuery();
         String whereCondition = generateDateCondition(fromDate, tillDate);
         String companyCondition = generateCompanyCondition(whereCondition, companyCode);
-        String sellerCondition = generateSellerCondition(companyCondition, seller);
-        String buyerCondition = generateBuyerCondition(sellerCondition, buyer);
-        String finalCondition = generateBrokerCondition(buyerCondition, broker);
+//        String sellerCondition = generateSellerCondition(companyCondition, seller);
+//        String buyerCondition = generateBuyerCondition(sellerCondition, buyer);
+        String buyerSellerCondition = generateSellerBuyer(companyCondition, seller);
+        String finalCondition = generateBrokerCondition(buyerSellerCondition, broker);
 
         return query += finalCondition;
     }
@@ -111,6 +112,17 @@ public class TradeModel extends Observable {
                     += String.format("AND shs.shareholder_name = '%s' ", seller);
         } else if (isNotEmpty(seller)) {
             return String.format("WHERE shs.shareholder_name = '%s' ", seller);
+        }
+        return currentCondition;
+    }
+
+
+    private String generateSellerBuyer(String currentCondition, String buyerSeller) {
+        if (isNotEmpty(currentCondition) && isNotEmpty(buyerSeller)) {
+            return currentCondition
+                    += String.format("AND shs.shareholder_name = '%s' OR shb.shareholder_name = '%s' ", buyerSeller, buyerSeller);
+        } else if (isNotEmpty(buyerSeller)) {
+            return String.format("WHERE shs.shareholder_name = '%s' OR shb.shareholder_name = '%s' ", buyerSeller, buyerSeller);
         }
         return currentCondition;
     }
