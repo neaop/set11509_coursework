@@ -4,7 +4,7 @@ import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 import user.model.LoginModel;
 import user.model.RegisterModel;
-import user.view.UserView;
+import user.view.NewUserView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +12,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class UserController extends Observable implements Observer, Controller, ActionListener {
-    private UserView userView;
+    private NewUserView userView;
     private LoginModel loginModel;
     private RegisterModel registerModel;
 
     public void initialiseController() {
         loginModel = new LoginModel();
         registerModel = new RegisterModel();
-        userView = new UserView();
+        userView = new NewUserView();
         linkMVC();
         setActionListeners();
     }
