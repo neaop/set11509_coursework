@@ -4,12 +4,15 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import global.controller.GlobalControlCodes;
+import global.view.ShareTraderTable;
 import global.view.View;
+import global.view.ViewStrings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.Vector;
 
 public class ShareholderView implements View {
     private JFrame frame;
@@ -34,17 +37,24 @@ public class ShareholderView implements View {
     }
 
     public void setActionListeners(ActionListener actionListener) {
-        setMenuButonListener(actionListener);
+        setMenuButtonListener(actionListener);
     }
 
-    private void setMenuButonListener(ActionListener actionListener) {
+    private void setMenuButtonListener(ActionListener actionListener) {
         System.out.println("ShareholderView: adding menu listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.SHAREHOLDER_CLOSE.name());
     }
 
-    public void update(Observable o, Object arg) {
+    private void populateTable(Vector data) {
+        Vector columnNames = ViewStrings.getShareholderColumnNames();
+        ((ShareTraderTable) table).updateTable(data, columnNames);
+    }
 
+    public void update(Observable o, Object arg) {
+        if (arg instanceof Vector) {
+            populateTable((Vector) arg);
+        }
     }
 
     {
@@ -86,5 +96,9 @@ public class ShareholderView implements View {
      */
     public JComponent $$$getRootComponent$$$() {
         return panel;
+    }
+
+    private void createUIComponents() {
+        table = new ShareTraderTable();
     }
 }

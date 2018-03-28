@@ -2,6 +2,7 @@ package shareholder;
 
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
+import shareholder.model.ShareholderModel;
 import shareholder.view.ShareholderView;
 
 import java.awt.event.ActionEvent;
@@ -10,10 +11,20 @@ import java.util.Observable;
 
 public class ShareholderController extends Observable implements Controller, ActionListener {
     private ShareholderView shareholderView;
+    private ShareholderModel shareholderModel;
 
     public void initialiseController() {
         shareholderView = new ShareholderView();
+        shareholderModel = new ShareholderModel();
+
+        linkMVC();
         setActionListeners();
+
+        shareholderModel.quereyShareHolders();
+    }
+
+    private void linkMVC() {
+        shareholderModel.addObserver(shareholderView);
     }
 
     private void setActionListeners() {

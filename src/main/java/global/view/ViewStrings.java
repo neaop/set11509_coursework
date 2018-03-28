@@ -32,6 +32,13 @@ public class ViewStrings {
             "Broker Expertise"
     };
 
+    private static String[] shareholderColumnNames = {
+            "Company Name",
+            "Company Code",
+            "Shareholder Name",
+            "Share Quantity"
+    };
+
     public static Vector<String> getShareColumnNames() {
         return new Vector<>(Arrays.asList(shareColumnNames));
     }
@@ -42,5 +49,9 @@ public class ViewStrings {
 
     public static Vector<String> getBrokerColumnNames() {
         return new Vector<>(Arrays.asList(brokerColumnNames));
+    }
+
+    public static Vector<String> getShareholderColumnNames() {
+        return new Vector<>(Arrays.asList(shareholderColumnNames));
     }
 }
