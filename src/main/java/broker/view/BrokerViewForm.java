@@ -48,7 +48,7 @@ public class BrokerViewForm implements View {
     private void addHistoryListener(ActionListener actionListener) {
         System.out.println("BrokerView: add history listener");
         buttonHistory.addActionListener(actionListener);
-        buttonHistory.setActionCommand(GlobalControlCodes.BROKER_TRADE.name());
+        buttonHistory.setActionCommand(GlobalControlCodes.BROKER_HISTORY.name());
     }
 
     public String getBrokerName() {

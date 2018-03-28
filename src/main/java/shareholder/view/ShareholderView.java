@@ -51,7 +51,7 @@ public class ShareholderView implements View {
     private void setHistoryButtonListener(ActionListener actionListener) {
         System.out.println("ShareholderView: adding history listener");
         buttonHistory.addActionListener(actionListener);
-        buttonHistory.setActionCommand(GlobalControlCodes.SHAREHOLDER_TRADE.name());
+        buttonHistory.setActionCommand(GlobalControlCodes.SHAREHOLDER_HISTORY.name());
     }
 
     public String getShareholderName() {

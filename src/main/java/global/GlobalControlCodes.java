@@ -1,13 +1,8 @@
 package global;
 
 public enum GlobalControlCodes {
-    NO_SUCH_USER,
-    INVALID_CREDENTIAL,
-    USER_EXISTS,
-    REGISTERED,
     LOG_IN,
     LOG_OFF,
-    FAILED,
     SHARE_OPEN,
     SHARE_CLOSE,
     TRACK_OPEN,
@@ -18,9 +13,9 @@ public enum GlobalControlCodes {
     TRADE_SEARCH,
     BROKER_OPEN,
     BROKER_CLOSE,
-    BROKER_TRADE,
+    BROKER_HISTORY,
     SHAREHOLDER_OPEN,
     SHAREHOLDER_CLOSE,
-    SHAREHOLDER_TRADE,
+    SHAREHOLDER_HISTORY,
     EXIT
 }

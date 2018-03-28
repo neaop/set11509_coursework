@@ -1,7 +1,7 @@
 package user;
 
-import global.controller.Controller;
 import global.GlobalControlCodes;
+import global.controller.Controller;
 import user.model.LoginModel;
 import user.model.RegisterModel;
 import user.view.NewUserView;
@@ -50,12 +50,12 @@ public class UserController extends Observable implements Observer, Controller, 
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.LOG_IN.name())) {
-            loginModel.authenticate(userView.getUserName()
-                    , userView.getUserPassword());
+            loginModel.authenticate(
+                    userView.getUserName(), userView.getUserPassword());
         }
-        if (e.getActionCommand().equals(GlobalControlCodes.REGISTERED.name())) {
-            registerModel.attemptRegisterUser(userView.getUserName()
-                    , userView.getUserPassword());
+        if (e.getActionCommand().equals(UserControlCodes.REGISTER.name())) {
+            registerModel.attemptRegisterUser(
+                    userView.getUserName(), userView.getUserPassword());
         }
         if (e.getActionCommand().equals(GlobalControlCodes.EXIT.name())) {
             setChanged();

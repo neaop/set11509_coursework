@@ -2,7 +2,7 @@ package user.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
-import global.GlobalControlCodes;
+import user.UserControlCodes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,18 +16,18 @@ public class RegisterModel extends Observable {
     }
 
     public void attemptRegisterUser(String userName, String userPassword) {
-        GlobalControlCodes result = GlobalControlCodes.FAILED;
+        UserControlCodes result;
 
         if (checkInvalidCredential(userName) || checkInvalidCredential(userPassword)) {
             System.out.println("RegisterModel: user credential invalid");
-            result = GlobalControlCodes.INVALID_CREDENTIAL;
+            result = UserControlCodes.INVALID_CREDENTIAL;
         } else if (checkUserExists(userName)) {
             System.out.println("RegisterModel: user already exists");
-            result = GlobalControlCodes.USER_EXISTS;
+            result = UserControlCodes.USER_EXISTS;
         } else {
             registerUser(userName, userPassword);
             System.out.println("RegisterModel: user added to database");
-            result = GlobalControlCodes.REGISTERED;
+            result = UserControlCodes.REGISTER;
         }
         setChanged();
         notifyObservers(result);

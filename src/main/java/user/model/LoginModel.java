@@ -4,6 +4,7 @@ import data.DatabaseConnection;
 import data.DatabaseConnector;
 import global.CurrentUser;
 import global.GlobalControlCodes;
+import user.UserControlCodes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public class LoginModel extends java.util.Observable {
     }
 
     public void authenticate(String name, String password) {
-        GlobalControlCodes result = GlobalControlCodes.FAILED;
+        Enum result;
         boolean userExists = false;
         try {
             userExists = checkValidUser(name, password);
@@ -29,7 +30,7 @@ public class LoginModel extends java.util.Observable {
             result = GlobalControlCodes.LOG_IN;
         } else {
             System.out.println("LoginModel: Username / Password not recognized");
-            result = GlobalControlCodes.NO_SUCH_USER;
+            result = UserControlCodes.NO_SUCH_USER;
         }
         setChanged();
         notifyObservers(result);

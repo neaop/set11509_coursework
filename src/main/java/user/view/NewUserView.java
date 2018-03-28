@@ -5,6 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import global.GlobalControlCodes;
 import global.view.View;
+import user.UserControlCodes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,15 +45,13 @@ public class NewUserView extends JDialog implements Observer, View {
     private void setLoginButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding login listener");
         buttonLogin.addActionListener(actionListener);
-        buttonLogin.setActionCommand(
-                String.valueOf(GlobalControlCodes.LOG_IN));
+        buttonLogin.setActionCommand(GlobalControlCodes.LOG_IN.name());
     }
 
     private void setRegisterButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding register listener");
         buttonRegister.addActionListener(actionListener);
-        buttonRegister.setActionCommand(
-                String.valueOf(GlobalControlCodes.REGISTERED));
+        buttonRegister.setActionCommand(UserControlCodes.REGISTER.name());
     }
 
     private void setExitButtonListener(ActionListener actionListener) {
@@ -71,7 +70,7 @@ public class NewUserView extends JDialog implements Observer, View {
 
     public void update(Observable o, Object arg) {
         System.out.println("UserView: " + arg);
-        switch ((GlobalControlCodes) arg) {
+        switch ((UserControlCodes) arg) {
             case NO_SUCH_USER:
                 showInvalidLogin();
                 break;
@@ -81,7 +80,7 @@ public class NewUserView extends JDialog implements Observer, View {
             case USER_EXISTS:
                 showInvalidRegister();
                 break;
-            case REGISTERED:
+            case REGISTER:
                 showValidRegister();
                 break;
         }

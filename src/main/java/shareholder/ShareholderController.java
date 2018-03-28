@@ -48,9 +48,9 @@ public class ShareholderController extends Observable implements Controller, Act
             setChanged();
             notifyObservers(GlobalControlCodes.SHAREHOLDER_CLOSE);
         }
-        if (e.getActionCommand().equals(GlobalControlCodes.SHAREHOLDER_TRADE.name())) {
+        if (e.getActionCommand().equals(GlobalControlCodes.SHAREHOLDER_HISTORY.name())) {
             setChanged();
-            notifyObservers(GlobalControlCodes.SHAREHOLDER_TRADE);
+            notifyObservers(GlobalControlCodes.SHAREHOLDER_HISTORY);
         }
     }
 }

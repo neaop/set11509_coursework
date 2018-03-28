@@ -47,9 +47,9 @@ public class BrokerController extends Observable implements Controller, ActionLi
             setChanged();
             notifyObservers(GlobalControlCodes.BROKER_CLOSE);
         }
-        if (e.getActionCommand().equals(GlobalControlCodes.BROKER_TRADE.name())) {
+        if (e.getActionCommand().equals(GlobalControlCodes.BROKER_HISTORY.name())) {
             setChanged();
-            notifyObservers(GlobalControlCodes.BROKER_TRADE);
+            notifyObservers(GlobalControlCodes.BROKER_HISTORY);
         }
     }
 }
