@@ -39,10 +39,18 @@ public class ShareholderController extends Observable implements Controller, Act
         shareholderView.closeView();
     }
 
+    public String getShareholder() {
+        return shareholderView.getShareholderName();
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.SHAREHOLDER_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.SHAREHOLDER_CLOSE);
+        }
+        if (e.getActionCommand().equals(GlobalControlCodes.SHAREHOLDER_TRADE.name())) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.SHAREHOLDER_TRADE);
         }
     }
 }

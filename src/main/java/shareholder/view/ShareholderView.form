@@ -16,12 +16,12 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="3486c" class="javax.swing.JButton" binding="buttonOK">
+          <component id="3486c" class="javax.swing.JButton" binding="buttonHistory">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="OK"/>
+              <text value="History"/>
             </properties>
           </component>
           <component id="216ad" class="javax.swing.JButton" binding="buttonMenu">

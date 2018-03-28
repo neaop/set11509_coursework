@@ -98,7 +98,6 @@ public class GlobalController implements Observer {
         }
         if (arg == GlobalControlCodes.BROKER_TRADE) {
             tradeController.initialiseController();
-            System.out.println(brokerController.getSelectedBroker());
             tradeController.initialiseTable("", "", "", "", brokerController.getSelectedBroker());
             tradeController.showView();
             brokerController.closeView();
@@ -112,6 +111,13 @@ public class GlobalController implements Observer {
             shareholderController.initialiseController();
             shareholderController.showView();
         }
+        if (arg == GlobalControlCodes.SHAREHOLDER_TRADE) {
+            tradeController.initialiseController();
+            tradeController.initialiseTable("", "", "", shareholderController.getShareholder(), "");
+            tradeController.showView();
+            shareholderController.closeView();
+        }
+
         if (arg == GlobalControlCodes.SHAREHOLDER_CLOSE) {
             shareholderController.closeView();
             menuController.showView();

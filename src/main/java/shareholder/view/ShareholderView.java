@@ -16,7 +16,7 @@ import java.util.Vector;
 
 public class ShareholderView implements View {
     private JFrame frame;
-    private JButton buttonOK;
+    private JButton buttonHistory;
     private JButton buttonMenu;
     private JTable table;
     private JPanel panel;
@@ -39,12 +39,23 @@ public class ShareholderView implements View {
 
     public void setActionListeners(ActionListener actionListener) {
         setMenuButtonListener(actionListener);
+        setHistoryButtonListener(actionListener);
     }
 
     private void setMenuButtonListener(ActionListener actionListener) {
         System.out.println("ShareholderView: adding menu listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.SHAREHOLDER_CLOSE.name());
+    }
+
+    private void setHistoryButtonListener(ActionListener actionListener) {
+        System.out.println("ShareholderView: adding history listener");
+        buttonHistory.addActionListener(actionListener);
+        buttonHistory.setActionCommand(GlobalControlCodes.SHAREHOLDER_TRADE.name());
+    }
+
+    public String getShareholderName() {
+        return (String) table.getValueAt(table.getSelectedRow(), 2);
     }
 
     private void populateTable(Vector data) {
@@ -76,9 +87,9 @@ public class ShareholderView implements View {
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(1, 3, new Insets(0, 0, 0, 0), -1, -1));
         panel.add(panel1, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        buttonOK = new JButton();
-        buttonOK.setText("OK");
-        panel1.add(buttonOK, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonHistory = new JButton();
+        buttonHistory.setText("OK");
+        panel1.add(buttonHistory, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonMenu = new JButton();
         buttonMenu.setText("Menu");
         panel1.add(buttonMenu, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
