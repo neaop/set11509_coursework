@@ -19,10 +19,9 @@ public class TradeController extends Observable implements Controller, ActionLis
 
         linkMVC();
         addActionListeners();
-        initialiseTable("", "", "", "", "", "");
     }
 
-    private void initialiseTable(String fromDate, String tillDate, String companyCode,
+    public void initialiseTable(String fromDate, String tillDate, String companyCode,
                                  String seller, String buyer, String broker) {
         tradeModel.searchTrades(fromDate, tillDate, companyCode,
                 seller, buyer, broker);

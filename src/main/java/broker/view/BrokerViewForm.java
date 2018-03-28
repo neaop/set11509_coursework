@@ -18,7 +18,7 @@ public class BrokerViewForm implements View {
     private JFrame frame;
     private JPanel contentPane;
     private JTable table;
-    private JButton buttonOK;
+    private JButton buttonHistory;
     private JButton buttonMenu;
 
     public BrokerViewForm() {
@@ -36,12 +36,23 @@ public class BrokerViewForm implements View {
 
     public void addActionListeners(ActionListener actionListener) {
         addCloseListener(actionListener);
+        addHistoryListener(actionListener);
     }
 
     private void addCloseListener(ActionListener actionListener) {
         System.out.println("BrokerView: add close listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.BROKER_CLOSE.name());
+    }
+
+    private void addHistoryListener(ActionListener actionListener) {
+        System.out.println("BrokerView: add history listener");
+        buttonHistory.addActionListener(actionListener);
+        buttonHistory.setActionCommand(GlobalControlCodes.BROKER_TRADE.name());
+    }
+
+    public String getBrokerName() {
+        return (String) table.getValueAt(table.getSelectedRow(), 1);
     }
 
     public void showView() {
@@ -81,9 +92,9 @@ public class BrokerViewForm implements View {
         panel1.add(buttonMenu, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        buttonOK = new JButton();
-        buttonOK.setText("OK");
-        panel1.add(buttonOK, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonHistory = new JButton();
+        buttonHistory.setText("History");
+        panel1.add(buttonHistory, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
         contentPane.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table.setPreferredScrollableViewportSize(new Dimension(750, 200));

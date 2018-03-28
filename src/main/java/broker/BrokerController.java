@@ -38,10 +38,18 @@ public class BrokerController extends Observable implements Controller, ActionLi
         brokerView.closeView();
     }
 
+    public String getSelectedBroker() {
+        return brokerView.getBrokerName();
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.BROKER_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.BROKER_CLOSE);
+        }
+        if (e.getActionCommand().equals(GlobalControlCodes.BROKER_TRADE.name())) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.BROKER_TRADE);
         }
     }
 }
