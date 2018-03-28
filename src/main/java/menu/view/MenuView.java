@@ -56,7 +56,7 @@ public class MenuView extends JDialog implements View {
     private void setShareButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding share listener");
         buttonShares.addActionListener(actionListener);
-        buttonShares.setActionCommand(GlobalControlCodes.SHARE.name());
+        buttonShares.setActionCommand(GlobalControlCodes.SHARE_OPEN.name());
     }
 
     private void setTradeButtonListener(ActionListener actionListener) {

@@ -58,23 +58,21 @@ public class GlobalController implements Observer {
             userController.initialiseController();
             userController.showView();
         }
-        if (arg == GlobalControlCodes.SHARE) {
+        if (arg == GlobalControlCodes.SHARE_OPEN) {
             shareController.initialiseController();
             shareController.showView();
         }
         if (arg == GlobalControlCodes.SHARE_CLOSE) {
+            shareMonitor.checkTrackedShares();
             shareController.closeView();
-            menuController.showView();
         }
         if ((arg == GlobalControlCodes.TRACK_OPEN)) {
-//            shareController.closeView();
             trackController.setSelectedShare(shareController.getSelectedShare());
             trackController.initialiseController();
             trackController.showView();
         }
         if (arg == GlobalControlCodes.TRACK_CLOSE) {
             trackController.closeView();
-            shareController.showView();
         }
         if (arg == GlobalControlCodes.TRADE_OPEN) {
             tradeController.initialiseController();
@@ -92,7 +90,6 @@ public class GlobalController implements Observer {
             brokerController.closeView();
             menuController.showView();
         }
-        shareMonitor.checkTrackedShares();
     }
 }
 

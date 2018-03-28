@@ -8,7 +8,7 @@ public enum GlobalControlCodes {
     LOG_IN,
     LOG_OFF,
     FAILED,
-    SHARE,
+    SHARE_OPEN,
     SHARE_CLOSE,
     TRACK_OPEN,
     TRACK_CLOSE,

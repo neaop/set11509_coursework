@@ -45,9 +45,9 @@ public class MenuController extends Observable implements Observer, Controller, 
             setChanged();
             notifyObservers(GlobalControlCodes.LOG_OFF);
         }
-        if (e.getActionCommand().equals(GlobalControlCodes.SHARE.name())) {
+        if (e.getActionCommand().equals(GlobalControlCodes.SHARE_OPEN.name())) {
             setChanged();
-            notifyObservers(GlobalControlCodes.SHARE);
+            notifyObservers(GlobalControlCodes.SHARE_OPEN);
         }
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_OPEN.name())) {
             setChanged();

@@ -8,10 +8,9 @@ import share.view.NewShareView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.Vector;
 
-public class ShareController extends Observable implements Observer, Controller, ActionListener {
+public class ShareController extends Observable implements Controller, ActionListener {
     private ShareModel shareModel;
     private NewShareView shareView;
 
@@ -50,14 +49,6 @@ public class ShareController extends Observable implements Observer, Controller,
         shareModel.getShareData();
     }
 
-    public void update(Observable o, Object arg) {
-        setChanged();
-        notifyObservers(arg);
-        if (arg == GlobalControlCodes.TRACK_CLOSE) {
-            this.showView();
-        }
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.TRACK_OPEN.name())) {
             setChanged();
@@ -66,6 +57,7 @@ public class ShareController extends Observable implements Observer, Controller,
         if (e.getActionCommand().equals(GlobalControlCodes.SHARE_CLOSE.name())) {
             setChanged();
             notifyObservers(GlobalControlCodes.SHARE_CLOSE);
+            shareView.setVisible(false);
         }
     }
 }
