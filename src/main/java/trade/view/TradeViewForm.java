@@ -23,6 +23,9 @@ public class TradeViewForm implements View {
     private JButton buttonSearch;
     private JTable table;
     private JPanel panel;
+    private JTextField fieldBuyer;
+    private JTextField fieldSeller;
+    private JTextField fieldBroker;
 
 
     public TradeViewForm() {
@@ -63,12 +66,24 @@ public class TradeViewForm implements View {
         return fieldFrom.getText();
     }
 
-    public String getTillVaule() {
+    public String getTillValue() {
         return fieldTill.getText();
     }
 
     public String getCompanyValue() {
         return fieldCompany.getText();
+    }
+
+    public String getSellerValue() {
+        return fieldSeller.getText();
+    }
+
+    public String getBuyerValue() {
+        return fieldBuyer.getText();
+    }
+
+    public String getBrokerValue() {
+        return fieldBroker.getText();
     }
 
     public void update(Observable o, Object arg) {

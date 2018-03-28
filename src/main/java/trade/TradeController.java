@@ -19,11 +19,13 @@ public class TradeController extends Observable implements Controller, ActionLis
 
         linkMVC();
         addActionListeners();
-        initialiseTable("", "", "");
+        initialiseTable("", "", "", "", "", "");
     }
 
-    public void initialiseTable(String fromDate, String tillDate, String companyCode) {
-        tradeModel.searchTrades(fromDate, tillDate, companyCode);
+    private void initialiseTable(String fromDate, String tillDate, String companyCode,
+                                 String seller, String buyer, String broker) {
+        tradeModel.searchTrades(fromDate, tillDate, companyCode,
+                seller, buyer, broker);
 
     }
 
@@ -46,7 +48,9 @@ public class TradeController extends Observable implements Controller, ActionLis
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_SEARCH.name())) {
             tradeModel.searchTrades(tradeView.getFromValue()
-                    , tradeView.getTillVaule(), tradeView.getCompanyValue());
+                    , tradeView.getTillValue(), tradeView.getCompanyValue(),
+                    tradeView.getSellerValue(), tradeView.getBuyerValue(),
+                    tradeView.getBrokerValue());
         }
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_CLOSE.name())) {
             setChanged();
