@@ -1,4 +1,4 @@
-import global.controller.GlobalController;
+import global.GlobalController;
 
 import java.sql.SQLException;
 

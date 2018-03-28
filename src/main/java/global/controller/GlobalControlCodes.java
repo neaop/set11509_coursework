@@ -19,5 +19,6 @@ public enum GlobalControlCodes {
     BROKER_OPEN,
     BROKER_CLOSE,
     SHAREHOLDER_OPEN,
-    SHAREHOLDER_CLOSE
+    SHAREHOLDER_CLOSE,
+    EXIT
 }

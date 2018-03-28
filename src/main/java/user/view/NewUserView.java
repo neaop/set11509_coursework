@@ -9,8 +9,6 @@ import global.view.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -20,19 +18,13 @@ public class NewUserView extends JDialog implements Observer, View {
     private JButton buttonRegister;
     private JTextField fieldName;
     private JPasswordField fieldPassword;
+    private JButton buttonExit;
 
     public NewUserView() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonLogin);
         pack();
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
     }
 
     public void showView() {
@@ -46,6 +38,7 @@ public class NewUserView extends JDialog implements Observer, View {
     public void setActionListeners(ActionListener actionListener) {
         setLoginButtonListener(actionListener);
         setRegisterButtonListener(actionListener);
+        setExitButtonListener(actionListener);
     }
 
     private void setLoginButtonListener(ActionListener actionListener) {
@@ -60,6 +53,12 @@ public class NewUserView extends JDialog implements Observer, View {
         buttonRegister.addActionListener(actionListener);
         buttonRegister.setActionCommand(
                 String.valueOf(GlobalControlCodes.REGISTERED));
+    }
+
+    private void setExitButtonListener(ActionListener actionListener) {
+        System.out.println("UserView: adding exit listener");
+        buttonExit.addActionListener(actionListener);
+        buttonExit.setActionCommand(GlobalControlCodes.EXIT.name());
     }
 
     public String getUserPassword() {

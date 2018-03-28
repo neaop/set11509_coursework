@@ -49,15 +49,17 @@ public class UserController extends Observable implements Observer, Controller, 
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(
-                String.valueOf(GlobalControlCodes.LOG_IN))) {
+        if (e.getActionCommand().equals(GlobalControlCodes.LOG_IN.name())) {
             loginModel.authenticate(userView.getUserName()
                     , userView.getUserPassword());
         }
-        if (e.getActionCommand().equals(
-                String.valueOf(GlobalControlCodes.REGISTERED))) {
+        if (e.getActionCommand().equals(GlobalControlCodes.REGISTERED.name())) {
             registerModel.attemptRegisterUser(userView.getUserName()
                     , userView.getUserPassword());
+        }
+        if (e.getActionCommand().equals(GlobalControlCodes.EXIT.name())) {
+            setChanged();
+            notifyObservers(GlobalControlCodes.EXIT);
         }
     }
 }

@@ -1,6 +1,7 @@
-package global.controller;
+package global;
 
 import broker.BrokerController;
+import global.controller.GlobalControlCodes;
 import global.model.ShareMonitor;
 import menu.MenuController;
 import share.ShareController;
@@ -107,6 +108,10 @@ public class GlobalController implements Observer {
         if (arg == GlobalControlCodes.SHAREHOLDER_CLOSE) {
             shareholderController.closeView();
             menuController.showView();
+        }
+        if (arg == GlobalControlCodes.EXIT){
+            userController.closeView();
+            System.exit(0);
         }
     }
 
