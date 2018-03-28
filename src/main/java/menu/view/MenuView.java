@@ -1,43 +1,35 @@
 package menu.view;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
 import global.controller.GlobalControlCodes;
 import global.view.View;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Observable;
 
-public class MenuView extends JDialog implements View {
-    private JPanel contentPane;
-    private JButton buttonShares;
-    private JButton buttonTrades;
-    private JButton buttonBrokers;
+public class MenuView implements View {
+    private JFrame frame;
+    private JPanel panel;
+    private JButton buttonShare;
+    private JButton buttonTrade;
     private JButton buttonLogoff;
+    private JButton buttonBroker;
 
     public MenuView() {
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonShares);
-        pack();
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        frame = new JFrame("MenuView");
+        frame.setContentPane(panel);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.pack();
     }
 
     public void showView() {
-        setVisible(true);
+        frame.setVisible(true);
     }
 
+    @Override
     public void closeView() {
-        dispose();
+        frame.dispose();
     }
 
     public void setActionListeners(ActionListener actionListener) {
@@ -55,20 +47,21 @@ public class MenuView extends JDialog implements View {
 
     private void setShareButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding share listener");
-        buttonShares.addActionListener(actionListener);
-        buttonShares.setActionCommand(GlobalControlCodes.SHARE_OPEN.name());
+        buttonShare.addActionListener(actionListener);
+        buttonShare.setActionCommand(GlobalControlCodes.SHARE_OPEN.name());
+
     }
 
     private void setTradeButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding trade listener");
-        buttonTrades.addActionListener(actionListener);
-        buttonTrades.setActionCommand(GlobalControlCodes.TRADE_OPEN.name());
+        buttonTrade.addActionListener(actionListener);
+        buttonTrade.setActionCommand(GlobalControlCodes.TRADE_OPEN.name());
     }
 
     private void setBrokerButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding broker listener");
-        buttonBrokers.addActionListener(actionListener);
-        buttonBrokers.setActionCommand(GlobalControlCodes.BROKER_OPEN.name());
+        buttonBroker.addActionListener(actionListener);
+        buttonBroker.setActionCommand(GlobalControlCodes.BROKER_OPEN.name());
     }
 
     public void update(Observable o, Object arg) {
@@ -90,32 +83,91 @@ public class MenuView extends JDialog implements View {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(1, 1, new Insets(10, 10, 10, 10), -1, -1));
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        contentPane.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, 1, null, null, null, 0, false));
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(1, 4, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.add(panel2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        buttonShares = new JButton();
-        buttonShares.setText("Shares");
-        panel2.add(buttonShares, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonTrades = new JButton();
-        buttonTrades.setText("Trades");
-        panel2.add(buttonTrades, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonBrokers = new JButton();
-        buttonBrokers.setText("Brokers");
-        panel2.add(buttonBrokers, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        buttonShare = new JButton();
+        buttonShare.setText("Shares");
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(buttonShare, gbc);
+        final JPanel spacer1 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(spacer1, gbc);
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel.add(spacer2, gbc);
+        final JPanel spacer3 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel.add(spacer3, gbc);
+        buttonTrade = new JButton();
+        buttonTrade.setText("Trades");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(buttonTrade, gbc);
+        final JPanel spacer4 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(spacer4, gbc);
         buttonLogoff = new JButton();
         buttonLogoff.setText("Log Off");
-        panel2.add(buttonLogoff, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 8;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(buttonLogoff, gbc);
+        final JPanel spacer5 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(spacer5, gbc);
+        final JPanel spacer6 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 9;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(spacer6, gbc);
+        final JPanel spacer7 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(spacer7, gbc);
+        buttonBroker = new JButton();
+        buttonBroker.setText("Brokers");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 6;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(buttonBroker, gbc);
+        final JPanel spacer8 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 7;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(spacer8, gbc);
     }
 
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return contentPane;
+        return panel;
     }
 }

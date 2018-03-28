@@ -3,7 +3,7 @@ package track;
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 import track.model.TrackModel;
-import track.view.TrackView;
+import track.view.NewTrackView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +14,12 @@ import java.util.Vector;
 public class TrackController extends Observable implements
         Controller, ActionListener, Observer {
     private TrackModel trackModel;
-    private TrackView trackView;
+    private NewTrackView trackView;
     private Vector selectedShare;
 
     public void initialiseController() {
         trackModel = new TrackModel();
-        trackView = new TrackView();
+        trackView = new NewTrackView();
         linkMVC();
         setListeners();
         trackModel.setShareInfo(selectedShare);

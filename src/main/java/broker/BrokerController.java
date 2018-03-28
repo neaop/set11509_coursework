@@ -1,7 +1,7 @@
 package broker;
 
 import broker.model.BrokerModel;
-import broker.view.BrokerView;
+import broker.view.BrokerViewForm;
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 
@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 
 public class BrokerController extends Observable implements Controller, ActionListener {
-    private BrokerView brokerView;
+    private BrokerViewForm brokerView;
     private BrokerModel brokerModel;
 
     public void initialiseController() {
-        brokerView = new BrokerView();
+        brokerView = new BrokerViewForm();
         brokerModel = new BrokerModel();
 
         linkMVC();

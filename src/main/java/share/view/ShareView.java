@@ -12,7 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-public class ShareView extends Observable implements Observer, View {
+public class ShareView implements Observer, View {
     private JFrame frame;
     private JPanel panel;
     private JTable table;
