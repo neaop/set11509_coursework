@@ -3,7 +3,7 @@ package trade;
 import global.controller.Controller;
 import global.controller.GlobalControlCodes;
 import trade.model.TradeModel;
-import trade.view.TradeView;
+import trade.view.TradeViewForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,11 +11,11 @@ import java.util.Observable;
 
 public class TradeController extends Observable implements Controller, ActionListener {
     private TradeModel tradeModel;
-    private TradeView tradeView;
+    private TradeViewForm tradeView;
 
     public void initialiseController() {
         tradeModel = new TradeModel();
-        tradeView = new TradeView();
+        tradeView = new TradeViewForm();
 
         linkMVC();
         addActionListeners();
