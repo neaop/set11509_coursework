@@ -1,22 +1,16 @@
 ﻿SET11509 Coursework
 
-5000-8000 words
-
-Abstract
-	Report cross-section 
 
 Introduction
-	Describe coursework and report structure
-
 The purpose of this report is to document and evaluate the processes and techniques utilised in the construction of a component based Share Trader desktop application.
 The Share Trader system is a prototype application that aims to aggregate and display information relating to shares, trades, shareholders, brokers, etc. in a single, easy to use application.
 The caveat of developing such as system is that it must be constructed using software components – software parts(?) that are reusable or modular in their development and operation.
 This report documents how software components were identified, modified and combined to construct the Share Trader system – an evaluation of the process and techniques is also provided.
 
 
-Component Mining
-	Identify usable components from legacy code and convert to Java Beans
+Methodology
 
+Component Mining
 When undertaking a Component Based Software Engineering (CBSE) project, the process of identifying potentially usable software components is often referred to as Component mining.
 Component Mining consists of aggregating units of existing software from multiple sources, giving a developer access to to range of features that they can then quickly combine into a finished system.
 
@@ -33,15 +27,79 @@ The legacy system’s GUI consisted of a main menu featuring a number of buttons
 The intuitive nature of the menu system made it an ideal component to utilise in the new Share trader system – which would also consist of a number features that a user would have to navigate between.
 
 Display forms
-When one of the legacy system’s menu buttons was clicked, a new GUI form 
+When one of the legacy system’s menu buttons was clicked, a new GUI form would open to display data and interactive elements to the user.
+While the business logic of these forms would be incompatible with the Share Trader system, the tables used to display data, the text fields used for user input, and the buttons utilised to submit searches and close the forms could be altered to work with the new system.
 
-MVC is a programming design pattern that separates the business logic (model) and UI (view) of a system away from one an other, and a third controller system is utilised to mediate and allow for communication between the model and view. 
+Database Connector
+Apart from the GUI elements, the legacy system also featured an interface which defined the methods required to connect to a database. While the legacy system’s concrete implementations would not be reusable – the database connection interface could be used to implement a new database connection in the Share Trader system.
+
+Previous Projects
+Database property system
+A previous data analysis project completed by the the author (?) utilised  property files to augment and control access to a database, without the need to alter or recompile source code. This component would allow the Share Trader system to access different databases as required, or allow a developer to connect to a one database for testing and another for deployment.
+
+Open-source libraries
+Software components are often published as stand-alone libraries, which can be added to a project Class path and incorporated into the system. One such library that was considered in this project was the JDatePicker – a GUI component that creates a interactive calendar, allowing a user to select a date. This component was considered as the project brief stated that users would be able to search and sort trading information based on certain criteria – date included. By utilising a pre existing date picker, development and testing time could be saved.
+
+Component Adaptation
+In order to comply with the project specification, the  Share Trader system had to be constructed with reusable components that were JavaBean compliant. This meant that the potential components identified during Component Mining process.
+
+JavaBeans
+A JavaBean is a class that complies to a standardised convention, meaning that a system that is aware of said class’s parameters can automate the instantiation of the class and it’s parameters. A JavaBean can also have its current state serialised and saved – allowing a program to be paused entirely and restored without hindrance.
+In order for a class to be considered a JavaBean, it must comply with the following:
+Have a zero argument constructor
+Provide property access via getters and setters
+Be serialisable
+
+All the previously identified components, bar the JdatePicker, had their sourcecode available, meaning that the requisite changes could be made to ensure their compliance with the JavaBean standard.
+
+Model View Controller
+Taking further insperation from the legacy system, and to ensure reusablilty, it was opted to develop the system using the Model View Controller (MVC) design pattern.
+
+MVC is a programming  pattern that separates the business logic (model) and UI (view) of a system away from one an other, while a third controller element is utilised to mediate and allow for communication between the model and view. 
 
 MVC allows for UI and logic components to be developed individually from one another as entirely separate reusable components.
 The benefit of constructing a program using the MVC  design pattern is that it allows for the different MVC elements to be substituted for one another - for instance a text based UI could be swapped for a graphical alternative, providing it implemented the same required methods.
+It also allows for the model elements to be altered should the business logic of a system change, without any adjustments being made to the view or controller subsystems.
 
-Apart from the GUI elements, the legacy system also featured an interface which defined the methods required to connect to a database. While the legacy system’s concrete implementations would not be reusable – the database connection interface could be used to implement a new database connection in the Share Trader system.
+Model
+In an MVC designed system, models handle the logic operations of the program. In order for a model to be reusable, it cannot rely on specific instances of controller or view subsystems. In order to comply with the system specification all of the models utilised in the Share Trader system where implemented using the Observer design pattern –  making it so a subject (model) can inform any observers (view or controller) without needing any prior knowledge of how said observer operates.
+By implementing each model using Java’s inbuilt obseravable subclass, and having each model’s controller linking it to a relvant view – it was possible to develop each element of the Share Traders business logic atomicly – without any reliance on other models, views or controllers.
+By deveoping each model in this modular style it means that any aspect of the business logc for the system can be reused in a future implementation or rewritten without affecting any other part of the program.
 
+View
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Introduction
+Method
+Evaluation
+Results
+Conclusion
+
+
+5000-8000 words
+
+Abstract
+	Report cross-section 
+
+Introduction
+	Describe coursework and report structure
+
+Component Mining
+	Identify usable components from legacy code and convert to Java Beans
 
 Component Selection
 	Design system using mined components – at least 3
