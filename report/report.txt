@@ -1,0 +1,63 @@
+﻿SET11509 Coursework
+
+5000-8000 words
+
+Abstract
+	Report cross-section 
+
+Introduction
+	Describe coursework and report structure
+
+The purpose of this report is to document and evaluate the processes and techniques utilised in the construction of a component based Share Trader desktop application.
+The Share Trader system is a prototype application that aims to aggregate and display information relating to shares, trades, shareholders, brokers, etc. in a single, easy to use application.
+The caveat of developing such as system is that it must be constructed using software components – software parts(?) that are reusable or modular in their development and operation.
+This report documents how software components were identified, modified and combined to construct the Share Trader system – an evaluation of the process and techniques is also provided.
+
+
+Component Mining
+	Identify usable components from legacy code and convert to Java Beans
+
+When undertaking a Component Based Software Engineering (CBSE) project, the process of identifying potentially usable software components is often referred to as Component mining.
+Component Mining consists of aggregating units of existing software from multiple sources, giving a developer access to to range of features that they can then quickly combine into a finished system.
+
+Components can be sourced from previous projects, open-source code repositories, or stand-alone libraries. Having access to a wide range of components can allow a prototype system to be quickly assembled and tested to prove a concept.
+
+Legacy System
+The source files to a legacy system were provided from which potential components could be identified and possibly incorporated into the Share Trader system.
+The legacy code was an implementation of  E-Store system and while the business logic of the legacy system was not reusable – much of the graphical user interface (GUI) had the potential to be reimplement as part of the new Share Trader system.
+
+The legacy system consisted of a number of GUI forms that were populated with information stored in a database.
+
+Main menu
+The legacy system’s GUI consisted of a main menu featuring a number of buttons – each which opened a new window to provide access to a different E-Store feature; such as inventory management, delivery status, customer financial status, etc.
+The intuitive nature of the menu system made it an ideal component to utilise in the new Share trader system – which would also consist of a number features that a user would have to navigate between.
+
+Display forms
+When one of the legacy system’s menu buttons was clicked, a new GUI form 
+
+MVC is a programming design pattern that separates the business logic (model) and UI (view) of a system away from one an other, and a third controller system is utilised to mediate and allow for communication between the model and view. 
+
+MVC allows for UI and logic components to be developed individually from one another as entirely separate reusable components.
+The benefit of constructing a program using the MVC  design pattern is that it allows for the different MVC elements to be substituted for one another - for instance a text based UI could be swapped for a graphical alternative, providing it implemented the same required methods.
+
+Apart from the GUI elements, the legacy system also featured an interface which defined the methods required to connect to a database. While the legacy system’s concrete implementations would not be reusable – the database connection interface could be used to implement a new database connection in the Share Trader system.
+
+
+Component Selection
+	Design system using mined components – at least 3
+	Justify
+
+Component Adaptation
+	How did components have to adjusted to operate
+
+Component Integration
+	The completed system
+
+Testing
+	Techniques and methods used
+
+Evaluation
+	Quality of system
+
+Conclusion
+	Closing words
