@@ -40,6 +40,25 @@ A previous data analysis project completed by the the author (?) utilised  prope
 Open-source libraries
 Software components are often published as stand-alone libraries, which can be added to a project Class path and incorporated into the system. One such library that was considered in this project was the JDatePicker – a GUI component that creates a interactive calendar, allowing a user to select a date. This component was considered as the project brief stated that users would be able to search and sort trading information based on certain criteria – date included. By utilising a pre existing date picker, development and testing time could be saved.
 
+Component Selection
+From the previously mentioned components identified in the during the component mining process, the following were utilised in the final system:
+Database connection Interface
+Database connection manager
+JdatePicker
+GUI layout and components
+
+The justification for each is described;
+The database connection interface not only provided sensible methods but also allows a system to take advantage of the Object Orientated (OO) principal of polymorphism – allowing a differing implementation of the interface to be substituted for one another. In the case of the Share Trader system, the database connection interface was implemented as a MySQL connection, but implementations for any kind of data persistence system could be implemented quickly and chosen at run time by utilising the existing database connection interface.
+
+The database connection manager was selected for use in this system primarily for development reasons. The database management system allows users to utilise a configuration (config) file to define the address, user, and password needed to connect to a database. As the Share Trader system was being developed across multiple devices each with a differing database setup, the database management system allowed the system to function by simply editing it’s config file, rather than its source-code.
+The Database management system also has the benefit of allowing a user to define a primary and secondary database to which they can connect. This can prove useful when testing a system, as it can connect to a database set up as a testing environment, rather than performing potentially devastating operations upon the data required for final deployment and operation.
+
+The JDatePicker is an Open-source component that allows a user to select a date using a simple, clickable pop-up calendar. The JDatePicker has been developed using Java Swing components – meaning it is compatible with the other UI elements that were mined from the legacy systems codebase. The JDatePicker's implementation has been completed using the MVC pattern – this ensures the components compatibility with the rest of the Share Trader system and allows for some slight customisation for it to better match the specification of the system. One such alteration that the JDatePicker offers is the ability to return selected dates in the SQL query format – ideal for the proposed implementation of the Share Trader system.
+Another benefit of the JDatePicker is that the author of the component has thoroughly tested and verified that the widget is working correctly. These verifiable tests reduce the time required to test the new Share Trader system as there is no need to retest a component that has already been tested(?).
+
+The legacy system provided a substantial amount of inspiration of how the new Share Trader system should be implemented. The simple and intuitive design of the legacy system’s main menu can provide a foundation for the Share Trader system – provided a few minor amendments are made to the labelled buttons. Similar adjustments can be made to the forms used to display information tables.
+By reusing existing components from the legacy system, a substantial amount of development time can be saved – utilising the work of others can greatly reduce the pressure of development by reducing the amount of responsibility on a single person or team.
+
 Component Adaptation
 In order to comply with the project specification, the  Share Trader system had to be constructed with reusable components that were JavaBean compliant. This meant that the potential components identified during Component Mining process.
 
@@ -50,10 +69,10 @@ Have a zero argument constructor
 Provide property access via getters and setters
 Be serialisable
 
-All the previously identified components, bar the JdatePicker, had their sourcecode available, meaning that the requisite changes could be made to ensure their compliance with the JavaBean standard.
+All the previously identified components, bar the JdatePicker, had their source-code available, meaning that the requisite changes could be made to ensure their compliance with the JavaBean standard.
 
 Model View Controller
-Taking further insperation from the legacy system, and to ensure reusablilty, it was opted to develop the system using the Model View Controller (MVC) design pattern.
+Taking further inspiration from the legacy system, and to ensure re-usability, it was opted to develop the system using the Model View Controller (MVC) design pattern.
 
 MVC is a programming  pattern that separates the business logic (model) and UI (view) of a system away from one an other, while a third controller element is utilised to mediate and allow for communication between the model and view. 
 
@@ -63,23 +82,73 @@ It also allows for the model elements to be altered should the business logic of
 
 Model
 In an MVC designed system, models handle the logic operations of the program. In order for a model to be reusable, it cannot rely on specific instances of controller or view subsystems. In order to comply with the system specification all of the models utilised in the Share Trader system where implemented using the Observer design pattern –  making it so a subject (model) can inform any observers (view or controller) without needing any prior knowledge of how said observer operates.
-By implementing each model using Java’s inbuilt obseravable subclass, and having each model’s controller linking it to a relvant view – it was possible to develop each element of the Share Traders business logic atomicly – without any reliance on other models, views or controllers.
-By deveoping each model in this modular style it means that any aspect of the business logc for the system can be reused in a future implementation or rewritten without affecting any other part of the program.
+By implementing each model using Java’s inbuilt observable subclass, and having each model’s controller linking it to a relevant view – it was possible to develop each element of the Share Traders business logic atomicity – without any reliance on other models, views or controllers.
+By developing each model in this modular style it means that any aspect of the business logic for the system can be reused in a future implementation or rewritten without affecting any other part of the program.
 
 View
+Baring the main menu and login forms, the views to be used in the Share Trader system were all similar in style – featuring a table to display relevant data and a button to navigate back to the main menu. While some of the views required additional components ; such as text input fields or additional buttons, the basic table and button UI was used as a base, and the additional components were added as needed.
+JetBrains IntelliJ Idea features an inbuilt Java Swing GUI creation tool that allowed the UI components from the previous system to be quickly converted into MVC views, and additional UI components (such as additional buttons or text fields) could be added as were needed.
+
+All the views also implemented the Java Observer interface. This interface allows the views to receive data from the  models, without the need of linking them at compile time. This use of the Observer pattern allows a single view to be attached to multiple models, for instance; the view used by users to log in or register an account is attached to two models, one which handles all the login operations and another that handles registering new users. The observer and MVC patterns ensure that both the logic and UI elements of the system are not reliant on one another and are thus reusable components.
+
+Controller
+Each view requires a separate controller class that is used to bind the request model(s) to its view. In the Share Trader system the controller class is used to instantiate, link the models to their view, and mediates this connection by extracting data from the view when required and passing it to the model. The MVC system makes means each view with its controller and model is intendant from another – meaning these modules of logic and UI can be swapped for replacements or used in a different application. 
+MVC allows for dependencies to be injected at runtime, meaning that multiple views or models can all be combined, and only the required system will be linked and usable during deployment. This can be particularly useful if the system has to cater to multiple tiers of users – such as regular customers and system administrators in the case of the Share Trader application.
+Each of the controllers in the Share Trader system was implemented as an Observable class (much like the models). This was done so that a single, global controller could observe each module, and pass or remove control from them as required. The Global controller acts as a bridge between each of the system modules, mediating and binding them into a coherent program.
+
+The legacy systems Database connection interface required no adaptation to be incorporated into the new Share Trader system – the Database management system taken from a previous personal project did require some alterations however. The database management system had been previously in an MVC designed project, but it did not contain the same method definitions that were expressed by the legacy system’s database connection interface. It was simple task to refactor the Database Management systems method names and signatures to so that it could be considered an instance of the Database connector.
+
+As previously stated, the GUI forms from the Legacy system adapted into stand-alone view components – that is to say that all system logic was removed from the classes and the IntelliJ UI builder was used to fashion them into stand-alone beans. 
+Additional the JTable class used to display data in a tabular format was extended into its own custom component. This was done as the Share Trader system would contain multiple forms used to display the results of database queries – by converting the JTable to its own custom component it removed the need to instantiate and link the multiple subclasses needed to ensure the tables would behave correctly and consistently across the system.
+
+Finally the JDatePicker component required no adaption for it to integrate with the new system. Due to it being developed with Java Swing components and in the style of the MVC design pattern the JDatePicker could be attached to any view via the IntelliJ Idea UI builder tool.
+
+Due to fact the legacy system’s source code was available, it was possible to make the required amendments directly to the class as required. This is a preferable method of adaption, as other methods such as bridging and mediation can often lead to unwanted features of a class being accessible or leading to bugs and unspecified functionality.
 
 
+Component Integration
+Once components had been identified, adapted and converted into javaBeans and MVC elements the construction of the system proper could begin.
+ 
+In order to ensure the system comprised of reusable components, each section or module of the Share Trader system was developed in isolation from the rest of the system. This was done to ensure  each component had no reliance on any other – forcing the MVC, component design paradigms.
+Independent Git branches were created for each system module (view, controller, and relevant models) to ensure no accidental dependencies to other modules were created during the development process.
 
+Each system module was developed by using a similar process, starting with the base view component that was mined from the legacy system. If the view required additional components other than the default JTable and close button, theses were added via the IntelliJ UI builder. An example of a view that required additional editing was the view used to display trading history – which featured a number of JTextFields a user could use to enter search parameters.
 
+Once a system module’s view was constructed, the requisite controller class was built. All the controllers in the Share Trader system (barring the global controller) extended the Observable class and implemented the ActionListener interface. The reason controllers were made observable was so that any information regarding the current focus of the Share Trader system could be passed back to the global controller for processing. 
+The ActionListener interface allowed the controller classes to process any user interactions with the conjoined view. Whenever a user interacts with a UI component in a view – such as a JButton or JTable – the controller will be informed of the interaction and pass any required data either to the Global Controller or to a model bundled as part of the same system module.
+By having the controller modules implement the ActionListener interface, the overall complexity of each system module was greatly reduced – as it was no longer required to create a controller class for individual, interact-able component of a view, in the same manner some traditional MVC patterns are implemented.
+The final element of each system module to be developed was the model. Depending on the component, multiple MVC models were required to implement all the required business logic – one example is the module used by users to register accounts or login to the system, which featured two models in order to deliver said functionality.
+Each model in the share trader system extends the Observable interface. This is required so that the model can pass any required data (such as MySQL query results) to a view without a direct reference.
+Other than extending the same superclass, the individual models bared very little resemblance to one another, as each implemented a unique piece of business logic required by the Share Trader system.
 
+Once the individual MVC elements for a component were constructed, they were instantiated and linked via the modules controller class. The benefits of developing a system via MVC have already been discussed extensively, but it is worth highlighting an advantage of the design pattern is that if any of a system module’s elements  required alterations, they could be made without the need to modify any other classes.
 
+A global controller class was created to instantiate and observe each individual system modules. This global controller acts as mediator between the other MVC modules, passing required data and showing and closing UI forms as required.
+As each MVC module implements a common interface, the global controller consists of a simple switch to handle incoming and outgoing events from the other modules.
 
+Testing
+Testing is crucial stage in the development of any system. Testing ensures the the program being developed not only functions without error but also matches its design specification. A number of testing and debugging techniques were utilised to ensure the new Share Trader system was implemented correctly.
 
+Testing preparation
+In an ideal scenario, a system’s testing would be conducted by a third party in order to prevent creators bias from affecting the quality or thoroughness of test – this was not possible due to the nature of the project, thus all tests were conducted by the author.
 
+The following testing techniques were utilised to ensure system performance;
+Unit testing – ensuring that an individual component or module function correctly.
+Integration testing – testing that multiple, joined components function correctly.
+Validation testing – ensuring the combined system meets all the specified requirements.
 
+Unit testing
+Unit testing is where individual classes or modules of a system are tested and examined to ensure correct functionality. As the Share Trader system was developed in component, and MVC styles the process of unit testing came very naturally to this project.
+Once each element of a MVC module was completed, a simple testing wrapper was developed  using the JUnit test framework to ensure there was no interface mismatches or unintended features.
 
+Depending on the class, an automated JUnit test could not always be written – such as the JavaSwing UI components. Due to the nature of MVC no operational code was contained within any of the UI classes, making it a trivial task to use front-end testing and print-line debugging to ensure buttons and UI components were making the correct system calls.
 
+A second area of the system that was not suitable for automated unit testing was the MySQL database queries. The Share Trader system mainly operates by issuing queries to a database and displaying the results in an appropriate format. Unfortunately, the process required to create automated tests for MySQL commands in a Java environment is highly convoluted, requiring the creation of a proxy database to receive and reply to queries – which was considered outwit the scope of this project. In order to ensure that the MySQL queries were correctly formatted each was written and tested in the MySQL Workbench application. Once it was verified that each query was correctly returning the expected results it was converted to a method in the appropriate model class.
 
+Integration testing
+Once a component has been thoroughly unit tested, it can be linked to other system components or modules and integration testing can begin. Integration testing is the process of ensuring linked systems or components are behaving as expected. If component's interfaces and methods have been well designed and thought unit tests has taken place there should be a minimal chance for unintended behave to occur once systems are linked – nonetheless it is crucial to perform integration system on every software system.
+For the Share Trader system, integration testing was performed by adding unit tested modules to the global controller class and ensuring the correct system calls were made when each subsystem was instantiated, shown, and closed.
+Due to the unit testing performed previously, the integration testing revealed very few bugs or unintended features in the system. This can be credited to the effort spent during the component creation stage of the project – leading to class of a simple design, with little room for unintended functions.
 
 
 
