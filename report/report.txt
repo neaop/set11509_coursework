@@ -67,7 +67,7 @@ A JavaBean is a class that complies to a standardised convention, meaning that a
 In order for a class to be considered a JavaBean, it must comply with the following:
 Have a zero argument constructor
 Provide property access via getters and setters
-Be serialisable
+Be serializable
 
 All the previously identified components, bar the JdatePicker, had their source-code available, meaning that the requisite changes could be made to ensure their compliance with the JavaBean standard.
 
@@ -175,9 +175,9 @@ Method Evaluation
 The development process of the share trader system utilised a number of software engineering methods and techniques to ensure a stable and error free component  based system was produced.
 Component Mining
 
-Reusing prewritten source-code or existing libraries when building a software system can significantly reduce the time requierd both during the development and implementation stages, as well as the testing phases of the project.
+Reusing pre-written source-code or existing libraries when building a software system can significantly reduce the time required both during the development and implementation stages, as well as the testing phases of the project.
 
-The specification for this project stated that it must contain components taken from the legacy system’s codebase. This step was somewhat unnecassyr for a project of this scale and simplicity, as time used scouring the legacy codebase for usable   and scalable code snippets might have been better utilised in other areas of this project.
+The specification for this project stated that it must contain components taken from the legacy system’s codebase. This step was somewhat unnecessary for a project of this scale and simplicity, as time used scouring the legacy codebase for usable   and scalable code snippets might have been better utilised in other areas of this project.
 
 One of the issues caused by forced code reuse is that it can obligate the use of a particular technology or library that may not be suitable for the project. An example of this would be the reuse of the legacy system’s UI elements forcing the use of Java Swing, a tool which has become steadily less popular due to the rise of newer, more feature rich UI tools such as Spring or JavaFX. While Swing is not entirely unsuitable choice for the production of a prototype system, it does come with a substantial overhead in terms of boilerplate code.
 
@@ -188,14 +188,14 @@ Component Adaptation
 For the Share Trader system the adaptation of components was a simple process, due to having direct access to components source-code. It can often be the case when building a system from existing components that an interface mismatch can occur. Interface mismatch is when different components method input parameters and output types do not match or are incompatible, meaning that they cannot be properly linked or communicate. 
 Fortunately the components mined from the legacy system were available as source code – meaning that interface mismatches could be easily rectified  using Generative adaption rather than more convoluted bridge or wrapper approaches.
 
-Editing components source code may not technically classify as adapation, but it is a simple process that allowed a significant amount of the legacy systems source to be retained, while also removing and reworking unneeded or unsuitable portions of code. The proceses of adapting existing components can not only save development and testing time, but also provide insperation on how to implement other parts of the system – for instance; the MVC design of the Share Trader system was inspired from the partial MVC implemention in the legacy System.
+Editing components source code may not technically classify as adaptation, but it is a simple process that allowed a significant amount of the legacy systems source to be retained, while also removing and reworking unneeded or unsuitable portions of code. The process of adapting existing components can not only save development and testing time, but also provide inspiration on how to implement other parts of the system – for instance; the MVC design of the Share Trader system was inspired from the partial MVC implementation in the legacy System.
 
 Component integration
-There is very little to be discussed in regards of the process used to integrate the components used in this project. The time spent during the componenet mining and adapaption phases of the project minimised the time required to integrate the various components into a full system and any errors or bugs were able to be quickly located and ammended thanks to the modular design of the componenets and their MVC implementation.
+There is very little to be discussed in regards of the process used to integrate the components used in this project. The time spent during the component mining and adaptation phases of the project minimised the time required to integrate the various components into a full system and any errors or bugs were able to be quickly located and amended thanks to the modular design of the components and their MVC implementation.
 
 Conclusion
 When utilising component based software engineering methods, it is crucial to account for the scale of the project. For the Share Trader system documented in this report, the use of CBSE methods may have been somewhat overblown when the overall size and complexity of the system is considered.
-It cannot be said that CBSE methods are not useful, nor that they do not have place in sfotware production – enterprise level systems, developed by orginastions with existing codebase’s posses the econmies of scale that lead to desging, implementing, and testing in a CBSE style saving them a significnant amount of time, and in return fiancing. 
+It cannot be said that CBSE methods are not useful, nor that they do not have place in software production – enterprise level systems, developed by organisations with existing codebases posses the economies of scale that lead to desining, implementing, and testing in a CBSE style saving them a significant amount of time, and in return financing. 
 Introduction
 Method
 Evaluation
