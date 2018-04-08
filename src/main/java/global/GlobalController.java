@@ -1,7 +1,7 @@
 package global;
 
 import broker.BrokerController;
-import alert.AlertShareModel;
+import alert.AlertModel;
 import menu.MenuController;
 import share.ShareController;
 import shareholder.ShareholderController;
@@ -20,7 +20,7 @@ public class GlobalController implements Observer {
     private TradeController tradeController;
     private BrokerController brokerController;
     private ShareholderController shareholderController;
-    private AlertShareModel shareMonitor;
+    private AlertModel shareMonitor;
 
     public void runApplication() {
         userController = new UserController();
@@ -44,7 +44,7 @@ public class GlobalController implements Observer {
         shareholderController = new ShareholderController();
         shareholderController.addObserver(this);
 
-        shareMonitor = new AlertShareModel();
+        shareMonitor = new AlertModel();
 
         userController.initialiseController();
         userController.showView();
