@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{url}
+\usepackage{graphicx}
 
 
 \title{Development of a Component Based Share Trader Application}
@@ -74,10 +75,57 @@ of the Share Trader system.
         \\ \hline
         MySQL Workbench                     & Database configuration
         \\ \hline
+        Git                                 & Version control management
+        \\ \hline
     \end{tabular}
     \caption{System Development Tools}
     \label{table-tool}
 \end{table}
+
+
+\subsection{Java, IntelliJ Idea, and Gradle}
+Java was elected as the primary development language for this project in
+accordance with the project specification document.
+
+JetBrains is an organisation that has produced a number of Integrated
+Development Environments (IDE) for a range of different languages and
+frameworks.
+IntelliJ Idea is JetBrains' Java IDE, offering a number of in-built tools and
+features to aid in the development, testing and debugging of Java
+applications \cite{Idea}.
+IntelliJ Idea was selected as the primary development platform primarily due to
+the author's familiarity with the system.
+One of IntelliJ Idea's features that was utilised heavily during the course
+of this project was its in-built User Interface (UI) building tool, which
+allowed for quick and simple construction and alteration of Java Swing forms
+used throughout the system.
+
+Grade is Java compatible build tool that aids in the automated compilation
+and linking of source code and libraries into a single application
+\cite{Gradle}.
+Gradle was utilised in this project as the Share Trader system was developed
+using multiple machines, with various differing operating systems and system
+configurations.
+Use of Gradle was able to reduce the complexity of configuring and compiling
+source code using multiple systems by utilising its various automation tools and
+plug-ins.
+
+\subsection{MySQL and MySQL Workbench}
+The Share Trader application required some manner of data persistence in order
+to properly operate.
+MySQL is an open-source Relation Database Management System (RDBMS) that was
+selected to fulfil the role of providing data persistence \cite{Mysql}.
+MySQL was chosen as it is cross platform and requires no finance commitment
+to utilise.
+A simple prototype database schema was created to allow the various features
+of the Share Trader system to be implemented, tested, and demonstrated.
+An ER diagram of project's schema is visible in Appendix \ref{ap-schema}.
+
+MySQL Workbench is a database configuration tool that operates in a similar
+style as a traditional IDE \cite{Workbench}.
+MySQL Workbench was used to configure the MySQL database instance and to
+confirm that the SQL queries that were later incorporated into the Share
+Trader system proper.
 
 
 \section{Component Mining}
@@ -653,6 +701,14 @@ time and effort when developing or amending software systems.
 \bibliography{report}
 \bibliographystyle{ieeetr}
 \addcontentsline{toc}{section}{References}
+
+
+\appendix
+
+
+\section{Share Trader Database ER Model}
+\includegraphics[width=\textwidth]{res/share_trader_er.pdf}
+\label{ap-schema}
 
 
 \end{document}
