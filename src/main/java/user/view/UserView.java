@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class NewUserView extends JDialog implements Observer, View {
+public class UserView extends JDialog implements Observer, View {
     private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonRegister;
@@ -21,7 +21,7 @@ public class NewUserView extends JDialog implements Observer, View {
     private JPasswordField fieldPassword;
     private JButton buttonExit;
 
-    public NewUserView() {
+    public UserView() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonLogin);
@@ -70,19 +70,14 @@ public class NewUserView extends JDialog implements Observer, View {
 
     public void update(Observable o, Object arg) {
         System.out.println("UserView: " + arg);
-        switch ((UserControlCodes) arg) {
-            case NO_SUCH_USER:
-                showInvalidLogin();
-                break;
-            case INVALID_CREDENTIAL:
-                showInvalidCredential();
-                break;
-            case USER_EXISTS:
-                showInvalidRegister();
-                break;
-            case REGISTER:
-                showValidRegister();
-                break;
+        if (arg == UserControlCodes.NO_SUCH_USER) {
+            showInvalidLogin();
+        } else if (arg == UserControlCodes.INVALID_CREDENTIAL) {
+            showInvalidCredential();
+        } else if (arg == UserControlCodes.USER_EXISTS) {
+            showInvalidRegister();
+        } else if (arg == UserControlCodes.REGISTER) {
+            showValidRegister();
         }
     }
 
