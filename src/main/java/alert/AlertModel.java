@@ -70,25 +70,12 @@ public class AlertModel {
                     previouslyTracked = true;
                     updateExistingTrackedShare(existingTrackedShare
                             , currentTrackedValue);
-                    //if (existingTrackedShare.getTrackLastValue()
-                    //!= currentTrackedValue) {
-                    //existingTrackedShare.setTrackLastValue(currentTrackedValue);
-                    //existingTrackedShare.setUpdated(true);
-                    //sharesUpdated = true;
-                    //}
                 }
             }
 
             if (!previouslyTracked) {
                 addNewTrackedShare(currentTrackedShareId, currentTrackedValue
                         , currentTrackedShareCode);
-                //TrackedShare newTrackedShare = new TrackedShare();
-                //newTrackedShare.setTrackId(currentTrackedShareId);
-                //newTrackedShare.setTrackLastValue(currentTrackedValue);
-                //newTrackedShare.setShareCode(currentTrackedShareCode);
-                //newTrackedShare.setUpdated(true);
-                //trackedShares.add(newTrackedShare);
-                //sharesUpdated = true;
             }
         }
     }
