@@ -7,7 +7,7 @@
 
 
 \title{Development of a Component Based Share Trader Application}
-\author{S. Dixon
+\author{Sam Dixon
         \\\href{mailto:40056761@live.napier.ac.uk}{40056761@live.napier.ac.uk}
         \\Edinburgh Napier University
         \\School Of Computing
@@ -20,6 +20,26 @@
 
 \begin{document}
 \maketitle
+
+
+\begin{abstract}
+This paper describes the process used to design, develop, test, and evaluate
+a component based Share Trader application.
+Use cases were defined based upon a provided system specification, and
+potentially reusable software components were identified and extracted from a
+legacy code base.
+Software components were adapted to match the Java Bean and
+Model-view-controller design patterns, and then integrated with a MySQL
+database to form a complete system.
+A combination of unit, integration and validation testing was conducted to
+verify the system's integrity.
+Finally the system and methods used in its development were evaluated.
+The conclusion reached by the paper is that Component Based Software
+Engineering techniques are unwarranted in small scale or simple projects - but
+larger organisations and system may be able to better utilise the benefits
+gained from such development methods.
+\end{abstract}
+
 
 \tableofcontents
 \newpage
@@ -38,18 +58,27 @@ The caveat of this development project is that the Share Trader system had to
 constructed using Component Based Software Engineering (CBSE) techniques.
 
 This report documents how software components were identified, modified and
-combined to construct the Share Trader system - an evaluation of the process'
+combined to construct the Share Trader system - an evaluation of the processes
 and techniques is also provided.
 
+
+\section{System Specification}
+The specification for this project stated what functionality the Share Trader
+system was required to implement.
+While a list of features was given, no formal design documentation was
+supplied.
+A simple UML Use Case diagram was created from the given specification, which
+highlighted how a typical user would interact with the
+Share Trader system.
+The Use Case diagram is visible in Appendix \ref{ap-uc}.
 
 \section{Tools and Technologies}
 When undergoing the development of a software project, the tools utilised can
 greatly alter the time and effort required to implement, test and deploy a
 system.
 This project utilised the technologies listed in Table \ref{table-tech} to
-implement the Share Trader System.
-Additionally, Table \ref{table-tool} lists the tools that aided in development
-of the Share Trader system.
+implement the Share Trader System - additionally Table \ref{table-tool} lists
+the tools that aided in development.
 
 \begin{table}[h]
     \centering
@@ -201,6 +230,7 @@ potentially saved.
 \section{Component Selection}
 From the previously mentioned components identified  during the
 component mining process, the following were utilised in the final system:
+
 \begin{itemize}
 \item Database Connection Interface
 \item Database Connection Manager
@@ -292,14 +322,16 @@ All the previously identified components, bar the JDatePicker, had their
 source-code available, meaning that the requisite changes could be made to
 ensure their compliance with the JavaBean standard.
 
-\subsection{Model View Controller}
+\subsection{Model-View-Controller Design Pattern}
 Taking further inspiration from the legacy system, and to ensure class
-re-usability, it was opted to develop the system using the Model View
-Controller (MVC) design pattern.
+re-usability, it was opted to develop the system using the
+Model-view-controller (MVC) design pattern.
 
 MVC is a programming  pattern that separates the business logic (Model) and GUI
 (View) of a system away from one an other, while a third Controller element is
-utilised to mediate and allow communication between the Model and View. 
+utilised to mediate and allow communication between the Model and View.
+A simplified diagram depicting the MVC pattern is visible in Figure
+\ref{fig_mvc}.
 
 MVC allows for GUI and logic components of a system to be developed
 independently from one another as entirely separate reusable components.  
@@ -316,6 +348,7 @@ subsystems.
         \includegraphics[width = 0.5\textwidth]{./res/mvc.png}
         \caption[The MVC Design Pattern]{The MVC Design Pattern 
         \footnotemark} 
+        \label{fig_mvc}
     \end{center}
 \end{figure}
 \footnotetext{By RegisFrey {\lbrack}Public domain{\rbrack}, from Wikimedia
