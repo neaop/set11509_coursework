@@ -5,6 +5,8 @@
 \usepackage{url}
 \usepackage{graphicx}
 
+\pagenumbering{roman}
+
 
 \title{Development of a Component Based Share Trader Application}
 \author{Sam Dixon
@@ -19,16 +21,19 @@
 
 
 \begin{document}
+
+
 \maketitle
 
 
 \begin{abstract}
-This paper describes the process used to design, develop, test, and evaluate
+\thispagestyle{plain}
+This paper describes the processes used to design, develop, test, and evaluate
 a component based Share Trader application.
-Use cases were defined based upon a provided system specification, and
+Use cases were defined based upon a provided system specification and
 potentially reusable software components were identified and extracted from a
 legacy code base.
-Software components were adapted to match the Java Bean and
+Software components were adapted to match the JavaBean and
 Model-view-controller design patterns, and then integrated with a MySQL
 database to form a complete system.
 A combination of unit, integration and validation testing was conducted to
@@ -36,13 +41,15 @@ verify the system's integrity.
 Finally the system and methods used in its development were evaluated.
 The conclusion reached by the paper is that Component Based Software
 Engineering techniques are unwarranted in small scale or simple projects - but
-larger organisations and system may be able to better utilise the benefits
+larger organisations and systems may be able to better utilise the benefits
 gained from such development methods.
 \end{abstract}
 
 
+\setcounter{page}{2}
 \tableofcontents
 \newpage
+\pagenumbering{arabic}
 
 
 \section{Introduction}
@@ -55,7 +62,7 @@ display information relating to shares, trades, shareholders, brokers, etc. in
 a single, easy to use application. 
 
 The caveat of this development project is that the Share Trader system had to
-constructed using Component Based Software Engineering (CBSE) techniques.
+be constructed using Component Based Software Engineering (CBSE) techniques.
 
 This report documents how software components were identified, modified and
 combined to construct the Share Trader system - an evaluation of the processes
@@ -67,15 +74,25 @@ The specification for this project stated what functionality the Share Trader
 system was required to implement.
 While a list of features was given, no formal design documentation was
 supplied.
-A simple UML Use Case diagram was created from the given specification, which
-highlighted how a typical user would interact with the
-Share Trader system.
+A simple UML Use Case diagram was generated from the supplied specification,
+which highlighted how a typical user would interact with the Share Trader
+system.
 The Use Case diagram is visible in Appendix \ref{ap-uc}.
 
+The described functionality essentially consists of a user being able to
+able to view and sort data relating to a particular facet of
+capital stock or finical market system.
+Additionally a user should be able track specific share and be notified if said
+share drops below, or raises above a particular value.
+The system is also required to implement user registration functionality,
+allows new users to register a username and password that permits access to
+the Share Trader system.
+
+
 \section{Tools and Technologies}
-When undergoing the development of a software project, the tools utilised can
-greatly alter the time and effort required to implement, test and deploy a
-system.
+When undergoing the development of a software project, the and technologies
+and tools utilised can greatly alter the time and effort required to
+implement, test and deploy a system.
 This project utilised the technologies listed in Table \ref{table-tech} to
 implement the Share Trader System - additionally Table \ref{table-tool} lists
 the tools that aided in development.
@@ -100,7 +117,7 @@ the tools that aided in development.
         \hline
         \multicolumn{1}{|c|}{\textbf{Tool}} &
         \multicolumn{1}{c|}{\textbf{Purpose}} \\ \hline
-        IntelliJ Idea                       & Java development and testing
+        IntelliJ IDEA                       & Java development and testing
         \\ \hline
         MySQL Workbench                     & Database configuration
         \\ \hline
@@ -111,50 +128,58 @@ the tools that aided in development.
     \label{table-tool}
 \end{table}
 
-
-\subsection{Java, IntelliJ Idea, and Gradle}
+\subsection{Java, IntelliJ IDEA, and Gradle}
 Java was elected as the primary development language for this project in
 accordance with the project specification document.
 
 JetBrains is an organisation that has produced a number of Integrated
-Development Environments (IDE) for a range of different languages and
+Development Environments (IDEs) for a range of different languages and
 frameworks.
-IntelliJ Idea is JetBrains' Java IDE, offering a number of in-built tools and
+IntelliJ IDEA is JetBrains' Java IDE, offering a number of built-in tools and
 features to aid in the development, testing and debugging of Java
 applications \cite{Idea}.
-IntelliJ Idea was selected as the primary development platform primarily due to
+IntelliJ IDEA was selected as the primary development platform primarily due to
 the author's familiarity with the system.
-One of IntelliJ Idea's features that was utilised heavily during the course
-of this project was its in-built User Interface (UI) building tool, which
+One of IntelliJ IDEA's features that was utilised heavily during the course
+of this project was its built-in User Interface (UI) building tool, which
 allowed for quick and simple construction and alteration of Java Swing forms
 used throughout the system.
 
-Grade is Java compatible build tool that aids in the automated compilation
+Grade is a Java compatible build tool that aids in the automated compilation
 and linking of source code and libraries into a single application
-\cite{Gradle}.
+\cite{Gradle}. 
+Additionally, Gradle provided dependency management for this project,
+automatically downloading, unpacking, and linking Maven and Apache code
+repositories utilised by the Share Trader application.
 Gradle was utilised in this project as the Share Trader system was developed
 using multiple machines, with various differing operating systems and system
 configurations.
 Use of Gradle was able to reduce the complexity of configuring and compiling
-source code using multiple systems by utilising its various automation tools and
-plug-ins.
+source code on multiple development machines by utilising its various
+automation tools and plug-ins.
 
 \subsection{MySQL and MySQL Workbench}
 The Share Trader application required some manner of data persistence in order
 to properly operate.
-MySQL is an open-source Relation Database Management System (RDBMS) that was
+MySQL is an open-source Relational Database Management System (RDBMS) that was
 selected to fulfil the role of providing data persistence \cite{Mysql}.
-MySQL was chosen as it is cross platform and requires no finance commitment
+MySQL was chosen as it operate cross platform and requires no finical commitment
 to utilise.
-A simple prototype database schema was created to allow the various features
-of the Share Trader system to be implemented, tested, and demonstrated.
-An ER diagram of project's schema is visible in Appendix \ref{ap-schema}.
 
 MySQL Workbench is a database configuration tool that operates in a similar
 style as a traditional IDE \cite{Workbench}.
-MySQL Workbench was used to configure the MySQL database instance and to
-confirm that the SQL queries that were later incorporated into the Share
+MySQL Workbench was used to configure the MySQL database instance and to test
+and verify the SQL queries that were later incorporated into the Share
 Trader system proper.
+
+A simple database schema was created to allow the various features
+of the Share Trader system to be implemented, tested, and demonstrated.
+An ER diagram of project's schema is visible in Appendix \ref{ap-schema}.
+The database was populated with sample data generated by the author. 
+While it may have been more approbate to locate and utilise sample, real world
+data - the fictitious data utilised in this system was more than adequate to
+implement and test the required features of the  prototype Share Trader
+application.
 
 
 \section{Component Mining}
@@ -163,7 +188,6 @@ software components is often referred to as Component Mining.
 Component Mining consists of identifying potentially useful units of software
 from existing sources - allowing a developer to access a range of features
 that they can be combined into a finished system.
-
 Components can be sourced from previous projects, open-source code
 repositories, or stand-alone libraries. 
 Having access to a wide range of components can allow a prototype system to be
@@ -173,12 +197,12 @@ quickly assembled and tested to prove a concept.
 The source code to a legacy system was provided from which potential
 components could be identified and possibly incorporated into the Share Trader
 system.  
-The legacy code was an implementation of E-Store system and consisted of a
-number of Java Swing forms that were populated with information from a local
-database.
+The legacy code was an implementation of E-Store application and consisted of a
+number of Java Swing forms that were populated with information from a
+database instance.
 
 While the business logic of the legacy system was not reusable, much of the
-graphical user interface (GUI) had the potential to be reimplemented as part of
+Graphical User Interface (GUI) had the potential to be reimplemented as part of
 the new Share Trader system.
 
 \subsubsection{Main Menu}
@@ -196,7 +220,7 @@ open to display data and interactive elements to the user.
 While the business logic of these forms was incompatible with the Share
 Trader system, the tables used to display data, the text fields used for user
 input, and the buttons utilised to submit searches and close the forms could
-be altered to work with the new system.
+be altered to be compatible with the new system.
 
 \subsubsection{Database Connector}
 Apart from the GUI elements, the legacy system also featured an interface
@@ -217,9 +241,9 @@ one database for testing and another for deployment.
 \subsection{Open-source Libraries}
 Software components are often published as stand-alone libraries, which can be
 be linked and incorporated into a system. 
-One such library that was considered in this project was the JDatePicker - a
-GUI component that creates a interactive calendar, allowing a user to select a
-date \cite{Jdate}. 
+One such library that was considered in this project was the JDatePicker - an
+open-source GUI component that creates a interactive calendar, allowing a user
+to select a date \cite{Jdate}. 
 This component was considered as the project's specification brief stated that
 users should be able to search and sort trading information based on certain
 criteria - date included. 
@@ -229,7 +253,7 @@ potentially saved.
 
 \section{Component Selection}
 From the previously mentioned components identified  during the
-component mining process, the following were utilised in the final system:
+component mining process, the following were utilised in the prototype system:
 
 \begin{itemize}
 \item Database Connection Interface
@@ -241,10 +265,10 @@ component mining process, the following were utilised in the final system:
 \subsection{Database Connection Interface}
 The database connection interface not only provided sensible methods but also
 allows a system to take advantage of the Object Orientated (OO) principal of
-principal of polymorphism - allowing a differing implementation of the
-interface to be substituted for one another. 
+polymorphism - allowing a differing implementation of the interface to be
+substituted at run time. 
 In the case of the Share Trader system, the database connection interface was
-implemented as a MySQL connection but implementations for any kind of data
+implemented as a MySQL connection, but implementations for any kind of data
 persistence system could be implemented and selected at run time by
 utilising the existing database connection interface.
 
@@ -256,13 +280,12 @@ The database management system allows users to utilise a configuration
 database instance. 
 As the Share Trader system was being developed across multiple
 devices each with differing database set-ups, the database management system
-allowed development to continue by simply editing a config file, rather than
-source-code.  
-The database management system also had the benefit of
-allowing a user to define a primary and secondary database to which the system
-could connect. 
-This feature can prove useful when testing a system, as the system can connect
-to a database set up as a testing environment, rather than performing
+aided development by reducing the time and effort required to configure the
+Share Trader system on each device.
+The database management system also had the benefit of allowing a user to
+define a primary and secondary database to which the system could connect. 
+This feature can prove useful when testing a system, as the application can
+connect to a database set up as a testing environment, rather than performing
 potentially devastating operations upon the data required for final deployment
 and operation.
 
@@ -301,8 +324,8 @@ responsibility on a single person or team.
 In order to comply with the project specification, the  Share Trader system
 had to be constructed with reusable components that were JavaBean compliant.
 This meant that the potential components identified during Component Mining
-and Selection
-processes  required a degree of amendment to match the JavaBean standard. 
+and Selection processes  required a degree of amendment to match the JavaBean
+standard. 
 
 \subsection{JavaBeans}
 A JavaBean is a class that complies to a standardised convention, meaning that
@@ -337,13 +360,13 @@ MVC allows for GUI and logic components of a system to be developed
 independently from one another as entirely separate reusable components.  
 A benefit of constructing a program using the MVC design pattern is that it
 allows for the different MVC elements to be substituted for one another - for
-instance a text based GUI could be swapped for a more graphical alternative -
+instance a text based UI could be swapped for a graphical alternative -
 providing both Views implemented the same required methods.
 MVC also allows for Model elements to be altered should the use case of a
 system change, without any adjustments being made to the View or Controller
 subsystems.
 
-\begin{figure}[h]
+\begin{figure}[]
     \begin{center}
         \includegraphics[width = 0.5\textwidth]{./res/mvc.png}
         \caption[The MVC Design Pattern]{The MVC Design Pattern 
@@ -363,9 +386,9 @@ the Share Trader system where implemented using the Observer design pattern -
 making it so a subject (Model) can inform any Observers (View or Controller)
 of system updates, without needing any prior knowledge of how said Observers
 operate.  
-By implementing each Model using Java’s inbuilt Observable subclass and having
-each Model’s Controller linking it to a relevant View, it was possible to
-develop each element of the Share Traders business logic autonomously -
+By implementing each Model using Java’s inbuilt {\tt Observable} subclass and
+having each Model’s Controller linking it to a relevant View, it was possible
+to develop each element of the Share Traders business logic autonomously -
 without any reliance on other Models, Views, or Controllers.
 By developing each Model in this modular style it meant that any aspect of the
 business logic for the system could be reused in a future implementation, or
@@ -375,7 +398,7 @@ rewritten without affecting any other part of the program.
 Baring the system's main menu, and the login and registration forms, the views
 to be used in the Share Trader system were all similar in style - featuring a
 table to display relevant data and a button to navigate back to the main menu.
-While some of the views required additional components; such as text input
+While some of the Views required additional components; such as text input
 fields or additional buttons, the basic table and button GUI was used as a
 base and the additional components were added as needed.  
 JetBrains IntelliJ Idea IDE features an inbuilt Java Swing GUI creation tool
@@ -383,15 +406,15 @@ that allowed the GUI components from the legacy system to be quickly converted
 into MVC Views and additional GUI components (such as extra buttons or text
 fields) could be added as needed.
 
-All the Share Trader Views also implemented the Java Observer interface. 
-This interface allows the Views to receive data from their Models without the
-need for references at compile time. 
+All the Share Trader Views also implemented the Java {\tt Observer} interface. 
+This interface allows the Views to receive data from Models without the
+need for direct references at compile time. 
 This use of the Observer pattern allows a single View to be attached to
-multiple Models for instance; the View used by users to login or register an
-account is attached to two Models, one which handles all the login operations
+multiple Models for instance; the View used by users to login or register user
+accounts is linked to two Models, one which handles all the login operations
 and another that handles the registering new users. 
-The observer and MVC patterns ensures that both the logic and GUI elements of
-the system are not reliant on one another and are thus reusable components.
+The Observer and MVC patterns ensures that both the logic and GUI elements of
+the system were not reliant on one another and are thus reusable components.
 
 \subsubsection{Controller}
 Each View requires a separate Controller class that is used to bind the
@@ -399,19 +422,19 @@ requisite Models to their View.
 The Share Trader system's Controller classes are used to instantiate, link
 Models to their View, and mediate this connection by extracting data from the
 View when required and passing it to the Model. 
-The MVC system allows each View with its Controller and Model to be independent
-from one another - meaning these modules of logic and GUI can be
-swapped for replacements or used in a different application.
+The MVC and Observer patterns allow each View with its Controller and Model to
+be independent from one another - meaning these modules of logic and GUI can
+be swapped for replacements or used in a different application.
 
-MVC and Java allows for dependencies to be injected at runtime, meaning that
+Java allows for dependencies to be injected at runtime, meaning that
 multiple Views or Models can all be compiled, and only the required system
 components will be linked and be made usable during deployment. 
 This can be particularly useful if the system has to cater to multiple tiers
 of users - such as regular customers and system administrators in the case of
 the Share Trader application.
 
-Each of the controllers in the Share Trader system was implemented as an
-Observable class (much like the Models). 
+Each of the Controllers in the Share Trader system was implemented as an
+{\tt Observable} class, much like the Models. 
 This was done so that a single, global Controller could observe each module,
 and pass or remove control from them as required. 
 The global Controller acts as a bridge between each of the Share Trader's
@@ -426,84 +449,86 @@ The database management system had been used previously in an MVC designed
 project, but it did not contain the same method definitions that were
 expressed by the legacy system’s database connection interface. 
 It was simple task to refactor the database management system's method names
-and signatures to so that it could be considered an instance of the database
-connector.
+and signatures to so that it could be considered an implementation of the
+database connector interface.
 
 \subsubsection{GUI Components}
-As previously stated, the GUI forms from the Legacy system adapted into
+As previously stated, the GUI forms from the legacy system were adapted into
 stand-alone View components - that is to say that all system logic was removed
-from the classes and the IntelliJ UI builder was used to fashion them into
-stand-alone JavaBeans.  
-Additionaly, the JTable class used to display data in a tabular format was
-extended into its own custom component.  
-This was done as the Share Trader system would contain multiple forms used to
-display the results of database queries - by converting the JTable to its own
-custom component it removed the need to instantiate and link the multiple
-subclasses needed to ensure the tables would behave correctly and consistently
-across the system.
+from the classes and the IntelliJ IDEA UI builder was used to fashion them into
+stand-alone JavaBeans.
+Additionally, the  Java Swing {\tt JTable} component used to display data in a
+tabular format was extended into its own custom component.  
+This was done as the Share Trader system contained multiple forms used to
+display the results of database queries - by converting the {\tt JTable} to
+its own custom component it removed the need to instantiate and link the
+multiple subclasses needed to ensure the tables would behave correctly and
+consistently across the entire system.
 
 \subsubsection{JDatePicker}
 Finally the JDatePicker component required no adaption for it to integrate
-with the new system. Due to it being developed with Java Swing components,the
-JDatePicker could be attached any view via the IntelliJ Idea UI builder tool.
+with the new system. 
+Due to it being developed with Java Swing components,the JDatePicker could be
+attached any view via the IntelliJ IDEA UI builder tool.
 
 Due to fact the legacy system’s source code was available, it was possible to
-make the required amendments directly to the classes as required. 
+make the required  directly to the classes as required using a generative
+adaption approach. 
 This is a preferable method of adaption, as other methods such as bridging and
-mediation can lead to unwanted features of a class being accessible or leading
+wrapping can lead to unwanted features of a class being accessible or leading
 to bugs and unspecified functionality.
 
 
 \section{Component Integration}
-Once components had been identified, adapted and converted into JavaBeans and
-MVC elements, the construction of the system proper could begin.
+Once components had been identified, selected, and adapted into JavaBeans and
+MVC elements, the construction of the system could begin.
  
 In order to ensure the system comprised of reusable components, each section
 or module of the Share Trader system was developed in isolation from the rest
 of the system. 
-This was done to ensure  each component had no reliance on any
-other - forcing the MVC, and CBSE  design paradigms.  
+This was done to ensure  each component had no reliance on any other - forcing
+the MVC, and CBSE  design paradigms.  
 Independent Git branches were created for each system module (View,
 Controller, and relevant Models) to ensure no accidental dependencies to other
 modules were created during the development process.
 
 Each system module was developed using a similar process, starting with the
 base View component that was mined from the legacy system. 
-If the View required additional components other than the default JTable and
-close button, theses were added via the IntelliJ GUI builder. 
+If the View required additional components other than the default {\tt JTable}
+and close button, theses were added via the IntelliJ GUI builder. 
 An example of a View that required additional editing was the View used to
-display trading history - which featured a number of JTextFields a user could
-use to enter search parameters.
+display trading history - which featured a number of {\tt JTextFields} a user
+could use to enter search parameters.
 
 Once a system module’s View was constructed, the requisite Controller class
 was built. 
 All the Controllers in the Share Trader system (barring the global Controller)
-extended the Java Observable class and implemented the Java ActionListener
-interface. 
-The reason Controllers were made Observable was so that any information
-regarding the current focus of the Share Trader system could be passed back to
+extended the Java {\tt Observable} class and implemented the Java
+{\tt ActionListener} interface. 
+The reason Controllers were made {\tt Observable} was so that any information
+regarding the current form of the Share Trader system could be passed back to
 the global Controller for processing.  
 
-The ActionListener interface allowed the Controller classes to process any
-user interactions with their conjoined view. 
-Whenever a user interacts with a GUI component in a View - such as a JButton or
-JTable - the Controller will be informed of the interaction and pass any
-required data either to the global Controller or to a Model bundled as part of
-the same system module.
-By having the Controller modules implement the ActionListener interface, the
-overall complexity of each system module was greatly reduced, as it was no
-longer required to create a Controller class for each individual, intractable
-component of a View, in the same manner some traditional MVC patterns are
+The {\tt ActionListener} interface allowed the Controller classes to process any
+user interaction with their conjoined view. 
+Whenever a user interacts with a GUI component in a View - such as a {\tt
+JButton} or {\tt JTable} - the Controller will be informed of the interaction
+and pass any required data either to the global Controller or to a Model
+bundled as part of the same system module.
+By having the Controller modules implement the {\tt ActionListener} interface,
+the overall complexity of each system module was greatly reduced, as it was no
+longer necessary to create a Controller class for each individual, intractable
+component of a View, in the manner some traditional MVC patterns are
 implemented.
 
 The final element of each system module to be developed was the Model. 
 Depending on the component, multiple MVC Models were required to implement all
-the required business logic - one example is the Module used by users to
+the required business logic - one example is the subsystem used by users to
 register accounts or login to the system - which featured two Models in order
 to deliver said functionality.
 
-Each Model in the share trader system extends the Observable interface. 
-This is required so that the Model can pass any required data (such as MySQL
+Each Model in the share trader system extends the {\tt Observable} interface. 
+This was required so that a Model can pass any required data (such as MySQL
 query results) to a View without a direct reference.
 Other than extending the same superclass, the individual Models bared very
 little resemblance to one another, as each implemented a unique piece of
@@ -519,9 +544,9 @@ be made without the need to modify any other classes.
 A global Controller class was created to instantiate and observe each
 individual system module. 
 This global Controller acted as a mediator between the other MVC modules,
-passing required data and showing and closing GUI forms as required.  
-As each MVC module implements a common interface, the global controller
-consists of a simple switch to handle incoming and outgoing events from the
+passing requested data and showing and closing GUI forms as required.  
+As each MVC module implemented a common interface, the global controller
+consisted of a simple switch to handle incoming and outgoing events from the
 various modules.
 
 
@@ -529,8 +554,8 @@ various modules.
 Testing is crucial stage in the development of any system.
 Testing ensures the program being developed not only functions without error
 but also matches its design specification. 
-A number of testing and debugging techniques were utilised to ensure the new
-Share Trader system was implemented correctly.
+A number of testing and debugging techniques were utilised to ensure the Share
+Trader system was implemented correctly.
 
 \subsection{Testing Preparation}
 In an ideal scenario, a system’s testing would be conducted by a third party
@@ -542,10 +567,10 @@ The following testing techniques were utilised to ensure adequate system
 performance:
 \begin{itemize}
     \item Unit testing - ensuring that an individual component or module
-    function correctly.
+    functions correctly.
     \item Integration testing - testing that multiple, joined components
     function correctly.
-    \item Validation testing - ensuring the combined system meets all the
+    \item Validation testing - ensuring the combined system meets all
     specified requirements.
 \end{itemize}
 
@@ -555,15 +580,15 @@ examined to ensure correct functionality and operation.
 As the Share Trader system was developed using CBSE, and MVC styles the
 process of unit testing came very naturally to this project.  
 Once each element of a MVC module was completed, a simple testing wrapper was
-developed  using the JUnit test framework to ensure there was no interface
+developed  using the {\tt JUnit} test framework to ensure there was no interface
 mismatches or unintended features.
 
-Depending on the class, an automated JUnit test could not always be written -
-such as the JavaSwing GUI components. 
+Depending on the class, an automated {\tt JUnit} test could not always be
+written - such as the Java Swing GUI components. 
 Due to the nature of MVC, no operational code was contained within any of the
 GUI classes, making it a trivial task to utilise front-end testing and
-print-line debugging to ensure buttons and GUI components were making the
-correct system calls.
+print-line debugging to ensure GUI components were making the correct system
+calls.
 
 A second area of the system that was not suitable for automated unit testing
 was the MySQL database queries. 
@@ -579,10 +604,10 @@ Once it was verified that each query was correctly returning the expected
 results it was converted to a Java method in the appropriate Model class.
 
 \subsection{Integration testing}
-Once a component has been thoroughly unit tested, it can be linked to other
-system components or modules and integration testing can begin. 
+Once a component had been thoroughly unit tested, it was linked to other
+system components or modules and integration testing could begin. 
 Integration testing is the process of ensuring linked subsystems or components
-are behaving as expected.
+behave as expected.
 If a component's interfaces and methods have been well designed and
 thorough unit tests have taken place, there should be minimal chance for
 unintended behave to occur once systems are linked - nonetheless it is crucial
@@ -591,14 +616,15 @@ to perform integration testing on all software systems.
 Within the Share Trader system, integration testing was performed by adding unit
 tested modules to the global controller class and ensuring the correct system
 calls were made when each subsystem was instantiated, shown, and closed.
-Due to the unit testing performed previously, the integration testing revealed
-very few bugs or unintended features in the system. 
-This can be credited to the effort spent during the component creation stage
-of the project - leading to class of a simple design, with little chance for
-unintended function.
+
+Thanks to the unit testing performed previously, the integration testing
+revealed very few bugs or unintended features in the system. 
+This can be credited to the effort spent during the component creation and
+adaption stages of the project - leading to smaller classes of simple design,
+with little chance for unintended function.
 
 \subsection{Validation testing}
-The final phase of testing is validation testing, ensuring that the system
+The final phase of testing was validation testing, ensuring that the system
 complies with its design specification.  
 For this project, no formal design specification was provided and all use
 cases and functionality  of the Share Trader system was defined by the
@@ -628,25 +654,24 @@ and because the system already featured an alert system to inform users of
 when a tracked share is altered - displaying the same functionality, in a
 slightly different format.
 
-In terms of system’s appearance, the default Java Swing components were
+In terms of the system’s appearance, the default Java Swing components were
 utilised, leading to a simple and utilitarian GUI. 
 It could be argued that the system's appearance was dull or uninspired, but
 the goal of this project was to produce a proof of concept of a component
 based Share Trader system - and as such the appearance of the system is outwit
 the scope of this project.
 
-There does exist a security flaw system, as the text field utilised by users
-to enter search criteria are not satanised. 
-This flaw means it would be
-possible for a user to make alterations to, or even delete the data stored in
-the system’s database. 
-The risks related to this flaw could be mitigated by
-utilising Java's SQL {\tt PreparedStatement} class to satanise queries that
-include any form of user input.
-The use of {\tt PreparedStatments} was omitted to reduce
-development time - regular Java SQL statements were utilised so that multiple
-queries could be combined, and amendments could be made during the development
-and testing phases of the project.  
+There does exist a security flaw within the system, as the {\tt JText} field
+utilised by users to enter search criteria are not satanised. 
+This flaw means it would be possible for a user to make alterations to, or
+even delete the data stored in the system’s database. 
+The risks related to this flaw could be mitigated by utilising Java's SQL {\tt
+PreparedStatement} class to satanise queries that include any form of user
+input.
+The use of {\tt PreparedStatments} was omitted to reduce development time -
+regular Java SQL {\tt Statement} methods  were utilised so that multiple
+queries could be combined, and amendments could be made quickly during the
+development and testing phases of the project.  
 
 While the project specification makes no reference any security requirements,
 it has been noted that the inclusion of un-sanitized inputs is a poor software
@@ -663,7 +688,7 @@ handle news alerts.
 \subsection{Method Evaluation}
 The development process of the share trader system utilised a number of
 software engineering methods and techniques to ensure a stable and error free
-component  based system was produced.  
+component based system was produced.  
 
 \subsubsection{Component Mining}
 Reusing pre-written source-code or existing libraries when building a software
@@ -704,7 +729,7 @@ output types do not match or are incompatible, meaning that they cannot be
 properly linked or communicate.  
 Fortunately the components mined from the legacy system were available as
 source code, meaning that interface mismatches could be easily rectified
-using generative adaption techniques rather than more convoluted bridge or
+using generative adaption techniques rather than more involved bridge or
 wrapper approaches.
 
 Editing components source code may not technically classify as adaptation, but
@@ -726,18 +751,22 @@ amended thanks to the modular design of the components and their MVC
 implementation.
 
 
+\section{Future Work}
+
+
+
 \section{Conclusion}
-When utilising CBSE methods, it is crucial to
-account for the scale of the project. 
-In regards to the Share Trader system documented
-in this report, the use of CBSE methods may have been somewhat overblown when
-the overall size and complexity of the system is considered.  
-It cannot be
-said that CBSE methods are not useful, nor that they do not have place in
-software production - enterprise level systems, developed by organisations
-with existing codebases posses the economies of scale allow designing,
-implementing, and testing in a CBSE style to save them a significant amount of
-time and effort when developing or amending software systems. 
+When utilising CBSE methods, it is crucial to account for the scale of the
+project.  
+In regards to the Share Trader system documented in this report, the use of
+CBSE methods may have been somewhat overblown when the overall size and
+complexity of the system is considered.  
+It cannot be said that CBSE methods are not useful, or that they do not have
+place in software production - enterprise level systems, developed by
+organisations with existing codebases posses the economies of scale that allow
+designing, implementing, and testing in a CBSE style to save them a
+significant amount of time and effort when developing or amending thier software
+systems. 
 
 
 \clearpage
@@ -757,6 +786,7 @@ time and effort when developing or amending software systems.
 \section{Share Trader Use Case Diagram}
 \includegraphics[width=\textwidth]{res/share_trader_uc.pdf}
 \label{ap-uc}
+
 
 \end{document}
 
