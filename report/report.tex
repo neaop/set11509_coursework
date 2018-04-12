@@ -368,7 +368,7 @@ subsystems.
 
 \begin{figure}[]
     \begin{center}
-        \includegraphics[width = 0.5\textwidth]{./res/mvc.png}
+        \includegraphics[width = 0.44\textwidth]{./res/mvc.png}
         \caption[The MVC Design Pattern]{The MVC Design Pattern 
         \footnotemark} 
         \label{fig_mvc}
@@ -603,6 +603,18 @@ written and tested in the MySQL Workbench application.
 Once it was verified that each query was correctly returning the expected
 results it was converted to a Java method in the appropriate Model class.
 
+One of the results  found during  unit testing was that the JDatePicker was
+not compatible with the current version of Java, leading to unexpected crashes
+and errors.
+Due to theses unforeseen circumstances the JDatePicker component had to be
+removed from the application.
+This is somewhat ironic; as the goal of this project was to highlight the
+advantages of CBSE - one of which is the reduced need to test existing
+software components.
+The fact that unit testing revealed errors in the JDatePicker is both a
+testament to the necessity of testing, and stands as evidence that while CBSE
+techniques can aid in development they cannot be relied on entirely.
+
 \subsection{Integration testing}
 Once a component had been thoroughly unit tested, it was linked to other
 system components or modules and integration testing could begin. 
@@ -752,8 +764,41 @@ implementation.
 
 
 \section{Future Work}
+The goal of this project was to produce a prototype system - which leaves
+substantial room for improvements or reworks.
 
+Arguably, the most crucial aspect the system was lacking was an implementation
+of a shareholder news alert system.
+As previously stated, the news alert system was not included in the final
+version of the share trader system due to time constraints.
+Had the time allotted to this project been utilised more efficiently, the news
+alert system could be implemented by reusing or refactoring the implemented
+share value tracking feature.
 
+A second area of the system that could be improved is the security of the
+system.
+The current implementation of the Share Trader application does not sanitize
+any user input, and as such it was possible to inject and malicious SQL
+queries into the system, potentially revaluing private data stored in the
+MySQL instance, or deleting it entirely.
+Another security concern of the system is tha lack of hashing or encryption of
+user passwords.
+It is considered very poor practise to store passwords as plain text due to
+potential data breaches or accidental release of user data.
+The hashing and salting of user passwords was omitted from the application as
+it is only a prototype system - but the proper handling of passwords and user
+data should be considered one of, if not the highest priority of real world
+software systems.
+
+A final aspect of the system that could be improved in future revisions is the
+overall theme or style of the UI.
+No concise time or effort was assigned to the designing or styling of the
+Share Trader system's appearance, and as a result the finished system is
+somewhat lacking in terms of user experience features.
+While the Share Trader system is a prototype, and the project specification
+made no mention of system styling or appearance, a small amount of time spent
+on aesthetic design can lead to application that is not only easier on the eye
+but also easier to navigate and operate.
 
 \section{Conclusion}
 When utilising CBSE methods, it is crucial to account for the scale of the
