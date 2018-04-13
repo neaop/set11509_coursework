@@ -1,17 +1,30 @@
 package data;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Interface to describe database connection methods.
+ */
 public interface DatabaseConnector {
 
-    public Connection myConnection = null;
+    /**
+     * Open a connection to a database instance.
+     */
+    void connect();
 
-    public void connect();
+    /**
+     * Close connection to the database instance.
+     */
+    void closeConnection();
 
-    public void closeConnection();
-
-    public ResultSet query(String query) throws SQLException;
+    /**
+     * Queries the database with SQL query string.
+     *
+     * @param query the query string to be executed
+     * @return results of the executed query
+     * @throws SQLException if error with database instance or query
+     */
+    ResultSet query(String query) throws SQLException;
 
 }

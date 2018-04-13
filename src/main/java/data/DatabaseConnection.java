@@ -4,6 +4,11 @@ import java.io.*;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * Concrete implementation of the DatabaseConnector interface.
+ *
+ * @see data.DatabaseConnector
+ */
 public class DatabaseConnection implements DatabaseConnector, Serializable {
     private final String PROPERTY_FILE_NAME = "database.properties";
     private String databaseHost;
@@ -16,7 +21,9 @@ public class DatabaseConnection implements DatabaseConnector, Serializable {
     private Properties properties;
     private Connection connection;
 
-
+    /**
+     * Default constructor for the database connection.
+     */
     public DatabaseConnection() {
         inputStream = null;
         properties = new Properties();
@@ -33,12 +40,18 @@ public class DatabaseConnection implements DatabaseConnector, Serializable {
         }
     }
 
+    /**
+     * Creates a default database connection string.
+     */
     private void generateDatabaseUrl() {
         readPropertyFiles();
         databaseUrl = String.format("jdbc:mysql://%1$s:%2$s/%3$s",
                 databaseHost, databasePort, databaseName);
     }
 
+    /**
+     * Extracts database connection information from existing property files.
+     */
     private void readPropertyFiles() {
         try {
             readDefaultPropertyFile();
@@ -54,11 +67,21 @@ public class DatabaseConnection implements DatabaseConnector, Serializable {
         }
     }
 
+    /**
+     * Extracts connection information from the default property file.
+     *
+     * @throws IOException if error reading file
+     */
     private void readDefaultPropertyFile() throws IOException {
         inputStream = ClassLoader.getSystemResourceAsStream(PROPERTY_FILE_NAME);
         properties.load(inputStream);
     }
 
+    /**
+     * Extracts connection information from secondary property file.
+     *
+     * @throws IOException if error reading file
+     */
     private void readOverridePropertyFile() throws IOException {
         File overrideFile = new File(PROPERTY_FILE_NAME);
         if (overrideFile.exists() && !overrideFile.isDirectory()) {
@@ -85,4 +108,3 @@ public class DatabaseConnection implements DatabaseConnector, Serializable {
     }
 
 }
-
