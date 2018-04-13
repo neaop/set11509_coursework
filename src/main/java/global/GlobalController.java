@@ -1,7 +1,7 @@
 package global;
 
-import broker.BrokerController;
 import alert.AlertModel;
+import broker.BrokerController;
 import menu.MenuController;
 import share.ShareController;
 import shareholder.ShareholderController;
@@ -13,6 +13,9 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The global Control class to link other modules.
+ */
 public class GlobalController implements Observer, Serializable {
     private UserController userController;
     private MenuController menuController;
@@ -23,7 +26,21 @@ public class GlobalController implements Observer, Serializable {
     private ShareholderController shareholderController;
     private AlertModel shareMonitor;
 
+
+    /**
+     * Starts the Share Trader System.
+     */
     public void runApplication() {
+        instantiateControllers();
+
+        userController.initialiseController();
+        userController.showView();
+    }
+
+    /**
+     * Creates and links the required module controllers.
+     */
+    private void instantiateControllers() {
         userController = new UserController();
         userController.addObserver(this);
 
@@ -46,11 +63,9 @@ public class GlobalController implements Observer, Serializable {
         shareholderController.addObserver(this);
 
         shareMonitor = new AlertModel();
-
-        userController.initialiseController();
-        userController.showView();
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         System.out.println("GlobalController: " + arg);
         if (arg == GlobalControlCodes.LOG_IN) {

@@ -6,8 +6,19 @@ import javax.swing.table.TableModel;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * Custom extension of the JTable class to ensure consistency.
+ *
+ * @see JTable
+ */
 public class ShareTraderTable extends JTable implements Serializable {
 
+    /**
+     * Updates the table to display data and column headers.
+     *
+     * @param data        the information to displayed
+     * @param columnNames the data column titles
+     */
     public void updateTable(Vector data, Vector columnNames) {
         try {
             TableModel tableModel = new ShareTraderTableModel(data, columnNames);
@@ -21,8 +32,12 @@ public class ShareTraderTable extends JTable implements Serializable {
 
     }
 
+    /**
+     * Custom extension of DefaultTableModel to ensure consistency.
+     *
+     * @see DefaultTableModel
+     */
     class ShareTraderTableModel extends DefaultTableModel {
-
         ShareTraderTableModel(Vector data, Vector columnNames) {
             super(data, columnNames);
         }
@@ -33,8 +48,16 @@ public class ShareTraderTable extends JTable implements Serializable {
         }
     }
 
+    /**
+     * Custom extension of the DefaultListSelectionModel to ensure consistency.
+     *
+     * @see DefaultListSelectionModel
+     */
     class ForcedListSelectionModel extends DefaultListSelectionModel {
 
+        /**
+         * Default class constructor.
+         */
         ForcedListSelectionModel() {
             setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }

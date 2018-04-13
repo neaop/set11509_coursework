@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ViewStrings implements Serializable{
+/**
+ * Strings utilised and displayed in Views.
+ */
+public class ViewStrings implements Serializable {
 
     private static String[] shareColumnNames = {
             "Share ID",
@@ -40,18 +43,38 @@ public class ViewStrings implements Serializable{
             "Share Quantity"
     };
 
+    /**
+     * Returns the share View's column names as a Vector.
+     *
+     * @return vector of column names
+     */
     public static Vector<String> getShareColumnNames() {
         return new Vector<>(Arrays.asList(shareColumnNames));
     }
 
+    /**
+     * Returns the trade View's column names as a Vector.
+     *
+     * @return vector of column names
+     */
     public static Vector<String> getTradeColumnNames() {
         return new Vector<>(Arrays.asList(tradeColumnNames));
     }
 
+    /**
+     * Returns the broker View's column names as a Vector.
+     *
+     * @return vector of column names
+     */
     public static Vector<String> getBrokerColumnNames() {
         return new Vector<>(Arrays.asList(brokerColumnNames));
     }
 
+    /**
+     * Returns the shareholder View's column names as a Vector.
+     *
+     * @return vector of column names
+     */
     public static Vector<String> getShareholderColumnNames() {
         return new Vector<>(Arrays.asList(shareholderColumnNames));
     }
