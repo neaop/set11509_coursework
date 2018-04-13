@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Observable;
 
+/**
+ * View element for the menu module.
+ */
 public class MenuView implements View, Serializable {
     private JFrame frame;
     private JPanel panel;
@@ -20,6 +23,9 @@ public class MenuView implements View, Serializable {
     private JButton buttonBroker;
     private JButton buttonShareholders;
 
+    /**
+     * The default constructor.
+     */
     public MenuView() {
         frame = new JFrame("MenuView");
         frame.setContentPane(panel);
@@ -27,6 +33,7 @@ public class MenuView implements View, Serializable {
         frame.pack();
     }
 
+    @Override
     public void showView() {
         frame.setVisible(true);
     }
@@ -36,6 +43,11 @@ public class MenuView implements View, Serializable {
         frame.dispose();
     }
 
+    /**
+     * Sets a Controller as the View's ActionListener.
+     *
+     * @param actionListener the Controller used to listen to the View
+     */
     public void setActionListeners(ActionListener actionListener) {
         setLogoffButtonListener(actionListener);
         setShareButtonListener(actionListener);
@@ -44,12 +56,22 @@ public class MenuView implements View, Serializable {
         setShareholderButtonListener(actionListener);
     }
 
+    /**
+     * Sets a ActionListener for the logoff button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setLogoffButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding logoff listener");
         buttonLogoff.addActionListener(actionListener);
         buttonLogoff.setActionCommand(GlobalControlCodes.LOG_OFF.name());
     }
 
+    /**
+     * Sets a ActionListener for the share button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setShareButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding share listener");
         buttonShare.addActionListener(actionListener);
@@ -57,24 +79,40 @@ public class MenuView implements View, Serializable {
 
     }
 
+    /**
+     * Sets a ActionListener for the trade button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setTradeButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding trade listener");
         buttonTrade.addActionListener(actionListener);
         buttonTrade.setActionCommand(GlobalControlCodes.TRADE_OPEN.name());
     }
 
+    /**
+     * Sets a ActionListener for the broker button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setBrokerButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding broker listener");
         buttonBroker.addActionListener(actionListener);
         buttonBroker.setActionCommand(GlobalControlCodes.BROKER_OPEN.name());
     }
 
+    /**
+     * Sets a ActionListener for the shareholder button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setShareholderButtonListener(ActionListener actionListener) {
         System.out.println("MenuView: adding shareholder listener");
         buttonShareholders.addActionListener(actionListener);
         buttonShareholders.setActionCommand(GlobalControlCodes.SHAREHOLDER_OPEN.name());
     }
 
+    @Override
     public void update(Observable o, Object arg) {
 
     }
