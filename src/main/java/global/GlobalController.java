@@ -99,7 +99,7 @@ public class GlobalController implements Observer, Serializable {
         if (arg == GlobalControlCodes.BROKER_HISTORY) {
             tradeController.initialiseController();
             tradeController.initialiseTable("", "", "", "",
-                    brokerController.getSelectedBroker());
+                    brokerController.getSelectedBrokerName());
             tradeController.showView();
             brokerController.closeView();
         }

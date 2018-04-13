@@ -9,13 +9,24 @@ import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * Logic class utilised by the broker module to extract and return broker data.
+ */
 public class BrokerModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnection;
 
+    /**
+     * Default class constructor.
+     */
     public BrokerModel() {
         databaseConnection = new DatabaseConnection();
     }
 
+    /**
+     * Query the databases and returns a vector containing broker data.
+     *
+     * @return vector of broker data objects
+     */
     public Vector queryBrokers() {
         Vector results = null;
         databaseConnection.connect();
@@ -31,6 +42,13 @@ public class BrokerModel extends Observable implements Serializable {
         return results;
     }
 
+    /**
+     * Extracts broker data from SQL ResultSet to a Vector.
+     *
+     * @param resultSet the results from the SQL query
+     * @return vector of broker information
+     * @throws SQLException if error with database instance or query
+     */
     private Vector parseQueryResults(ResultSet resultSet) throws SQLException {
         Vector<Vector<Object>> results = new Vector<>();
         while (resultSet.next()) {
@@ -45,7 +63,11 @@ public class BrokerModel extends Observable implements Serializable {
         return results;
     }
 
-
+    /**
+     * Creates a string of SQL query to extract broker info from database.
+     *
+     * @return the SQL query in string form
+     */
     private String generateQueryString() {
         return "SELECT b.broker_id, b.broker_name, b.broker_contact, " +
                 "b.broker_grade, GROUP_CONCAT(d.domain_type) " +

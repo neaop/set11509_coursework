@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * View utilised by the Broker module to display broker data.
+ */
 public class BrokerViewForm implements View, Serializable {
     private JFrame frame;
     private JPanel contentPane;
@@ -22,6 +25,9 @@ public class BrokerViewForm implements View, Serializable {
     private JButton buttonHistory;
     private JButton buttonMenu;
 
+    /**
+     * Default constructor of broker View.
+     */
     public BrokerViewForm() {
         frame = new JFrame("MenuView");
         $$$setupUI$$$();
@@ -30,46 +36,77 @@ public class BrokerViewForm implements View, Serializable {
         frame.pack();
     }
 
+    /**
+     * Updates the View's JTable with broker data.
+     *
+     * @param data the vector of data to be displayed
+     */
     private void populateTable(Vector data) {
         Vector columnNames = ViewStrings.getBrokerColumnNames();
         ((ShareTraderTable) table).updateTable(data, columnNames);
     }
 
+    /**
+     * Sets a Controller as the View's ActionListener.
+     *
+     * @param actionListener the Controller used to listen to the View
+     */
     public void addActionListeners(ActionListener actionListener) {
         addCloseListener(actionListener);
         addHistoryListener(actionListener);
     }
 
+    /**
+     * Sets a ActionListener for the close button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void addCloseListener(ActionListener actionListener) {
         System.out.println("BrokerView: add close listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.BROKER_CLOSE.name());
     }
 
+    /**
+     * Sets a ActionListener for the history button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void addHistoryListener(ActionListener actionListener) {
         System.out.println("BrokerView: add history listener");
         buttonHistory.addActionListener(actionListener);
         buttonHistory.setActionCommand(GlobalControlCodes.BROKER_HISTORY.name());
     }
 
+    /**
+     * Extracts the name of the currently selected broker.
+     *
+     * @return the selected broker's name
+     */
     public String getBrokerName() {
         return (String) table.getValueAt(table.getSelectedRow(), 1);
     }
 
+    @Override
     public void showView() {
         frame.setVisible(true);
     }
 
+    @Override
     public void closeView() {
         frame.dispose();
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
             populateTable((Vector) arg);
         }
     }
 
+    /**
+     * Instantiation method for custom UI components.
+     */
     private void createUIComponents() {
         table = new ShareTraderTable();
     }
