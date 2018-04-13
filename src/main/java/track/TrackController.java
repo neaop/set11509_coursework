@@ -1,18 +1,19 @@
 package track;
 
-import global.controller.Controller;
 import global.GlobalControlCodes;
+import global.controller.Controller;
 import track.model.TrackModel;
 import track.view.NewTrackView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
 public class TrackController extends Observable implements
-        Controller, ActionListener, Observer {
+        Controller, ActionListener, Observer, Serializable {
     private TrackModel trackModel;
     private NewTrackView trackView;
     private Vector selectedShare;

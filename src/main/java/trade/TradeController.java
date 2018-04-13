@@ -1,15 +1,17 @@
 package trade;
 
-import global.controller.Controller;
 import global.GlobalControlCodes;
+import global.controller.Controller;
 import trade.model.TradeModel;
 import trade.view.TradeViewForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class TradeController extends Observable implements Controller, ActionListener {
+public class TradeController extends Observable
+        implements Controller, ActionListener, Serializable {
     private TradeModel tradeModel;
     private TradeViewForm tradeView;
 
@@ -21,8 +23,9 @@ public class TradeController extends Observable implements Controller, ActionLis
         addActionListeners();
     }
 
-    public void initialiseTable(String fromDate, String tillDate, String companyCode,
-                                String sellerBuyer, String broker) {
+    public void initialiseTable(String fromDate, String tillDate,
+                                String companyCode, String sellerBuyer,
+                                String broker) {
         tradeModel.searchTrades(fromDate, tillDate, companyCode,
                 sellerBuyer, broker);
 
@@ -46,8 +49,8 @@ public class TradeController extends Observable implements Controller, ActionLis
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_SEARCH.name())) {
-            tradeModel.searchTrades(tradeView.getFromValue()
-                    , tradeView.getTillValue(), tradeView.getCompanyValue(),
+            tradeModel.searchTrades(tradeView.getFromValue(),
+                    tradeView.getTillValue(), tradeView.getCompanyValue(),
                     tradeView.getSellerBuyerValue(), tradeView.getBrokerValue());
         }
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_CLOSE.name())) {

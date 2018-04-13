@@ -1,16 +1,18 @@
 package global;
 
-public class CurrentUser {
+import java.io.Serializable;
+
+public class CurrentUserModel implements Serializable{
     private int userId;
     private String userName;
     private boolean userAdmin;
-    private static CurrentUser currentUser = new CurrentUser();
+    private static CurrentUserModel currentUser = new CurrentUserModel();
     private boolean authenticated = false;
 
-    private CurrentUser() {
+    private CurrentUserModel() {
     }
 
-    public static CurrentUser getInstance() {
+    public static CurrentUserModel getInstance() {
         return currentUser;
     }
 

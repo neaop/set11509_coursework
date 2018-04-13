@@ -2,16 +2,16 @@ package user.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
-import global.CurrentUser;
+import global.CurrentUserModel;
 import global.GlobalControlCodes;
 import user.UserControlCodes;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginModel extends java.util.Observable {
+public class LoginModel extends java.util.Observable implements Serializable {
     private DatabaseConnector connection;
-    private CurrentUser currentUser;
 
     public LoginModel() {
         connection = new DatabaseConnection();
@@ -46,7 +46,7 @@ public class LoginModel extends java.util.Observable {
             int userId = result.getInt(1);
             String userName = result.getString(2);
             boolean userAdmin = result.getBoolean(4);
-            currentUser = CurrentUser.getInstance();
+            CurrentUserModel currentUser = CurrentUserModel.getInstance();
             currentUser.loginUser(userId, userName, userAdmin);
 
             connection.closeConnection();

@@ -3,12 +3,13 @@ package share.model;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
-public class ShareModel extends Observable {
+public class ShareModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnection;
 
     public ShareModel() {

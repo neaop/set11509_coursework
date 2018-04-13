@@ -1,16 +1,18 @@
 package menu;
 
+import global.CurrentUserModel;
 import global.controller.Controller;
 import global.GlobalControlCodes;
-import global.CurrentUser;
 import menu.view.MenuView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MenuController extends Observable implements Observer, Controller, ActionListener {
+public class MenuController extends Observable implements
+        Observer, Controller, ActionListener, Serializable {
     private MenuView menuView;
 
     public void initialiseController() {
@@ -40,7 +42,7 @@ public class MenuController extends Observable implements Observer, Controller, 
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.LOG_OFF.name())) {
-            CurrentUser currentUser = CurrentUser.getInstance();
+            CurrentUserModel currentUser = CurrentUserModel.getInstance();
             currentUser.logoutUser();
             setChanged();
             notifyObservers(GlobalControlCodes.LOG_OFF);

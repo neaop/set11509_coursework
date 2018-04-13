@@ -2,14 +2,15 @@ package alert;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
-import global.CurrentUser;
+import global.CurrentUserModel;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AlertModel {
+public class AlertModel implements Serializable {
     private DatabaseConnector databaseConnection;
     private ArrayList<TrackedShare> trackedShares;
     private boolean sharesUpdated;
@@ -20,7 +21,7 @@ public class AlertModel {
     }
 
     public void checkTrackedShares() {
-        if (CurrentUser.getInstance().isAuthenticated()) {
+        if (CurrentUserModel.getInstance().isAuthenticated()) {
             String query = generateQueryString();
             try {
                 queryTrackedShares(query);
@@ -101,7 +102,7 @@ public class AlertModel {
     }
 
     private String generateQueryString() {
-        int userId = CurrentUser.getInstance().getUserId();
+        int userId = CurrentUserModel.getInstance().getUserId();
 
         return String.format("SELECT * " +
                         "FROM track t " +

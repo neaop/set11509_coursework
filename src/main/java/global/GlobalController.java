@@ -9,10 +9,11 @@ import track.TrackController;
 import trade.TradeController;
 import user.UserController;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-public class GlobalController implements Observer {
+public class GlobalController implements Observer, Serializable {
     private UserController userController;
     private MenuController menuController;
     private ShareController shareController;
@@ -97,7 +98,8 @@ public class GlobalController implements Observer {
         }
         if (arg == GlobalControlCodes.BROKER_HISTORY) {
             tradeController.initialiseController();
-            tradeController.initialiseTable("", "", "", "", brokerController.getSelectedBroker());
+            tradeController.initialiseTable("", "", "", "",
+                    brokerController.getSelectedBroker());
             tradeController.showView();
             brokerController.closeView();
         }
@@ -112,7 +114,8 @@ public class GlobalController implements Observer {
         }
         if (arg == GlobalControlCodes.SHAREHOLDER_HISTORY) {
             tradeController.initialiseController();
-            tradeController.initialiseTable("", "", "", shareholderController.getShareholder(), "");
+            tradeController.initialiseTable("", "",
+                    "", shareholderController.getShareholder(), "");
             tradeController.showView();
             shareholderController.closeView();
         }

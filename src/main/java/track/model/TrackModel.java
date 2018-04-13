@@ -2,14 +2,15 @@ package track.model;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;
-import global.CurrentUser;
+import global.CurrentUserModel;
 import track.TrackErrorCodes;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
-public class TrackModel extends Observable {
+public class TrackModel extends Observable implements Serializable {
     private DatabaseConnector connection;
     private int shareId;
     private int sharePrice;
@@ -42,7 +43,7 @@ public class TrackModel extends Observable {
 
     private String generateTrackInsert(int shareId, int minValue
             , int maxValue) {
-        CurrentUser currentUser = CurrentUser.getInstance();
+        CurrentUserModel currentUser = CurrentUserModel.getInstance();
         int userId = currentUser.getUserId();
 
         return String.format("INSERT INTO track " +

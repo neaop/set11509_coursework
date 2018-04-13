@@ -3,12 +3,13 @@ package broker.model;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
-public class BrokerModel extends Observable {
+public class BrokerModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnection;
 
     public BrokerModel() {

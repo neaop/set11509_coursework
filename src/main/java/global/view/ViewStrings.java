@@ -1,9 +1,10 @@
 package global.view;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ViewStrings {
+public class ViewStrings implements Serializable{
 
     private static String[] shareColumnNames = {
             "Share ID",

@@ -4,11 +4,12 @@ import data.DatabaseConnection;
 import data.DatabaseConnector;
 import user.UserControlCodes;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 
-public class RegisterModel extends Observable {
+public class RegisterModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnector;
 
     public RegisterModel() {

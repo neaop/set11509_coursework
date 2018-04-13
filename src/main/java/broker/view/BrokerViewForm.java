@@ -11,10 +11,11 @@ import global.view.ViewStrings;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Vector;
 
-public class BrokerViewForm implements View {
+public class BrokerViewForm implements View, Serializable {
     private JFrame frame;
     private JPanel contentPane;
     private JTable table;

@@ -11,11 +11,12 @@ import global.view.ViewStrings;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-public class ShareView implements Observer, View {
+public class ShareView implements Observer, View, Serializable {
     private JFrame frame;
     private JPanel panel;
     private JTable table;

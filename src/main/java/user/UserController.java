@@ -8,10 +8,12 @@ import user.view.UserView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-public class UserController extends Observable implements Observer, Controller, ActionListener {
+public class UserController extends Observable
+        implements Observer, Controller, ActionListener, Serializable {
     private UserView userView;
     private LoginModel loginModel;
     private RegisterModel registerModel;

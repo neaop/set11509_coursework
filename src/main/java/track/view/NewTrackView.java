@@ -12,11 +12,12 @@ import track.TrackErrorCodes;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Vector;
 
-public class NewTrackView extends JDialog implements View {
+public class NewTrackView extends JDialog implements View, Serializable {
     private JPanel contentPane;
     private JButton buttonConfirm;
     private JButton buttonCancel;

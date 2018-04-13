@@ -7,10 +7,12 @@ import share.view.ShareView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Vector;
 
-public class ShareController extends Observable implements Controller, ActionListener {
+public class ShareController extends Observable
+        implements Controller, ActionListener, Serializable {
     private ShareModel shareModel;
     private ShareView shareView;
 

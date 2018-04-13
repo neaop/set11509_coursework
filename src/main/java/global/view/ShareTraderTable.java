@@ -3,9 +3,10 @@ package global.view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.io.Serializable;
 import java.util.Vector;
 
-public class ShareTraderTable extends JTable {
+public class ShareTraderTable extends JTable implements Serializable {
 
     public void updateTable(Vector data, Vector columnNames) {
         try {

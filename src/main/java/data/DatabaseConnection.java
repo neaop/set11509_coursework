@@ -1,13 +1,10 @@
 package data;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.*;
 import java.util.Properties;
 
-public class DatabaseConnection implements DatabaseConnector {
+public class DatabaseConnection implements DatabaseConnector, Serializable {
     private final String PROPERTY_FILE_NAME = "database.properties";
     private String databaseHost;
     private String databasePort;

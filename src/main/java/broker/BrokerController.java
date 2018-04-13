@@ -7,9 +7,11 @@ import global.GlobalControlCodes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class BrokerController extends Observable implements Controller, ActionListener {
+public class BrokerController extends Observable
+        implements Controller, ActionListener, Serializable{
     private BrokerViewForm brokerView;
     private BrokerModel brokerModel;
 

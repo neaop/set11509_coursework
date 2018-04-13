@@ -3,19 +3,20 @@ package shareholder.model;
 import data.DatabaseConnection;
 import data.DatabaseConnector;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
-public class ShareholderModel extends Observable {
+public class ShareholderModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnection;
 
     public ShareholderModel() {
         databaseConnection = new DatabaseConnection();
     }
 
-    public Vector quereyShareHolders() {
+    public Vector queryShareHolders() {
         Vector results = null;
         ResultSet queryResults;
         databaseConnection.connect();

@@ -10,10 +10,11 @@ import user.UserControlCodes;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-public class UserView extends JDialog implements Observer, View {
+public class UserView extends JDialog implements Observer, View, Serializable {
     private JPanel contentPane;
     private JButton buttonLogin;
     private JButton buttonRegister;

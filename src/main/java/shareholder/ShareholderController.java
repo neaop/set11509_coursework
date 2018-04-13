@@ -1,15 +1,17 @@
 package shareholder;
 
-import global.controller.Controller;
 import global.GlobalControlCodes;
+import global.controller.Controller;
 import shareholder.model.ShareholderModel;
 import shareholder.view.ShareholderView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class ShareholderController extends Observable implements Controller, ActionListener {
+public class ShareholderController extends Observable
+        implements Controller, ActionListener, Serializable {
     private ShareholderView shareholderView;
     private ShareholderModel shareholderModel;
 
@@ -20,7 +22,7 @@ public class ShareholderController extends Observable implements Controller, Act
         linkMVC();
         setActionListeners();
 
-        shareholderModel.quereyShareHolders();
+        shareholderModel.queryShareHolders();
     }
 
     private void linkMVC() {
