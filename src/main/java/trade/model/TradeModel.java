@@ -23,21 +23,24 @@ public class TradeModel extends Observable {
     public void searchTrades(String fromDate, String tillDate, String companyCode,
                              String sellerBuyer, String broker) {
         if (checkDateValues(fromDate) && checkDateValues(tillDate)) {
-            Vector trades = executeTradeSearch(fromDate, tillDate, companyCode, sellerBuyer, broker);
+            Vector trades = executeTradeSearch(fromDate, tillDate, companyCode,
+                    sellerBuyer, broker);
             setChanged();
             notifyObservers(trades);
         }
     }
 
-    private Vector executeTradeSearch(String fromDate, String tillDate, String companyCode,
-                                      String sellerBuyer, String broker) {
+    private Vector executeTradeSearch(String fromDate, String tillDate,
+                                      String companyCode, String sellerBuyer,
+                                      String broker) {
         ResultSet resultSet;
         Vector results = null;
         databaseConnection.connect();
-        String query = combineQuery(fromDate, tillDate, companyCode, sellerBuyer, broker);
+        String query = combineQuery(fromDate, tillDate, companyCode,
+                sellerBuyer, broker);
         try {
             resultSet = databaseConnection.query(query);
-            results = processSearchResults(resultSet);
+            results = processResults(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,7 +48,7 @@ public class TradeModel extends Observable {
         return results;
     }
 
-    private Vector processSearchResults(ResultSet resultSet) throws SQLException {
+    private Vector processResults(ResultSet resultSet) throws SQLException {
         Vector<Vector<Object>> results = new Vector<>();
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
@@ -59,15 +62,30 @@ public class TradeModel extends Observable {
         return results;
     }
 
-    private String combineQuery(String fromDate, String tillDate, String companyCode,
-                                String sellerBuyer, String broker) {
-        String query = generateBaseQuery();
-        String whereCondition = generateDateCondition(fromDate, tillDate);
-        String companyCondition = generateCompanyCondition(whereCondition, companyCode);
-        String buyerSellerCondition = generateSellerBuyer(companyCondition, sellerBuyer);
-        String finalCondition = generateBrokerCondition(buyerSellerCondition, broker);
+//    private String combineQuery(String fromDate, String tillDate,
+//                                String companyCode, String sellerBuyer,
+//                                String broker) {
+//        String query = generateBaseQuery();
+//        String whereCondition = generateDateCondition(fromDate, tillDate);
+//        String companyCondition = generateCompanyCondition(whereCondition,
+//                companyCode);
+//        String buyerSellerCondition = generateSellerBuyer(companyCondition,
+//                sellerBuyer);
+//        String finalCondition = generateBrokerCondition(buyerSellerCondition,
+//                broker);
+//
+//        return query + finalCondition;
+//    }
 
-        return query += finalCondition;
+    private String combineQuery(String fromDate, String tillDate,
+                                String companyCode, String sellerBuyer,
+                                String broker) {
+        String query = generateBaseQuery();
+        String condition = generateDateCondition(fromDate, tillDate);
+        condition = generateCompanyCondition(condition, companyCode);
+        condition = generateSellerBuyer(condition, sellerBuyer);
+        condition = generateBrokerCondition(condition, broker);
+        return query + condition;
     }
 
     private String generateBaseQuery() {
@@ -104,33 +122,16 @@ public class TradeModel extends Observable {
         }
     }
 
-    private String generateSellerCondition(String currentCondition, String seller) {
-        if (isNotEmpty(currentCondition) && isNotEmpty(seller)) {
-            return currentCondition
-                    += String.format("AND shs.shareholder_name = '%s' ", seller);
-        } else if (isNotEmpty(seller)) {
-            return String.format("WHERE shs.shareholder_name = '%s' ", seller);
-        }
-        return currentCondition;
-    }
-
-
     private String generateSellerBuyer(String currentCondition, String buyerSeller) {
         if (isNotEmpty(currentCondition) && isNotEmpty(buyerSeller)) {
             return currentCondition
-                    += String.format("AND shs.shareholder_name = '%s' OR shb.shareholder_name = '%s' ", buyerSeller, buyerSeller);
+                    += String.format("AND shs.shareholder_name = '%s' " +
+                            "OR shb.shareholder_name = '%s' "
+                    , buyerSeller, buyerSeller);
         } else if (isNotEmpty(buyerSeller)) {
-            return String.format("WHERE shs.shareholder_name = '%s' OR shb.shareholder_name = '%s' ", buyerSeller, buyerSeller);
-        }
-        return currentCondition;
-    }
-
-    private String generateBuyerCondition(String currentCondition, String buyer) {
-        if (isNotEmpty(currentCondition) && isNotEmpty(buyer)) {
-            return currentCondition
-                    += String.format("AND shb.shareholder_name = '%s' ", buyer);
-        } else if (isNotEmpty(buyer)) {
-            return String.format("WHERE shb.shareholder_name = '%s' ", buyer);
+            return String.format("WHERE shs.shareholder_name = '%s' " +
+                            "OR shb.shareholder_name = '%s' "
+                    , buyerSeller, buyerSeller);
         }
         return currentCondition;
     }
