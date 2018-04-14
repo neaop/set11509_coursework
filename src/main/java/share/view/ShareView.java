@@ -16,6 +16,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
+/**
+ * View for the share module.
+ */
 public class ShareView implements Observer, View, Serializable {
     private JFrame frame;
     private JPanel panel;
@@ -23,6 +26,9 @@ public class ShareView implements Observer, View, Serializable {
     private JButton buttonRegister;
     private JButton buttonMenu;
 
+    /**
+     * Default constructor.
+     */
     public ShareView() {
         frame = new JFrame("ShareView");
         $$$setupUI$$$();
@@ -31,45 +37,63 @@ public class ShareView implements Observer, View, Serializable {
         frame.pack();
     }
 
+    @Override
     public void showView() {
         frame.setVisible(true);
     }
 
+    @Override
     public void closeView() {
         frame.dispose();
     }
 
+    /**
+     * Updates the View's JTable with broker data.
+     *
+     * @param data the Vector of data to be displayed
+     */
     private void populateTable(Vector data) {
         Vector columnNames = ViewStrings.getShareColumnNames();
         ((ShareTraderTable) table).updateTable(data, columnNames);
     }
 
+    /**
+     * Set a Controller as the View's ActionListener
+     *
+     * @param actionListener the Controller to listen to the View
+     */
     public void setActionListeners(ActionListener actionListener) {
         setRegisterButtonListener(actionListener);
         setMenuButtonListener(actionListener);
     }
 
+    /**
+     * Sets a ActionListener for the register button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setRegisterButtonListener(ActionListener actionListener) {
         System.out.println("ShareView: adding register listener");
         buttonRegister.addActionListener(actionListener);
         buttonRegister.setActionCommand(GlobalControlCodes.TRACK_OPEN.name());
     }
 
+    /**
+     * Sets a ActionListener for the menu button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setMenuButtonListener(ActionListener actionListener) {
         System.out.println("ShareView: adding menu listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.SHARE_CLOSE.name());
     }
 
-    public int getSelectedShareId() {
-        int selectedRow;
-        selectedRow = table.getSelectedRow();
-        if (selectedRow == -1) {
-            selectedRow = 0;
-        }
-        return (int) table.getValueAt(selectedRow, 0);
-    }
-
+    /**
+     * Extracts the currently selected share.
+     *
+     * @return the selected share
+     */
     public Vector getSelectedShare() {
         Vector<Vector<Object>> selectedShare = new Vector<>();
 
@@ -84,12 +108,16 @@ public class ShareView implements Observer, View, Serializable {
         return selectedShare;
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
             populateTable((Vector) arg);
         }
     }
 
+    /**
+     * Instantiation method for custom UI components.
+     */
     private void createUIComponents() {
         table = new ShareTraderTable();
     }

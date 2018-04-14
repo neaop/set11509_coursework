@@ -9,19 +9,33 @@ import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * Model element for the share module.
+ */
 public class ShareModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnection;
 
+    /**
+     * Default constructor.
+     */
     public ShareModel() {
         databaseConnection = new DatabaseConnection();
     }
 
+    /**
+     * Retrieve share data from database and notifier Observer.
+     */
     public void getShareData() {
         Vector shareData = queryShares();
         setChanged();
         notifyObservers(shareData);
     }
 
+    /**
+     * Query database and return Vector of results.
+     *
+     * @return Vector of share data
+     */
     private Vector queryShares() {
         Vector shareData = null;
         ResultSet resultSet;
@@ -42,6 +56,13 @@ public class ShareModel extends Observable implements Serializable {
         return shareData;
     }
 
+    /**
+     * Convert SQL ResultSet to a Vector of share data.
+     *
+     * @param data the SQL ResultSet
+     * @return Vector of share data
+     * @throws SQLException if error with database instance or query
+     */
     private Vector convertResult(ResultSet data) throws SQLException {
         Vector<Vector<Object>> result = new Vector<>();
         while (data.next()) {

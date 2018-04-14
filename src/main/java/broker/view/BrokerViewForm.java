@@ -39,7 +39,7 @@ public class BrokerViewForm implements View, Serializable {
     /**
      * Updates the View's JTable with broker data.
      *
-     * @param data the vector of data to be displayed
+     * @param data the Vector of data to be displayed
      */
     private void populateTable(Vector data) {
         Vector columnNames = ViewStrings.getBrokerColumnNames();
