@@ -1,4 +1,4 @@
-package global.view;
+package global;
 
 import java.io.Serializable;
 import java.util.Arrays;

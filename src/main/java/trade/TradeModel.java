@@ -1,4 +1,4 @@
-package trade.model;
+package trade;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;

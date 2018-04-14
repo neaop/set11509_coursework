@@ -1,4 +1,4 @@
-package global.controller;
+package global;
 
 /**
  * Interface to describe default Controller methods.

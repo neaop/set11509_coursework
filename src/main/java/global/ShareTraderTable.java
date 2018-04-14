@@ -1,4 +1,4 @@
-package global.view;
+package global;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

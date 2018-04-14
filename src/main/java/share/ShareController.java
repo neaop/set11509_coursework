@@ -1,9 +1,7 @@
 package share;
 
 import global.GlobalControlCodes;
-import global.controller.Controller;
-import share.model.ShareModel;
-import share.view.ShareView;
+import global.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package shareholder.model;
+package shareholder;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;

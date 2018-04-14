@@ -1,4 +1,4 @@
-package track.model;
+package track;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;

@@ -1,4 +1,4 @@
-package broker.model;
+package broker;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;

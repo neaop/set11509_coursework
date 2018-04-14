@@ -1,4 +1,4 @@
-package user.model;
+package user;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;

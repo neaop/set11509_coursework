@@ -1,10 +1,7 @@
 package user;
 
 import global.GlobalControlCodes;
-import global.controller.Controller;
-import user.model.LoginModel;
-import user.model.RegisterModel;
-import user.view.UserView;
+import global.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

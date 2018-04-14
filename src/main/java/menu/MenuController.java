@@ -2,8 +2,7 @@ package menu;
 
 import global.CurrentUserModel;
 import global.GlobalControlCodes;
-import global.controller.Controller;
-import menu.view.MenuView;
+import global.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

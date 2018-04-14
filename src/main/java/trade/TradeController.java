@@ -1,9 +1,7 @@
 package trade;
 
 import global.GlobalControlCodes;
-import global.controller.Controller;
-import trade.model.TradeModel;
-import trade.view.TradeViewForm;
+import global.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

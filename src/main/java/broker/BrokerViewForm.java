@@ -1,12 +1,12 @@
-package broker.view;
+package broker;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import global.GlobalControlCodes;
-import global.view.ShareTraderTable;
-import global.view.View;
-import global.view.ViewStrings;
+import global.ShareTraderTable;
+import global.View;
+import global.ViewStrings;
 
 import javax.swing.*;
 import java.awt.*;

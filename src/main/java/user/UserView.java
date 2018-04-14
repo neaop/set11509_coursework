@@ -1,11 +1,10 @@
-package user.view;
+package user;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import global.GlobalControlCodes;
-import global.view.View;
-import user.UserControlCodes;
+import global.View;
 
 import javax.swing.*;
 import java.awt.*;

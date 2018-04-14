@@ -1,9 +1,7 @@
 package shareholder;
 
 import global.GlobalControlCodes;
-import global.controller.Controller;
-import shareholder.model.ShareholderModel;
-import shareholder.view.ShareholderView;
+import global.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

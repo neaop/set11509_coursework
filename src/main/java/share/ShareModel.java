@@ -1,4 +1,4 @@
-package share.model;
+package share;
 
 import data.DatabaseConnection;
 import data.DatabaseConnector;

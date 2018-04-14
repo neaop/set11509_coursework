@@ -1,9 +1,7 @@
 package track;
 
 import global.GlobalControlCodes;
-import global.controller.Controller;
-import track.model.TrackModel;
-import track.view.TrackView;
+import global.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
