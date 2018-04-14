@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * View element for the shareholder module.
+ */
 public class ShareholderView implements View, Serializable {
     private JFrame frame;
     private JButton buttonHistory;
@@ -22,6 +25,9 @@ public class ShareholderView implements View, Serializable {
     private JTable table;
     private JPanel panel;
 
+    /**
+     * Default constructor.
+     */
     public ShareholderView() {
         frame = new JFrame("ShareholderView");
         $$$setupUI$$$();
@@ -30,46 +36,77 @@ public class ShareholderView implements View, Serializable {
         frame.pack();
     }
 
+    @Override
     public void showView() {
         frame.setVisible(true);
     }
 
+    @Override
     public void closeView() {
         frame.dispose();
     }
 
+    /**
+     * Set a Controller as this View's Action Listener.
+     *
+     * @param actionListener the Controller to listen for actions.
+     */
     public void setActionListeners(ActionListener actionListener) {
         setMenuButtonListener(actionListener);
         setHistoryButtonListener(actionListener);
     }
 
+    /**
+     * Sets a ActionListener for the menu button.
+     *
+     * @param actionListener the Controller to listen for actions
+     */
     private void setMenuButtonListener(ActionListener actionListener) {
         System.out.println("ShareholderView: adding menu listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.SHAREHOLDER_CLOSE.name());
     }
 
+    /**
+     * Sets a ActionListener for the history button.
+     *
+     * @param actionListener the Controller to listen for actions
+     */
     private void setHistoryButtonListener(ActionListener actionListener) {
         System.out.println("ShareholderView: adding history listener");
         buttonHistory.addActionListener(actionListener);
         buttonHistory.setActionCommand(GlobalControlCodes.SHAREHOLDER_HISTORY.name());
     }
 
+    /**
+     * Retrieve  currently selected shareholder's name
+     *
+     * @return the name of the selected shareholder
+     */
     public String getShareholderName() {
         return (String) table.getValueAt(table.getSelectedRow(), 2);
     }
 
+    /**
+     * Updates the View's JTable with shareholder data.
+     *
+     * @param data the Vector of information to be displayed
+     */
     private void populateTable(Vector data) {
         Vector columnNames = ViewStrings.getShareholderColumnNames();
         ((ShareTraderTable) table).updateTable(data, columnNames);
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
             populateTable((Vector) arg);
         }
     }
 
+    /**
+     * Instantiation method for custom UI components.
+     */
     private void createUIComponents() {
         table = new ShareTraderTable();
     }

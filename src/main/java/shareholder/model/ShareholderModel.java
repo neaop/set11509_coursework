@@ -9,13 +9,24 @@ import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * Model element for the shareholder module.
+ */
 public class ShareholderModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnection;
 
+    /**
+     * Default constructor.
+     */
     public ShareholderModel() {
         databaseConnection = new DatabaseConnection();
     }
 
+    /**
+     * Fetch shareholder data from database and return Vector of results.
+     *
+     * @return the Vector of shareholder data.
+     */
     public Vector queryShareHolders() {
         Vector results = null;
         ResultSet queryResults;
@@ -31,6 +42,13 @@ public class ShareholderModel extends Observable implements Serializable {
         return results;
     }
 
+    /**
+     * Convert SQL ResultSet to Vector of shareholder data.
+     *
+     * @param resultSet the query results
+     * @return yhe Vector of shareholder data
+     * @throws SQLException if error with database instance or query
+     */
     private Vector paresResults(ResultSet resultSet) throws SQLException {
         Vector<Vector<Object>> results = new Vector<>();
         while (resultSet.next()) {
@@ -44,6 +62,11 @@ public class ShareholderModel extends Observable implements Serializable {
         return results;
     }
 
+    /**
+     * Creates SQL query in String format.
+     *
+     * @return the SQL query to be executed
+     */
     private String generateQueryString() {
         return "SELECT c.company_name, c.company_code, sh.shareholder_name, st.stake_quantity " +
                 "FROM shareholder sh " +
