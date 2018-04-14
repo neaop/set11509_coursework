@@ -10,11 +10,15 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.Observable;
 
+/**
+ * The Controller element for the trade module.
+ */
 public class TradeController extends Observable
         implements Controller, ActionListener, Serializable {
     private TradeModel tradeModel;
     private TradeViewForm tradeView;
 
+    @Override
     public void initialiseController() {
         tradeModel = new TradeModel();
         tradeView = new TradeViewForm();
@@ -23,6 +27,39 @@ public class TradeController extends Observable
         addActionListeners();
     }
 
+    /**
+     * Connect the Model and View.
+     */
+    private void linkMVC() {
+        tradeModel.addObserver(tradeView);
+    }
+
+    /**
+     * Set this Controller as the View's listener.
+     */
+    private void addActionListeners() {
+        tradeView.setActionListeners(this);
+    }
+
+    @Override
+    public void showView() {
+        tradeView.showView();
+    }
+
+    @Override
+    public void closeView() {
+        tradeView.closeView();
+    }
+
+    /**
+     * Populate the table in the connected View.
+     *
+     * @param fromDate    the starting date
+     * @param tillDate    the ending date
+     * @param companyCode the trading code of the company
+     * @param sellerBuyer the name of the buyer/seller
+     * @param broker      the name of the broker
+     */
     public void initialiseTable(String fromDate, String tillDate,
                                 String companyCode, String sellerBuyer,
                                 String broker) {
@@ -31,22 +68,7 @@ public class TradeController extends Observable
 
     }
 
-    private void linkMVC() {
-        tradeModel.addObserver(tradeView);
-    }
-
-    private void addActionListeners() {
-        tradeView.setActionListeners(this);
-    }
-
-    public void showView() {
-        tradeView.showView();
-    }
-
-    public void closeView() {
-        tradeView.closeView();
-    }
-
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(GlobalControlCodes.TRADE_SEARCH.name())) {
             tradeModel.searchTrades(tradeView.getFromValue(),

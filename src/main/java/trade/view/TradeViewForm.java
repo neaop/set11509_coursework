@@ -15,7 +15,10 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Vector;
 
-public class TradeViewForm implements View, Serializable{
+/**
+ * The View element for the trade module.
+ */
+public class TradeViewForm implements View, Serializable {
     private JFrame frame;
     private JTextField fieldFrom;
     private JTextField fieldTill;
@@ -29,6 +32,9 @@ public class TradeViewForm implements View, Serializable{
     private JTextField fieldBroker;
 
 
+    /**
+     * Default constructor.
+     */
     public TradeViewForm() {
         frame = new JFrame("ShareView");
         $$$setupUI$$$();
@@ -37,19 +43,31 @@ public class TradeViewForm implements View, Serializable{
         frame.pack();
     }
 
+    @Override
     public void showView() {
         frame.setVisible(true);
     }
 
+    @Override
     public void closeView() {
-        frame
-                .dispose();
+        frame.dispose();
     }
 
+    /**
+     * Set a Controller as the View's ActionListener
+     *
+     * @param actionListener the Controller to listen to the View
+     */
     public void setActionListeners(ActionListener actionListener) {
         setSearchButtonListener(actionListener);
         setMenuButtonListener(actionListener);
     }
+
+    /**
+     * Sets a ActionListener for the search button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
 
     private void setSearchButtonListener(ActionListener actionListener) {
         System.out.println("TradeView: adding search listener");
@@ -57,33 +75,63 @@ public class TradeViewForm implements View, Serializable{
         buttonSearch.setActionCommand(GlobalControlCodes.TRADE_SEARCH.name());
     }
 
+    /**
+     * Sets a ActionListener for the menu button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setMenuButtonListener(ActionListener actionListener) {
         System.out.println("TradeView: adding menu listener");
         buttonMenu.addActionListener(actionListener);
         buttonMenu.setActionCommand(GlobalControlCodes.TRADE_CLOSE.name());
     }
 
+    /**
+     * Retrieve the text of the from date text field.
+     *
+     * @return the String from the text field
+     */
     public String getFromValue() {
         return fieldFrom.getText();
     }
 
+    /**
+     * Retrieve the text of the till date text field.
+     *
+     * @return the String from the text field
+     */
     public String getTillValue() {
         return fieldTill.getText();
     }
 
+    /**
+     * Retrieve the text of the company text field.
+     *
+     * @return the String from the text field
+     */
     public String getCompanyValue() {
         return fieldCompany.getText();
     }
 
+    /**
+     * Retrieve the text of the seller/buyer text field.
+     *
+     * @return the String from the text field
+     */
     public String getSellerBuyerValue() {
         return fieldSellerBuyer.getText();
     }
 
-
+    /**
+     * Retrieve the text of the broker text field.
+     *
+     * @return the String from the text field
+     */
     public String getBrokerValue() {
         return fieldBroker.getText();
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
             populateTable((Vector) arg);
@@ -93,20 +141,34 @@ public class TradeViewForm implements View, Serializable{
         }
     }
 
-    private void displayDateSyntaxError() {
-        displayError("Date must be in style: YYYY-MM-DD");
-    }
-
+    /**
+     * Show an error.
+     *
+     * @param message the error to be displayed
+     */
     private void displayError(String message) {
         JOptionPane.showMessageDialog(null, message
                 , "Track Share", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Show an error if a date of incorrect format is entered.
+     */
+    private void displayDateSyntaxError() {
+        displayError("Date must be in style: YYYY-MM-DD");
+    }
+
+    /**
+     * Show an error if a date of incorrect format is entered.
+     */
     private void populateTable(Vector data) {
         Vector columnNames = ViewStrings.getTradeColumnNames();
         ((ShareTraderTable) table).updateTable(data, columnNames);
     }
 
+    /**
+     * Instantiation method for custom UI components.
+     */
     private void createUIComponents() {
         table = new ShareTraderTable();
     }
