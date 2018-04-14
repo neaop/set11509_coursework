@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The View element of the user module.
+ */
 public class UserView extends JDialog implements Observer, View, Serializable {
     private JPanel contentPane;
     private JButton buttonLogin;
@@ -22,6 +25,9 @@ public class UserView extends JDialog implements Observer, View, Serializable {
     private JPasswordField fieldPassword;
     private JButton buttonExit;
 
+    /**
+     * Default constructor.
+     */
     public UserView() {
         setContentPane(contentPane);
         setModal(true);
@@ -29,46 +35,79 @@ public class UserView extends JDialog implements Observer, View, Serializable {
         pack();
     }
 
+    @Override
     public void showView() {
         setVisible(true);
     }
 
+    @Override
     public void closeView() {
         dispose();
     }
 
+    /**
+     * Set a Controller as the View's ActionListener
+     *
+     * @param actionListener the Controller to listen to the View
+     */
     public void setActionListeners(ActionListener actionListener) {
         setLoginButtonListener(actionListener);
         setRegisterButtonListener(actionListener);
         setExitButtonListener(actionListener);
     }
 
+    /**
+     * Sets a ActionListener for the login button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setLoginButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding login listener");
         buttonLogin.addActionListener(actionListener);
         buttonLogin.setActionCommand(GlobalControlCodes.LOG_IN.name());
     }
 
+    /**
+     * Sets a ActionListener for the register button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setRegisterButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding register listener");
         buttonRegister.addActionListener(actionListener);
         buttonRegister.setActionCommand(UserControlCodes.REGISTER.name());
     }
 
+    /**
+     * Sets a ActionListener for the exit button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setExitButtonListener(ActionListener actionListener) {
         System.out.println("UserView: adding exit listener");
         buttonExit.addActionListener(actionListener);
         buttonExit.setActionCommand(GlobalControlCodes.EXIT.name());
     }
 
+    /**
+     * Retrieve text from password field.
+     *
+     * @return the Sting from the field
+     */
     public String getUserPassword() {
         return String.valueOf(fieldPassword.getPassword());
     }
 
+    /**
+     * Retrieve text from username field.
+     *
+     * @return the Sting from the field
+     */
     public String getUserName() {
         return fieldName.getText();
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         System.out.println("UserView: " + arg);
         if (arg == UserControlCodes.NO_SUCH_USER) {
@@ -82,24 +121,41 @@ public class UserView extends JDialog implements Observer, View, Serializable {
         }
     }
 
+    /**
+     * Display a message.
+     *
+     * @param message the message to be displayed
+     */
     private void showMessageDialog(String message) {
         JOptionPane.showMessageDialog(null
                 , message, "Log In"
                 , JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Display a message if user does not exist.
+     */
     private void showInvalidLogin() {
         showMessageDialog("No such User/Password");
     }
 
+    /**
+     * Display a message for invalid user credentials.
+     */
     private void showInvalidCredential() {
         showMessageDialog("Invalid credentials");
     }
 
+    /**
+     * Display a message if username is already registered.
+     */
     private void showInvalidRegister() {
         showMessageDialog("Username already registered");
     }
 
+    /**
+     * Display a message if registration was successful.
+     */
     private void showValidRegister() {
         showMessageDialog("New user Registered");
     }

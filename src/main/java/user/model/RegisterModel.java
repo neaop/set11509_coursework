@@ -9,13 +9,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Observable;
 
+/**
+ * The model element used to register new users in the user module.
+ */
 public class RegisterModel extends Observable implements Serializable {
     private DatabaseConnector databaseConnector;
 
+    /**
+     * Default constructor.
+     */
     public RegisterModel() {
         databaseConnector = new DatabaseConnection();
     }
 
+    /**
+     * Try to add a new user to the database.
+     *
+     * @param userName     the user's name
+     * @param userPassword the user's password
+     */
     public void attemptRegisterUser(String userName, String userPassword) {
         UserControlCodes result;
 
@@ -34,6 +46,12 @@ public class RegisterModel extends Observable implements Serializable {
         notifyObservers(result);
     }
 
+    /**
+     * Query database to see if usename is already in use.
+     *
+     * @param userName the name of the user.
+     * @return true if username in use, false otherwise
+     */
     private boolean checkUserExists(String userName) {
         boolean exists = true;
         databaseConnector.connect();
@@ -47,6 +65,13 @@ public class RegisterModel extends Observable implements Serializable {
         return exists;
     }
 
+    /**
+     * Execute query to register new user in database.
+     *
+     * @param userName     the name of the new user
+     * @param userPassword the password of the new user
+     * @return true if successful, false otherwise
+     */
     private boolean registerUser(String userName, String userPassword) {
         boolean registered;
         databaseConnector.connect();
@@ -62,10 +87,22 @@ public class RegisterModel extends Observable implements Serializable {
         return registered;
     }
 
+    /**
+     * Validate user credentials are not empty Strings.
+     *
+     * @param credential the input to be checked
+     * @return true if credential are not valid, false otherwise
+     */
     private boolean checkInvalidCredential(String credential) {
         return (credential == null || credential.isEmpty());
     }
 
+    /**
+     * Create a SQL querey to check if user is already registered.
+     *
+     * @param userName the name of the user
+     * @return the SQL query in String form
+     */
     private String generateUserExistsQuery(String userName) {
         return String.format("SELECT * " +
                         "FROM user " +
@@ -73,6 +110,13 @@ public class RegisterModel extends Observable implements Serializable {
                 , userName);
     }
 
+    /**
+     * Create a SQL query to register a new user.
+     *
+     * @param userName     the user's name
+     * @param userPassword the user's password
+     * @return the SQL query in String form
+     */
     private String generateRegisterUserQuery(String userName, String userPassword) {
         return String.format("INSERT " +
                         "INTO user (user_name, user_password, user_admin) " +
