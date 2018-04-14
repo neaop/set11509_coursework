@@ -17,7 +17,10 @@ import java.text.NumberFormat;
 import java.util.Observable;
 import java.util.Vector;
 
-public class NewTrackView extends JDialog implements View, Serializable {
+/**
+ * The View used by the track module.
+ */
+public class TrackView extends JDialog implements View, Serializable {
     private JPanel contentPane;
     private JButton buttonConfirm;
     private JButton buttonCancel;
@@ -25,7 +28,10 @@ public class NewTrackView extends JDialog implements View, Serializable {
     private JFormattedTextField fieldMin;
     private JFormattedTextField fieldMax;
 
-    public NewTrackView() {
+    /**
+     * The default constructor.
+     */
+    public TrackView() {
         $$$setupUI$$$();
         setContentPane(contentPane);
         setModal(true);
@@ -33,11 +39,21 @@ public class NewTrackView extends JDialog implements View, Serializable {
         pack();
     }
 
+    /**
+     * Validates that View's text fields contain text.
+     *
+     * @return true if the fields contain text, false otherwise
+     */
     public boolean checkFieldsFull() {
         return (!fieldMin.getText().trim().isEmpty()
                 || !fieldMax.getText().trim().isEmpty());
     }
 
+    /**
+     * Retrieve the text the View's text fields.
+     *
+     * @return a vector containing the values of the text fields
+     */
     public int[] getFieldValues() {
         int[] values = new int[2];
         values[0] = getMinValue();
@@ -45,65 +61,115 @@ public class NewTrackView extends JDialog implements View, Serializable {
         return values;
     }
 
+    /**
+     * Retrieve the value of the min text field.
+     *
+     * @return the int value of the min text field
+     * @throws NumberFormatException if error converting String to int
+     */
     private int getMinValue() throws NumberFormatException {
         return Integer.parseInt(fieldMin.getText()
                 .replaceAll(",", ""));
     }
 
-    private int getMaxValue() {
-        return Integer.parseInt(fieldMax.getText().replaceAll(",", ""));
+    /**
+     * Retrieve the value of the max text field.
+     *
+     * @return the int value of max text field
+     * @throws NumberFormatException if error converting String to int
+     */
+    private int getMaxValue() throws NumberFormatException {
+        return Integer.parseInt(fieldMax.getText()
+                .replaceAll(",", ""));
     }
 
+    /**
+     * Show error message if a text field is empty.
+     */
     public void displayEmptyFieldError() {
         String message = "Please input value for both Minimum and Maximum";
         displayError(message);
     }
 
+    /**
+     * Show error message if min value is invalid.
+     */
     private void displayInvalidMinValueError() {
         String message = "Minimum value must be between 0 and current price";
         displayError(message);
     }
 
+    /**
+     * Show error message if max value is invalid.
+     */
     private void displayInvalidMaxValueError() {
         String message = " Maximum value must be larger than current price";
         displayError(message);
     }
 
+    /**
+     * Show an error message.
+     *
+     * @param message the message to be displayed
+     */
     private void displayError(String message) {
         JOptionPane.showMessageDialog(null, message
                 , "Track Share", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    @Override
     public void showView() {
         setVisible(true);
     }
 
+    @Override
     public void closeView() {
         dispose();
     }
 
+    /**
+     * Update the View's JTable to display the selected share's data.
+     *
+     * @param shareData the selected share's information
+     */
     private void populateTable(Vector shareData) {
         Vector columns = ViewStrings.getShareColumnNames();
         ((ShareTraderTable) table).updateTable(shareData, columns);
     }
 
+    /**
+     * Set a Controller as the View's ActionListener
+     *
+     * @param actionListener the Controller to listen to the View
+     */
     public void setActionListeners(ActionListener actionListener) {
         setTrackButtonListener(actionListener);
         setCancelButtonListener(actionListener);
     }
 
+    /**
+     * Sets a ActionListener for the track button.
+     *
+     * @param actionListener the Controller to listen to actions
+     */
     private void setTrackButtonListener(ActionListener actionListener) {
         System.out.println("TrackView: adding track listener");
         buttonConfirm.addActionListener(actionListener);
         buttonConfirm.setActionCommand(GlobalControlCodes.TRACK_SHARE.name());
     }
 
+    /**
+     * Sets a ActionListener for the cancel button.
+     *
+     * @param actionListener the Controller to listen for actions
+     */
     private void setCancelButtonListener(ActionListener actionListener) {
         System.out.println("TrackView: adding cancel listener");
         buttonCancel.addActionListener(actionListener);
         buttonCancel.setActionCommand(GlobalControlCodes.TRACK_CLOSE.name());
     }
 
+    @Override
     public void update(Observable o, Object arg) {
         if (arg instanceof Vector) {
             populateTable((Vector) arg);
@@ -117,6 +183,9 @@ public class NewTrackView extends JDialog implements View, Serializable {
     }
 
 
+    /**
+     * Initialisation method for custom UI components.
+     */
     private void createUIComponents() {
         fieldMin = new JFormattedTextField(NumberFormat.getNumberInstance());
         fieldMax = new JFormattedTextField(NumberFormat.getNumberInstance());

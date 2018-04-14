@@ -1,7 +1,9 @@
 package track;
 
+/**
+ * Error codes utilised by the track module
+ */
 public enum TrackErrorCodes {
-    NOT_AN_INT,
     MAX_INVALID,
     MIN_INVALID
 }
