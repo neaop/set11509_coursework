@@ -30,16 +30,16 @@
 \thispagestyle{plain}
 This paper describes the processes used to design, develop, test, and evaluate
 a component based Share Trader application.
-Use cases were defined based upon a provided system specification and
+Use cases were defined based upon a provided system specification, and
 potentially reusable software components were identified and extracted from a
-legacy code base.
+legacy code base, previous projects, and open-source code repositories.
 Software components were adapted to match the JavaBean and
 Model-view-controller design patterns, and then integrated with a MySQL
 database to form a complete system.
 A combination of unit, integration and validation testing was conducted to
 verify the system's integrity.
 Finally the system and methods used in its development were evaluated.
-The conclusion reached by the paper is that Component Based Software
+The conclusion reached by the project is that Component Based Software
 Engineering techniques are unwarranted in small scale or simple projects - but
 larger organisations and systems may be able to better utilise the benefits
 gained from such development methods.
@@ -61,16 +61,16 @@ The Share Trader system is a prototype application that aims to aggregate and
 display information relating to shares, trades, shareholders, brokers, etc. in
 a single, easy to use application. 
 
-The caveat of this development project is that the Share Trader system had to
+The caveat of this development project was that the Share Trader system had to
 be constructed using Component Based Software Engineering (CBSE) techniques.
 
 This report documents how software components were identified, modified and
-combined to construct the Share Trader system - an evaluation of the processes
-and techniques is also provided.
+combined to construct the Share Trader system - an evaluation of the finished
+system and techniques utilised is also provided.
 
 
 \section{System Specification}
-The specification for this project stated what functionality the Share Trader
+The specification for this project stated the functionality the Share Trader
 system was required to implement.
 While a list of features was given, no formal design documentation was
 supplied.
@@ -80,22 +80,22 @@ system.
 The Use Case diagram is visible in Appendix \ref{ap-uc}.
 
 The described functionality essentially consists of a user being able to
-able to view and sort data relating to a particular facet of
-capital stock or finical market system.
-Additionally a user should be able track specific share and be notified if said
-share drops below, or raises above a particular value.
+able to view and sort data relating to a particular facet of a capital stock or
+finical market system.
+Additionally a user should be able track specific shares and be notified if said
+share drops below, or raises above a particular price.
 The system is also required to implement user registration functionality,
-allows new users to register a username and password that permits access to
+allowing new users to register a username and password that permits access to
 the Share Trader system.
 
 
 \section{Tools and Technologies}
-When undergoing the development of a software project, the and technologies
+When undergoing the development of a software project, the technologies
 and tools utilised can greatly alter the time and effort required to
 implement, test and deploy a system.
 This project utilised the technologies listed in Table \ref{table-tech} to
 implement the Share Trader System - additionally Table \ref{table-tool} lists
-the tools that aided in development.
+the software tools that aided in development.
 
 \begin{table}[h]
     \centering
@@ -105,6 +105,7 @@ the tools that aided in development.
         Java        & User interface and logic     \\ \hline
         MySQL       & Back end database            \\ \hline
         Gradle      & Build tool                   \\ \hline
+        Git         & Version control management   \\ \hline
         \LaTeX      & Documentation                \\ \hline
     \end{tabular}
     \caption{Share Trader Technologies}
@@ -120,8 +121,6 @@ the tools that aided in development.
         IntelliJ IDEA                       & Java development and testing
         \\ \hline
         MySQL Workbench                     & Database configuration
-        \\ \hline
-        Git                                 & Version control management
         \\ \hline
     \end{tabular}
     \caption{System Development Tools}
@@ -141,9 +140,9 @@ applications \cite{Idea}.
 IntelliJ IDEA was selected as the primary development platform primarily due to
 the author's familiarity with the system.
 One of IntelliJ IDEA's features that was utilised heavily during the course
-of this project was its built-in User Interface (UI) building tool, which
-allowed for quick and simple construction and alteration of Java Swing forms
-used throughout the system.
+of this project was the built-in User Interface (UI) building tool, which
+allowed for quick and simple construction, and alteration of the Java Swing
+forms used throughout the system.
 
 Grade is a Java compatible build tool that aids in the automated compilation
 and linking of source code and libraries into a single application
@@ -163,7 +162,7 @@ The Share Trader application required some manner of data persistence in order
 to properly operate.
 MySQL is an open-source Relational Database Management System (RDBMS) that was
 selected to fulfil the role of providing data persistence \cite{Mysql}.
-MySQL was chosen as it operate cross platform and requires no finical commitment
+MySQL was chosen as it is cross platform and requires no finical commitment
 to utilise.
 
 MySQL Workbench is a database configuration tool that operates in a similar
@@ -176,7 +175,7 @@ A simple database schema was created to allow the various features
 of the Share Trader system to be implemented, tested, and demonstrated.
 An ER diagram of project's schema is visible in Appendix \ref{ap-schema}.
 The database was populated with sample data generated by the author. 
-While it may have been more approbate to locate and utilise sample, real world
+While it may have been more appropriate to locate and utilise sample, real world
 data - the fictitious data utilised in this system was more than adequate to
 implement and test the required features of the  prototype Share Trader
 application.
@@ -194,7 +193,7 @@ Having access to a wide range of components can allow a prototype system to be
 quickly assembled and tested to prove a concept.
 
 \subsection{Legacy System}
-The source code to a legacy system was provided from which potential
+The source code to a legacy system was provided - from which potential
 components could be identified and possibly incorporated into the Share Trader
 system.  
 The legacy code was an implementation of E-Store application and consisted of a
@@ -211,7 +210,7 @@ buttons, each of which opened a new window to provide access to a different
 E-Store feature; such as inventory management, delivery status, and customer
 financial status.  
 The intuitive nature of the menu system made it an ideal component to utilise
-in the new Share trader system - which would also consist of a number features
+in the new Share trader system - which would also contain a number features
 that a user would have to navigate between.
 
 \subsubsection{Display Forms}
@@ -225,7 +224,7 @@ be altered to be compatible with the new system.
 \subsubsection{Database Connector}
 Apart from the GUI elements, the legacy system also featured an interface
 which defined the method names and signatures required to connect, close, and
-query a database instance. 
+query a database instance.
 While the legacy system’s concrete implementations of the database connector
 were not be reusable - the interface itself could be used to implement a 
 database connection in the new Share Trader application.
@@ -574,7 +573,7 @@ performance:
     specified requirements.
 \end{itemize}
 
-\subsection{Unit testing}
+\subsection{Unit Testing}
 Unit testing is where individual classes or modules of a system are tested and
 examined to ensure correct functionality and operation. 
 As the Share Trader system was developed using CBSE, and MVC styles the
@@ -584,7 +583,7 @@ developed  using the {\tt JUnit} test framework to ensure there was no interface
 mismatches or unintended features.
 
 Depending on the class, an automated {\tt JUnit} test could not always be
-written - such as the Java Swing GUI components. 
+written - such as {\tt private} class methods or the Java Swing GUI components. 
 Due to the nature of MVC, no operational code was contained within any of the
 GUI classes, making it a trivial task to utilise front-end testing and
 print-line debugging to ensure GUI components were making the correct system
@@ -615,7 +614,7 @@ The fact that unit testing revealed errors in the JDatePicker is both a
 testament to the necessity of testing, and stands as evidence that while CBSE
 techniques can aid in development they cannot be relied on entirely.
 
-\subsection{Integration testing}
+\subsection{Integration Testing}
 Once a component had been thoroughly unit tested, it was linked to other
 system components or modules and integration testing could begin. 
 Integration testing is the process of ensuring linked subsystems or components
@@ -635,7 +634,7 @@ This can be credited to the effort spent during the component creation and
 adaption stages of the project - leading to smaller classes of simple design,
 with little chance for unintended function.
 
-\subsection{Validation testing}
+\subsection{Validation Testing}
 The final phase of testing was validation testing, ensuring that the system
 complies with its design specification.  
 For this project, no formal design specification was provided and all use
