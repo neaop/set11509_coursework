@@ -355,6 +355,14 @@ utilised to mediate and allow communication between the Model and View.
 A simplified diagram depicting the MVC pattern is visible in Figure
 \ref{fig_mvc}.
 
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width = 0.40\textwidth]{./res/mvc.png}
+        \caption[The MVC Design Pattern]{The MVC Design Pattern 
+        \footnotemark} 
+        \label{fig_mvc}
+    \end{center}
+\end{figure}
 MVC allows for GUI and logic components of a system to be developed
 independently from one another as entirely separate reusable components.  
 A benefit of constructing a program using the MVC design pattern is that it
@@ -364,17 +372,6 @@ providing both Views implemented the same required methods.
 MVC also allows for Model elements to be altered should the use case of a
 system change, without any adjustments being made to the View or Controller
 subsystems.
-
-\begin{figure}[]
-    \begin{center}
-        \includegraphics[width = 0.44\textwidth]{./res/mvc.png}
-        \caption[The MVC Design Pattern]{The MVC Design Pattern 
-        \footnotemark} 
-        \label{fig_mvc}
-    \end{center}
-\end{figure}
-\footnotetext{By RegisFrey {\lbrack}Public domain{\rbrack}, from Wikimedia
-Commons}
 
 \subsubsection{Model}
 In a MVC designed system, Models handle the logic operations of the program.
@@ -392,6 +389,10 @@ without any reliance on other Models, Views, or Controllers.
 By developing each Model in this modular style it meant that any aspect of the
 business logic for the system could be reused in a future implementation, or
 rewritten without affecting any other part of the program.
+
+\footnotetext{By RegisFrey {\lbrack}Public domain{\rbrack}, from Wikimedia
+Commons}
+
 
 \subsubsection{View}
 Baring the system's main menu, and the login and registration forms, the views
